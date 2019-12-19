@@ -8,6 +8,6 @@ CREATE TABLE jobbers (
   phone VARCHAR(255) NOT NULL,
   radius SMALLINT NOT NULL,
   is_deleted BOOLEAN DEFAULT FALSE
-)
+);
 
 -- TODO: Merge jobbers with users using jobber flag?

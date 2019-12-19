@@ -8,4 +8,4 @@ CREATE TABLE users (
   phone VARCHAR(255) NOT NULL,
   customer_id VARCHAR(255), -- check stripe customer_id format.
   is_deleted BOOLEAN DEFAULT FALSE
-)
+);
