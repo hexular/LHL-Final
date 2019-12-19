@@ -5,6 +5,8 @@ import Button from './components/Button'
 import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
+import User from './components/User'
+import Info from './components/Job/Info'
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
       <Home></Home>      
       <Login></Login>
       <Register></Register>
+      <User></User>
+      <Info></Info>
     </div>
   );
 }
