@@ -7,8 +7,13 @@ import Login from './components/Login'
 import Register from './components/Register'
 import User from './components/User'
 import Info from './components/Job/Info'
+import axios from 'axios'
 
 function App() {
+  axios.get("http://localhost:8001/api/getList")
+  .then((val) => {
+    console.log(val.data)
+  });
   return (
     <div className="App">
       <Home></Home>      
