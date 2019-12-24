@@ -8,6 +8,7 @@ import Register from './components/Register'
 import User from './components/User'
 import Info from './components/Job/Info'
 import axios from 'axios'
+import NewJobPost from './components/NewJobPost'
 
 function App() {
   axios.get("http://localhost:8001/api/getList")
@@ -21,6 +22,7 @@ function App() {
       <Register></Register>
       <User></User>
       <Info></Info>
+      <NewJobPost></NewJobPost>
     </div>
   );
 }
