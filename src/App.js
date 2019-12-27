@@ -11,7 +11,7 @@ import axios from 'axios'
 import NewJobPost from './components/NewJobPost'
 
 function App() {
-  axios.get("http://localhost:8001/api/getList")
+  axios.get("/users")
   .then((val) => {
     console.log(val.data)
   });

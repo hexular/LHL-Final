@@ -27,7 +27,7 @@ export class ConfirmJobDetails extends Component {
     async function handleToken(token) {
       console.log({token});
       console.log(values);
-      const response = await axios.post("https://pq0ud.sse.codesandbox.io/checkout", {
+      const response = await axios.post("/checkout", {
         token,
         values
       });
