@@ -87,7 +87,7 @@ export class JobDetails extends Component {
             primary={true}
             style={styles.button}
             onClick={ this.continue }
-          />
+          />          
         </React.Fragment>
       </MuiThemeProvider>
     )
