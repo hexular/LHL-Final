@@ -53,6 +53,8 @@ export class NewJobPost extends Component {
         )
       case 3:
         return <h1>Sucess</h1>
+      default:
+        return <h1>hmm something went wrong</h1>
     }
   }
 }
