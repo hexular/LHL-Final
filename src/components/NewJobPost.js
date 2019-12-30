@@ -39,6 +39,7 @@ export class NewJobPost extends Component {
         return (
           <JobDetails
             nextStep={this.nextStep}
+            browser={this.props.history}
             handleChange={this.handleChange}
             values={values}
           />

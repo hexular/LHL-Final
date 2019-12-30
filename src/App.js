@@ -10,9 +10,9 @@ import NewJobPost from './components/NewJobPost'
 import { BrowserRouter, Route } from 'react-router-dom'
 
 function App() {
-  axios.get("/users")
-  .then((val) => {
-    console.log(val.data)
+  axios.get("/auth")
+  .then((res) => {
+    console.log(res.data)
   });
   return (   
     <BrowserRouter>
