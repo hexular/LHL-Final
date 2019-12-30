@@ -36,8 +36,7 @@ export class JobDetails extends Component {
   }
 
   render() {
-    const { values, handleChange } = this.props;    
-
+    const { values, handleChange, browser } = this.props;
     return (
       <MuiThemeProvider>
         <React.Fragment>
@@ -87,6 +86,12 @@ export class JobDetails extends Component {
             primary={true}
             style={styles.button}
             onClick={ this.continue }
+          />
+          <RaisedButton
+            label="Back"
+            primary={false}
+            style={styles.button}
+            onClick={ () => browser.goBack() }
           />          
         </React.Fragment>
       </MuiThemeProvider>
