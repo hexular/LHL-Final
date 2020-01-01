@@ -3,8 +3,55 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import axios from 'axios';
 
 export class Register extends Component {
+  state = {
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+    confirmPassword: ''
+  }
+
+  handleChange = input => e => {
+    this.setState({[input]: e.target.value});
+  }
+
+  validate = () => {
+    if (this.state.name.trim().length === 0 || this.state.email.trim().length === 0 || this.state.phone.trim().length === 0 || this.state.password.length === 0 || (this.state.password !== this.state.confirmPassword)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  submit = () => {
+    if (this.validate()) {
+      console.log(this.state);
+      const newUserInfo = {
+        name: this.state.name.trim(),
+        password: this.state.password,
+        email: this.state.email.trim().toLowerCase(),
+        phone: this.state.phone.trim()
+      }
+      const parent = this;
+      axios.post('/auth/signup', newUserInfo)
+      .then(function(response) {
+        if (response.data.result) {
+          alert("Registration successful, please login");
+          parent.props.history.push("/login");
+        } else {
+          alert("something went wrong, try again");
+        }
+        console.log(response);
+      });
+    }
+    else {
+      alert("one or more field is invalid. try again");
+    }
+  }
+
   render(){
     return (
       <MuiThemeProvider>
@@ -13,38 +60,40 @@ export class Register extends Component {
           <TextField
             hintText="Name"
             floatingLabelText="Enter Name"
+            onChange={this.handleChange('name')}
           />   
           <br/>
           <TextField
             hintText="Email"
             floatingLabelText="Enter Email"
+            onChange={this.handleChange('email')}
           />   
           <br/>
           <TextField
             hintText="Phone Number"
             floatingLabelText="Enter Phone Number"
+            onChange={this.handleChange('phone')}
           />   
           <br/>
           <TextField
+            type="password"
             hintText="Password"
             floatingLabelText="Enter Password"
+            onChange={this.handleChange('password')}
           />   
           <br/>
           <TextField
+            type="password"
             hintText="Confirm Password"
             floatingLabelText="Enter Password Again"
+            onChange={this.handleChange('confirmPassword')}
           />   
           <br/>
           <RaisedButton
             label="Register"
             primary={true}
             style={styles.button}
-            onClick={() => 
-              {
-                console.log("perfom post request to server for register");
-                this.props.history.replace("/user");
-              }
-            }
+            onClick={this.submit}
           />
           <RaisedButton
             label="Back"
