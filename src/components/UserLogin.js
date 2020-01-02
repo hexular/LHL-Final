@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
 
-export class Login extends Component {
+export class UserLogin extends Component {
   state = {
     email: '',
     password: ''
@@ -33,7 +33,7 @@ export class Login extends Component {
     return (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Login! #Lit-Final"/>
+          <AppBar title="Customer Login! #Lit-Final"/>
           <TextField
             hintText="Email"
             floatingLabelText="Enter Email"
@@ -71,5 +71,5 @@ const styles = {
   }
 }
 
-export default Login
+export default UserLogin
 
