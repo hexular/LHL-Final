@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
 
-export class Register extends Component {
+export class UserSignup extends Component {
   state = {
     name: '',
     email: '',
@@ -40,7 +40,7 @@ export class Register extends Component {
       .then(function(response) {
         if (response.data.result) {
           alert("Registration successful, please login");
-          parent.props.history.push("/login");
+          parent.props.history.push("/userlogin");
         } else {
           alert("something went wrong, try again");
         }
@@ -56,7 +56,7 @@ export class Register extends Component {
     return (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Register! #Lit-Final"/>
+          <AppBar title="Customer Signup! #Lit-Final"/>
           <TextField
             hintText="Name"
             floatingLabelText="Enter Name"
@@ -113,4 +113,4 @@ const styles = {
   }
 }
 
-export default Register
+export default UserSignup
