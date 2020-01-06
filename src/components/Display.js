@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "./Button"
+import { Redirect } from 'react-router';
 
 export default function Display(props) {
+  const [goBack, setGoBack] = useState(false)
 
-  return (
-    <div>
+  return !goBack ? 
+  (
+    <React.Fragment>
       <Button name="message icon"></Button>
       <Button name="navbar icon"></Button>
       <h1>New Job</h1>
@@ -15,7 +18,9 @@ export default function Display(props) {
         <p>{props.payment}</p>
         <p>{props.location}</p>
       </form>
-      <Button name="Back"></Button>
-    </div>
-  );
+      <Button name="Delete"></Button>
+      <Button name="Back" onClick={() => setGoBack(true)}></Button>
+    </React.Fragment>
+  ) :
+  <Redirect to="/" />;
 }

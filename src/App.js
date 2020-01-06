@@ -11,6 +11,8 @@ import Jobs from './components/Jobs';
 import axios from 'axios';
 import NewJobPost from './components/NewJobPost';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+const history = createBrowserHistory();
 
 function App() {
   axios.get("/auth")
@@ -18,7 +20,7 @@ function App() {
     console.log(res.data)
   });
   return (   
-    <BrowserRouter>
+    <BrowserRouter history = { history }>
       <Route path="/" component={Home} exact />
       <Route path="/userlogin" component={UserLogin} />
       <Route path="/usersignup" component={UserSignup} />

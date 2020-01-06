@@ -54,13 +54,17 @@ export class NewJobPost extends Component {
           />
         )
       case 3:
-        return <Display 
-                  category={values.serviceType}
-                  time={values.requiredTime}
-                  // number={values.number}
-                  payment={values.payRate}
-                  location={values.address}
-                  />
+        return (
+          <Display 
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            category={values.serviceType}
+            time={values.requiredTime}
+            // number={values.number}
+            payment={values.payRate}
+            location={values.address}
+          />
+        )
       default:
         return <h1>hmm something went wrong</h1>
     }
