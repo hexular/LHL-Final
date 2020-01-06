@@ -82,7 +82,7 @@ export class JobDetails extends Component {
           />
           <br/>
           <RaisedButton
-            label="Find My Slave"
+            label="Post Job"
             primary={true}
             style={styles.button}
             onClick={ this.continue }

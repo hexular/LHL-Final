@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import Button from "./Button"
+import Button from "./Button";
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
 import { Redirect } from 'react-router';
 
 export default function Display(props) {
@@ -7,20 +10,38 @@ export default function Display(props) {
 
   return !goBack ? 
   (
-    <React.Fragment>
-      <Button name="message icon"></Button>
-      <Button name="navbar icon"></Button>
-      <h1>New Job</h1>
-      <form>
-        <p>{props.category}</p>
-        <p>{props.time}</p>
-        <p>{props.number}</p>
-        <p>{props.payment}</p>
-        <p>{props.location}</p>
-      </form>
-      <Button name="Delete"></Button>
-      <Button name="Back" onClick={() => setGoBack(true)}></Button>
-    </React.Fragment>
+    <MuiThemeProvider>
+      <AppBar title="Job Info #Lit-Final"/>
+      <React.Fragment>
+        <Button name="message icon"></Button>
+        <Button name="navbar icon"></Button>
+        <h1>New Job</h1>
+        <form>
+          <p>{props.category}</p>
+          <p>{props.time}</p>
+          <p>{props.number}</p>
+          <p>{props.payment}</p>
+          <p>{props.location}</p>
+        </form>
+        <RaisedButton 
+          label="Delete"
+          primary={true}
+          style={styles.button}
+        />
+        <RaisedButton 
+          label="Back" 
+          onClick={() => setGoBack(true)}
+          primary={true}
+          style={styles.button}
+        />
+      </React.Fragment>
+    </MuiThemeProvider>
   ) :
   <Redirect to="/" />;
+}
+
+const styles = {
+  button: {
+    margin: 15
+  }
 }
