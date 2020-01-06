@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import JobDetails from './JobDetails'
 import ConfirmJobDetails from './ConfirmJobDetails'
+import Display from './Display'
 
 export class NewJobPost extends Component {
   state = {
@@ -53,7 +54,13 @@ export class NewJobPost extends Component {
           />
         )
       case 3:
-        return <h1>Sucess</h1>
+        return <Display 
+                  category={values.serviceType}
+                  time={values.requiredTime}
+                  // number={values.number}
+                  payment={values.payRate}
+                  location={values.address}
+                  />
       default:
         return <h1>hmm something went wrong</h1>
     }
