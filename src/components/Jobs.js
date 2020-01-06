@@ -24,20 +24,25 @@ export default function Jobs(props) {
     },
 
   ]
+  const tagsList = (job) => job.tags.map(tag => {
+    return (
+      <li>{tag}</li>
+    )
+  })
 
-  const OpenJobs = jobs.map(job => {
+  const openJobs = jobs.map(job => {
     return (
       <Open
         job={job.name}
         user={job.user}
         distance={job.distance}
-        tags={job.tags.join(" ")} />
+        tags={tagsList(job)} />
     )
   })
 
   return (
-    <ul>
-      {OpenJobs}
-    </ul>
+    <ol>
+      {openJobs}
+    </ol>
   )
 }

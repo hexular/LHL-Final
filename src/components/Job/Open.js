@@ -9,7 +9,7 @@ export default function Open({ job, user, distance, tags }) {
       <h3>{job}</h3>
       <p>{user}</p>
       <p>{distance}</p>
-      <p>{tags}</p>
+      <ul>{tags}</ul>
       <Button name="Accept"></Button>
     </li>
   )
