@@ -1,5 +1,7 @@
 import React from 'react';
 import Open from './Job/Open'
+import AppBar from 'material-ui/AppBar'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default function Jobs(props) {
 
@@ -41,8 +43,13 @@ export default function Jobs(props) {
   })
 
   return (
-    <ol>
-      {openJobs}
-    </ol>
+    <MuiThemeProvider>
+      <React.Fragment>
+        <AppBar title="Open Jobs" />
+        <ol>
+          {openJobs}
+        </ol>
+      </React.Fragment>
+    </MuiThemeProvider>
   )
 }

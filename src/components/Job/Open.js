@@ -14,3 +14,4 @@ export default function Open({ job, user, distance, tags }) {
     </li>
   )
 }
+
