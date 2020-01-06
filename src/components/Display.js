@@ -36,8 +36,8 @@ export default function Display(props) {
         />
       </React.Fragment>
     </MuiThemeProvider>
-  ) :
-  <Redirect to="/" />;
+  ) 
+  : <Redirect to="/" />;
 }
 
 const styles = {

@@ -5,6 +5,7 @@ import UserLogin from './components/UserLogin';
 import UserSignup from './components/UserSignup';
 import JobberLogin from './components/JobberLogin';
 import JobberSignup from './components/JobberSignup';
+import MyJobs from './components/MyJobs';
 import User from './components/User';
 import Info from './components/Job/Info';
 import Jobs from './components/Jobs';
@@ -30,6 +31,7 @@ function App() {
       <Route path="/jobs" component={Jobs} />
       <Route path="/info" component={Info} />
       <Route path="/newjobpost" component={NewJobPost} />
+      <Route path="/myjobs" component={MyJobs} />
     </BrowserRouter>   
   );
 }

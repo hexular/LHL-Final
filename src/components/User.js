@@ -1,19 +1,43 @@
 import React, { Component } from 'react'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
 import Button from "./Button"
 
 export class User extends Component {
   render(){
     return (
-      <div>
-        <Button name="messages icon"></Button>
-        <Button name="navBar"></Button>
+      <MuiThemeProvider>
+      <AppBar title="Job Info #Lit-Final"/>
+      <React.Fragment>
         <p>profile goes here</p>
-        <Button name="New Job" onClick={() => this.props.history.push("/newjobpost")}></Button>
-        <Button name="History"></Button>
-        <Button name="Messages"></Button>
-      </div>
+        <RaisedButton 
+          label="New Job" 
+          onClick={() => this.props.history.push("/newjobpost")}
+          primary={true}
+          style={styles.button}
+        />
+        <RaisedButton 
+          label="Active Jobs"
+          onClick={() => this.props.history.push('/myjobs')}
+          primary={false}
+          style={styles.button}
+        />
+        <RaisedButton 
+          label="Messages"
+          primary={false}
+          style={styles.button}
+        />
+      </React.Fragment>
+      </MuiThemeProvider>
     );
   }  
+}
+
+const styles = {
+  button: {
+    margin: 15
+  }
 }
 
 export default User
