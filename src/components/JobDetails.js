@@ -7,28 +7,28 @@ import RaisedButton from 'material-ui/RaisedButton';
 export class JobDetails extends Component {
   continue = e => {
     console.log(this);
-    if (this.props.values.serviceType === "") {
-      alert("Service Type Cannot Be Blank");      
+    if (this.props.values.service_type === "") {
+      alert("Service Type Cannot Be Blank");
       return;
     }
     if (this.props.values.payRate === "") {
-      alert("Pay Rate Cannot Be Blank");      
+      alert("Pay Rate Cannot Be Blank");
       return;
     }
     if (this.props.values.description === "") {
-      alert("Description Cannot Be Blank");      
+      alert("Description Cannot Be Blank");
       return;
     }
     if (this.props.values.requiredTime === "") {
-      alert("Required Time Cannot Be Blank");      
+      alert("Required Time Cannot Be Blank");
       return;
     }
     if (this.props.values.address === "") {
-      alert("Address Cannot Be Blank");      
+      alert("Address Cannot Be Blank");
       return;
     }
     if (this.props.values.postalCode === "") {
-      alert("Postal Code Cannot Be Blank");      
+      alert("Postal Code Cannot Be Blank");
       return;
     }
     if (!/[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]/.test(this.props.values.postalCode.split(" ").join(""))) {
@@ -45,21 +45,21 @@ export class JobDetails extends Component {
       <MuiThemeProvider>
         <React.Fragment>
           <AppBar title="Enter Job Details" />
-          <br/>  
+          <br />
           <TextField
             hintText="Enter Service Type"
             floatingLabelText="Service Type"
-            onChange={handleChange('serviceType')}
-            defaultValue={values.serviceType}
+            onChange={handleChange('service_type')}
+            defaultValue={values.service_type}
           />
-          <br/>
+          <br />
           <TextField
             hintText="Enter a Description"
             floatingLabelText="Description"
             onChange={handleChange('description')}
             defaultValue={values.description}
           />
-          <br/>
+          <br />
           <TextField
             type="number"
             min="0"
@@ -68,7 +68,7 @@ export class JobDetails extends Component {
             onChange={handleChange('payRate')}
             defaultValue={values.payRate}
           />
-          <br/>
+          <br />
           <TextField
             type="number"
             min="0"
@@ -77,33 +77,33 @@ export class JobDetails extends Component {
             onChange={handleChange('requiredTime')}
             defaultValue={values.requiredTime}
           />
-          <br/>
+          <br />
           <TextField
             hintText="Enter Address"
             floatingLabelText="Address"
             onChange={handleChange('address')}
             defaultValue={values.address}
           />
-          <br/>
+          <br />
           <TextField
             hintText="Enter Postal Code"
             floatingLabelText="Postal Code (A1B 2D3)"
             onChange={handleChange('postalCode')}
             defaultValue={values.postalCode}
           />
-          <br/>
+          <br />
           <RaisedButton
             label="Post Job"
             primary={true}
             style={styles.button}
-            onClick={ this.continue }
+            onClick={this.continue}
           />
           <RaisedButton
             label="Back"
             primary={false}
             style={styles.button}
-            onClick={ () => browser.goBack() }
-          />          
+            onClick={() => browser.goBack()}
+          />
         </React.Fragment>
       </MuiThemeProvider>
     )
