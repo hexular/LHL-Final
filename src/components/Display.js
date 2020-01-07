@@ -25,6 +25,7 @@ export default function Display(props) {
         </form>
         <RaisedButton 
           label="Delete"
+          onClick={console.log('deleted')}
           primary={true}
           style={styles.button}
         />
