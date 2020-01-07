@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import AppBar from './Appbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Redirect } from 'react-router';
 
@@ -11,7 +11,7 @@ export default function Display(props) {
   return !goBack ? 
   (
     <MuiThemeProvider>
-      <AppBar title="Job Info #Lit-Final"/>
+      <AppBar title="Job Info #Lit-Final" user={true}/>
       <React.Fragment>
         <Button name="message icon"></Button>
         <Button name="navbar icon"></Button>

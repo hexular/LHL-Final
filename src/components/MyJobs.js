@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import AppBar from './Appbar';
 import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
@@ -60,7 +60,7 @@ export default function MyJobs(props) {
   !goBack ? 
   (response.length !== 0 ? (
     <MuiThemeProvider>
-      <AppBar title="My Jobs #Lit-Final"/>
+      <AppBar title="My Jobs #Lit-Final" user={true}/>
       <React.Fragment className={classes.root}>
       <Grid
         container
