@@ -6,7 +6,7 @@ import Display from './Display'
 export class NewJobPost extends Component {
   state = {
     step: 1,
-    service_type: '',
+    serviceType: '',
     description: '',
     payRate: '',
     requiredTime: '',
@@ -33,8 +33,8 @@ export class NewJobPost extends Component {
   }
 
   // validate = () => {
-  //   const { service_type, description, payRate, requiredTime, address, postalCode } = this.state;
-  //   return [service_type, 
+  //   const { serviceType, description, payRate, requiredTime, address, postalCode } = this.state;
+  //   return [serviceType, 
   //   description, 
   //   payRate, 
   //   requiredTime, 
@@ -43,8 +43,8 @@ export class NewJobPost extends Component {
   // }
 
   render() {
-    const { step, service_type, description, payRate, requiredTime, address, postalCode } = this.state;
-    const values = { service_type, description, payRate, requiredTime, address, postalCode };
+    const { step, serviceType, description, payRate, requiredTime, address, postalCode } = this.state;
+    const values = { serviceType, description, payRate, requiredTime, address, postalCode };
 
     switch (step) {
       case 1:
@@ -69,7 +69,7 @@ export class NewJobPost extends Component {
           <Display
             nextStep={this.nextStep}
             prevStep={this.prevStep}
-            category={values.service_type}
+            category={values.serviceType}
             description={values.description}
             time={values.requiredTime}
             // number={values.number}

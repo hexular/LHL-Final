@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 export class JobDetails extends Component {
   continue = e => {
     console.log(this);
-    if (this.props.values.service_type === "") {
+    if (this.props.values.serviceType === "") {
       alert("Service Type Cannot Be Blank");
       return;
     }
@@ -49,8 +49,8 @@ export class JobDetails extends Component {
           <TextField
             hintText="Enter Service Type"
             floatingLabelText="Service Type"
-            onChange={handleChange('service_type')}
-            defaultValue={values.service_type}
+            onChange={handleChange('serviceType')}
+            defaultValue={values.serviceType}
           />
           <br />
           <TextField
