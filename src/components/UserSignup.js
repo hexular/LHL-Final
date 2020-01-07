@@ -51,7 +51,6 @@ export default function JobberSignup() {
     if (name.trim().length === 0 || email.trim().length === 0 || phone.trim().length === 0 || password.length === 0 || (password !== confirmPassword)) {
       return false;
     }
-
     return true;
   }
 

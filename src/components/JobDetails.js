@@ -15,6 +15,10 @@ export class JobDetails extends Component {
       alert("Pay Rate Cannot Be Blank");      
       return;
     }
+    if (this.props.values.description === "") {
+      alert("Description Cannot Be Blank");      
+      return;
+    }
     if (this.props.values.requiredTime === "") {
       alert("Required Time Cannot Be Blank");      
       return;
@@ -47,7 +51,14 @@ export class JobDetails extends Component {
             floatingLabelText="Service Type"
             onChange={handleChange('serviceType')}
             defaultValue={values.serviceType}
-          />   
+          />
+          <br/>
+          <TextField
+            hintText="Enter a Description"
+            floatingLabelText="Description"
+            onChange={handleChange('description')}
+            defaultValue={values.description}
+          />
           <br/>
           <TextField
             type="number"
@@ -82,7 +93,7 @@ export class JobDetails extends Component {
           />
           <br/>
           <RaisedButton
-            label="Find My Slave"
+            label="Post Job"
             primary={true}
             style={styles.button}
             onClick={ this.continue }
