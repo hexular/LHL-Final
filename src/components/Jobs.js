@@ -1,9 +1,34 @@
 import React from 'react';
 import Open from './Job/Open'
-import AppBar from 'material-ui/AppBar'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from '@material-ui/core/AppBar';
+import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu'
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
 export default function Jobs(props) {
+  const classes = useStyles();
 
   const jobs = [
     {
@@ -45,10 +70,17 @@ export default function Jobs(props) {
   return (
     <MuiThemeProvider>
       <React.Fragment>
-        <AppBar title="Open Jobs" />
-        <ol>
-          {openJobs}
-        </ol>
+        <AppBar position="static">
+          <Toolbar variant="dense">
+            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" color="inherit">
+              Open Jobs
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        {openJobs}
       </React.Fragment>
     </MuiThemeProvider>
   )

@@ -1,23 +1,61 @@
 import React from 'react';
-import RaisedButton from "material-ui/RaisedButton"
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
 
 export default function Open({ job, user, distance, tags }) {
   // TODO: Implement distance calculating here?
 
+  const classes = useStyles()
+
   return (
-    <MuiThemeProvider>
-      <li display="flex" flexDirection="row">
-        <h3>{job}</h3>
-        <p>{user}</p>
-        <p>{distance}</p>
-        <ul>{tags}</ul>
-        <RaisedButton
-          label="Accept"
-          primary={true}
-        />
-      </li>
-    </MuiThemeProvider>
+    <ExpansionPanel>
+      <ExpansionPanelSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <Typography className={classes.heading}>{job}</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="flex-start"
+        >
+          <Typography>Requested By: {user}</Typography>
+          <Typography>Distance: {distance}</Typography>
+          <Typography>Skills Required: {<ul>{tags}</ul>}</Typography>
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            onClick="#"
+          >
+            Accept
+          </Button>
+        </Grid>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   )
 }
 
