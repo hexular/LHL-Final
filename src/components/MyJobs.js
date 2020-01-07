@@ -4,12 +4,29 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1,
+    overflow: 'hidden',
+    padding: theme.spacing(0, 3),
+  },
+  paper: {
+    maxWidth: 400,
+    margin: `${theme.spacing(1)}px auto`,
+    padding: theme.spacing(2),
+  },
+}));
 
 export default function MyJobs(props) {
   const [response, setResponse] = useState([])
   const [goBack, setGoBack] = useState(false)
   const [newJob, setNewJob] = useState(false)
-
+  const classes = useStyles();
 
   useEffect(() => {
     axios.get("/myjobs")
@@ -21,7 +38,8 @@ export default function MyJobs(props) {
   const jobs = response.map(job => {
     console.log(job)
     return (
-      <article key={job.id}>
+      <Paper className={classes.paper}>
+      <Grid item key={job.id}>
         <h2>{job.servicetype}</h2>
         <p>Description: {job.description}</p>
         <p>Estimate Time: {job.time_estimate} hours</p>
@@ -30,9 +48,10 @@ export default function MyJobs(props) {
           label="Delete"
           onClick={() => axios.put(`/myjobs`, [job.id])}
           primary={false}
-          style={styles.button}
         />
-      </article>)
+      </Grid>
+      </Paper>
+      )
   })
   
   return newJob ? 
@@ -41,9 +60,17 @@ export default function MyJobs(props) {
   (response.length !== 0 ? (
     <MuiThemeProvider>
       <AppBar title="My Jobs #Lit-Final"/>
-      <React.Fragment>
+      <React.Fragment className={classes.root}>
+      <Grid
+        container
+        direction="column"
+        justify="center"
+        alignItems="center"
+        wrap="nowrap"
+        spacing={2}
+      >
         {jobs}
-      </React.Fragment>
+      
       <RaisedButton 
         label="Back" 
         onClick={() => setGoBack(true)}
@@ -55,8 +82,12 @@ export default function MyJobs(props) {
         onClick={() => setNewJob(true)}
         primary={true}
         style={styles.button}
+        
       />
+      </Grid> 
+      </React.Fragment>
     </MuiThemeProvider>
+
   ) : 
     <MuiThemeProvider>
       <AppBar title="My Jobs #Lit-Final"/>
