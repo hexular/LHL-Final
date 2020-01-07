@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import JobDetails from './JobDetails'
 import ConfirmJobDetails from './ConfirmJobDetails'
+import Display from './Display'
 
 export class NewJobPost extends Component {
   state = {
     step: 1,
     serviceType: '',
+    description: '',
     payRate: '',
     requiredTime: '',
     address: '',
@@ -27,14 +29,24 @@ export class NewJobPost extends Component {
   }
 
   handleChange = input => e => {
-    this.setState({[input]: e.target.value});
+    this.setState({ [input]: e.target.value });
   }
 
-  render() {
-    const { step, serviceType, payRate, requiredTime, address, postalCode } = this.state;
-    const values = { serviceType, payRate, requiredTime, address, postalCode };
+  // validate = () => {
+  //   const { serviceType, description, payRate, requiredTime, address, postalCode } = this.state;
+  //   return [serviceType, 
+  //   description, 
+  //   payRate, 
+  //   requiredTime, 
+  //   address, 
+  //   postalCode].includes('') ? false : true;
+  // }
 
-    switch(step) {
+  render() {
+    const { step, serviceType, description, payRate, requiredTime, address, postalCode } = this.state;
+    const values = { serviceType, description, payRate, requiredTime, address, postalCode };
+
+    switch (step) {
       case 1:
         return (
           <JobDetails
@@ -53,7 +65,18 @@ export class NewJobPost extends Component {
           />
         )
       case 3:
-        return <h1>Sucess</h1>
+        return (
+          <Display
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            category={values.serviceType}
+            description={values.description}
+            time={values.requiredTime}
+            // number={values.number}
+            payment={values.payRate}
+            location={values.address}
+          />
+        )
       default:
         return <h1>hmm something went wrong</h1>
     }
