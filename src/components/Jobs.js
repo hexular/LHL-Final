@@ -39,36 +39,34 @@ export default function Jobs(props) {
       });
   }, [])
 
-  console.log(response)
-
   const jobs = response
-
 
   const openJobs = jobs.map(job => {
     return (
       <Open
-        job={job.name}
-        user={job.user}
-        distance={job.distance}
-        service={job.service_type} />
+        key={job.id}
+        serviceType={job.service_type}
+        userId={job.user_id}
+        streetAddress={job.street_address}
+        hourlyRate={job.hourly_rate}
+        timeEstimate={job.time_estimate}
+        description={job.description} />
     )
   })
 
   return (
-    <MuiThemeProvider>
-      <React.Fragment>
-        <AppBar position="static">
-          <Toolbar variant="dense">
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit">
-              Open Jobs
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        {openJobs}
-      </React.Fragment>
-    </MuiThemeProvider>
+    <React.Fragment>
+      <AppBar position="static">
+        <Toolbar variant="dense">
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" color="inherit">
+            Open Jobs
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      {openJobs}
+    </React.Fragment>
   )
 }
