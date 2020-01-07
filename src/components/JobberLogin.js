@@ -63,7 +63,7 @@ export class JobberLogin extends Component {
         </React.Fragment>
       </MuiThemeProvider>
     );
-  }  
+  }
 }
 
 const styles = {
