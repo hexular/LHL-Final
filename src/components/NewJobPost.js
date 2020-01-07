@@ -7,6 +7,7 @@ export class NewJobPost extends Component {
   state = {
     step: 1,
     serviceType: '',
+    description: '',
     payRate: '',
     requiredTime: '',
     address: '',
@@ -31,9 +32,19 @@ export class NewJobPost extends Component {
     this.setState({[input]: e.target.value});
   }
 
+  // validate = () => {
+  //   const { serviceType, description, payRate, requiredTime, address, postalCode } = this.state;
+  //   return [serviceType, 
+  //   description, 
+  //   payRate, 
+  //   requiredTime, 
+  //   address, 
+  //   postalCode].includes('') ? false : true;
+  // }
+
   render() {
-    const { step, serviceType, payRate, requiredTime, address, postalCode } = this.state;
-    const values = { serviceType, payRate, requiredTime, address, postalCode };
+    const { step, serviceType, description, payRate, requiredTime, address, postalCode } = this.state;
+    const values = { serviceType, description, payRate, requiredTime, address, postalCode };
 
     switch(step) {
       case 1:
@@ -59,6 +70,7 @@ export class NewJobPost extends Component {
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             category={values.serviceType}
+            description={values.description}
             time={values.requiredTime}
             // number={values.number}
             payment={values.payRate}

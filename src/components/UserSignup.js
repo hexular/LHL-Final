@@ -19,10 +19,15 @@ export class UserSignup extends Component {
   }
 
   validate = () => {
-    if (this.state.name.trim().length === 0 || this.state.email.trim().length === 0 || this.state.phone.trim().length === 0 || this.state.password.length === 0 || (this.state.password !== this.state.confirmPassword)) {
+    if (
+    this.state.name.trim().length === 0 || 
+    this.state.email.trim().length === 0 || 
+    this.state.phone.trim().length === 0 || 
+    this.state.password.length === 0 || 
+    (this.state.password !== this.state.confirmPassword)
+    ) {
       return false;
     }
-
     return true;
   }
 
