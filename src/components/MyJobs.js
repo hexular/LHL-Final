@@ -23,10 +23,16 @@ export default function MyJobs(props) {
   const jobs = response.map(job => {
     return (
       <article>
-        <h2>{job.name}</h2>
+        <h2>{job.serviceType}</h2>
         <p>Description: {job.description}</p>
         <p>Estimate Time: {job.time_estimate} hours</p>
         <p>Location: {job.street_address}</p>
+        <RaisedButton 
+          label="Delete"
+          onClick={() => axios.put(`/myjobs`, [job.id])}
+          primary={false}
+          style={styles.button}
+        />
       </article>)
   })
   
