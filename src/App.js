@@ -11,6 +11,7 @@ import Jobs from './components/Jobs';
 import axios from 'axios';
 import NewJobPost from './components/NewJobPost';
 import { BrowserRouter, Route } from 'react-router-dom';
+import Appbar from './components/Appbar';
 
 function App() {
   axios.get("/auth")
@@ -28,6 +29,7 @@ function App() {
       <Route path="/jobs" component={Jobs} />
       <Route path="/info" component={Info} />
       <Route path="/newjobpost" component={NewJobPost} />
+      <Route path="/test" component={Appbar} />
     </BrowserRouter>   
   );
 }

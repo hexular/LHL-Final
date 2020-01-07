@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import AppBar from './Appbar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import axios from 'axios';
@@ -34,7 +34,7 @@ export class JobberLogin extends Component {
     return (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Jobber Login! #Lit-Final"/>
+          <AppBar title="Jobber Login! #Lit-Final" user={ false }/>
           <TextField
             hintText="Email"
             floatingLabelText="Enter Email"

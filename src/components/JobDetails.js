@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import AppBar from './Appbar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import Select from '@material-ui/core/Select';
@@ -54,11 +54,11 @@ export class JobDetails extends Component {
 
   generateSkillList = () => {
     const skills = [];
-    let i = 1;
-    for (let elm of this.state.skills){
-      skills.push(<MenuItem key={i} value={`${elm.name}`}>{elm.name}</MenuItem>);
-      i++;
-    }    
+
+    this.state.skills.map((skill, i) => 
+      skills.push(<MenuItem key={i} value={`${skill.name}`}>{skill.name}</MenuItem>)
+    );
+      
     return skills;
   }
 
@@ -68,7 +68,7 @@ export class JobDetails extends Component {
     return (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Enter Job Details" />
+          <AppBar title="Enter Job Details" user={true} />
           <br/>
           <InputLabel>Service Type</InputLabel>
           <Select
