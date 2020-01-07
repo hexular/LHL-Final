@@ -1,13 +1,55 @@
-import React, { Component } from 'react'
+import React from 'react';
+import Open from './Job/Open'
+import AppBar from 'material-ui/AppBar'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-export class Jobs extends Component {
-  render() {
+export default function Jobs(props) {
+
+  const jobs = [
+    {
+      name: "Job 1",
+      user: "User 1",
+      distance: "1.5km",
+      tags: ["Construction", "Cleaning"]
+    },
+    {
+      name: "Job 2",
+      user: "User 2",
+      distance: "2.5km",
+      tags: ["Cleaning"]
+    },
+    {
+      name: "Job 3",
+      user: "User 3",
+      distance: "5.5km",
+      tags: ["Landscaping", "Computer Science", "Legal Advice"]
+    },
+
+  ]
+  const tagsList = (job) => job.tags.map(tag => {
     return (
-      <div>
-        Current Jobs Available in Your Area!!!
-      </div>
+      <li>{tag}</li>
     )
-  }
-}
+  })
 
-export default Jobs
+  const openJobs = jobs.map(job => {
+    return (
+      <Open
+        job={job.name}
+        user={job.user}
+        distance={job.distance}
+        tags={tagsList(job)} />
+    )
+  })
+
+  return (
+    <MuiThemeProvider>
+      <React.Fragment>
+        <AppBar title="Open Jobs" />
+        <ol>
+          {openJobs}
+        </ol>
+      </React.Fragment>
+    </MuiThemeProvider>
+  )
+}
