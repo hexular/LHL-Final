@@ -42,14 +42,13 @@ export default function Open({ job, user, distance, tags }) {
         >
           <Typography>Requested By: {user}</Typography>
           <Typography>Distance: {distance}</Typography>
-          <Typography>Skills Required: {<ul>{tags}</ul>}</Typography>
+          <Typography>Skills Required: {tags}</Typography>
           <Button
             type="button"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick="#"
           >
             Accept
           </Button>
