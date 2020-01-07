@@ -29,7 +29,7 @@ export class NewJobPost extends Component {
   }
 
   handleChange = input => e => {
-    this.setState({[input]: e.target.value});
+    this.setState({ [input]: e.target.value });
   }
 
   // validate = () => {
@@ -46,7 +46,7 @@ export class NewJobPost extends Component {
     const { step, serviceType, description, payRate, requiredTime, address, postalCode } = this.state;
     const values = { serviceType, description, payRate, requiredTime, address, postalCode };
 
-    switch(step) {
+    switch (step) {
       case 1:
         return (
           <JobDetails
@@ -66,7 +66,7 @@ export class NewJobPost extends Component {
         )
       case 3:
         return (
-          <Display 
+          <Display
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             category={values.serviceType}

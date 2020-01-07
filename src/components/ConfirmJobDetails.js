@@ -19,13 +19,13 @@ export class ConfirmJobDetails extends Component {
     e.preventDefault();
     this.props.prevStep();
   }
-  
+
   render() {
     console.log(STRIPE_KEY)
     const { values } = this.props;
     const jobDetail = this.props;
     async function handleToken(token) {
-      console.log({token});
+      console.log({ token });
       console.log(values);
       const response = await axios.post("/checkout", {
         token,
@@ -50,28 +50,28 @@ export class ConfirmJobDetails extends Component {
           <List>
             <ListItem
               primaryText="Service Type"
-              secondaryText={ values.serviceType }
+              secondaryText={values.serviceType}
             />
             <ListItem
               primaryText="Description"
-              secondaryText={ values.description }
+              secondaryText={values.description}
             />
             <ListItem
               primaryText="Pay Rate"
-              secondaryText={ `$${values.payRate} / hour` }
+              secondaryText={`$${values.payRate} / hour`}
             />
             <ListItem
               primaryText="Required Time"
-              secondaryText={ `${values.requiredTime} Hours` }
+              secondaryText={`${values.requiredTime} Hours`}
             />
             <ListItem
               primaryText="Address"
-              secondaryText={ values.address + ' ' + values.postalCode.split(" ").join("") }
+              secondaryText={values.address + ' ' + values.postalCode.split(" ").join("")}
             />
-            <br/>
+            <br />
             <ListItem
               primaryText="Total"
-              secondaryText={ `$${values.requiredTime * values.payRate}` }
+              secondaryText={`$${values.requiredTime * values.payRate}`}
             />
           </List>
           <RaisedButton
@@ -81,10 +81,10 @@ export class ConfirmJobDetails extends Component {
             onClick={this.continue}
           />
           <StripeCheckout
-            stripeKey={ STRIPE_KEY }
+            stripeKey={STRIPE_KEY}
             token={handleToken}
-            amount={ values.requiredTime * values.payRate * 100 }
-            name={ values.serviceType }
+            amount={values.requiredTime * values.payRate * 100}
+            name={values.serviceType}
             billingAddress
             shippingAddress
           />

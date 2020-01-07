@@ -1,117 +1,203 @@
-import React, { Component } from 'react'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import React, { useState } from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import TextField from '@material-ui/core/TextField';
+import Link from '@material-ui/core/Link';
+import Grid from '@material-ui/core/Grid';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
-export class JobberSignup extends Component {
-  state = {
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: ''
-  }
+const useStyles = makeStyles(theme => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '100%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+}));
 
-  handleChange = input => e => {
-    this.setState({[input]: e.target.value});
-  }
 
-  validate = () => {
-    if (this.state.name.trim().length === 0 || this.state.email.trim().length === 0 || this.state.phone.trim().length === 0 || this.state.password.length === 0 || (this.state.password !== this.state.confirmPassword)) {
+export default function JobberSignup() {
+  const classes = useStyles();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [submitted, setSubmitted] = useState(false)
+
+  const validate = () => {
+    if (name.trim().length === 0 || email.trim().length === 0 || phone.trim().length === 0 || password.length === 0 || (password !== confirmPassword)) {
       return false;
     }
 
     return true;
   }
 
-  submit = () => {
-    if (this.validate()) {
-      console.log(this.state);
+  const submit = () => {
+    if (validate()) {
+      console.log('validated')
       const newUserInfo = {
         jobber: true,
-        name: this.state.name.trim(),
-        password: this.state.password,
-        email: this.state.email.trim().toLowerCase(),
-        phone: this.state.phone.trim()
+        name: name.trim(),
+        password: password,
+        email: email.trim().toLowerCase(),
+        phone: phone.trim()
       }
-      const parent = this;
+
       axios.post('/auth/signup', newUserInfo)
-      .then(function(response) {
-        if (response.data.result) {
-          alert("Registration successful, please login");
-          parent.props.history.push("/jobberlogin");
-        } else {
-          alert("something went wrong, try again");
-        }
-        console.log(response);
-      });
+        .then(function (response) {
+          console.log(response)
+          if (response.data.result) {
+            alert("Registration successful, please login");
+            setSubmitted(true)
+          } else {
+            alert("something went wrong, try again");
+          }
+        });
     }
     else {
       alert("one or more field is invalid. try again");
     }
   }
 
-  render(){
-    return (
+  return (
+    submitted ? <Redirect to="/jobberlogin" /> :
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Jobber Signup! #Lit-Final"/>
-          <TextField
-            hintText="Name"
-            floatingLabelText="Enter Name"
-            onChange={this.handleChange('name')}
-          />   
-          <br/>
-          <TextField
-            hintText="Email"
-            floatingLabelText="Enter Email"
-            onChange={this.handleChange('email')}
-          />   
-          <br/>
-          <TextField
-            hintText="Phone Number"
-            floatingLabelText="Enter Phone Number"
-            onChange={this.handleChange('phone')}
-          />   
-          <br/>
-          <TextField
-            type="password"
-            hintText="Password"
-            floatingLabelText="Enter Password"
-            onChange={this.handleChange('password')}
-          />   
-          <br/>
-          <TextField
-            type="password"
-            hintText="Confirm Password"
-            floatingLabelText="Enter Password Again"
-            onChange={this.handleChange('confirmPassword')}
-          />   
-          <br/>
-          <RaisedButton
-            label="Register"
-            primary={true}
-            style={styles.button}
-            onClick={this.submit}
-          />
-          <RaisedButton
-            label="Back"
-            primary={false}
-            style={styles.button}
-            onClick={() => this.props.history.goBack()}
-          />
+          <AppBar position="static">
+            <Toolbar variant="dense">
+              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" color="inherit">
+                Jobber Signup
+            </Typography>
+            </Toolbar>
+          </AppBar>
+          <Container component="main" maxWidth="xs">
+            <CssBaseline />
+            <div className={classes.paper}>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign up
+            </Typography>
+              <form className={classes.form} noValidate>
+                <Grid container spacing={2}>
+                  <Grid item xs={12}>
+                    <TextField
+                      autoComplete="name"
+                      name="name"
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="name"
+                      label="Name"
+                      autoFocus
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      id="email"
+                      label="Email Address"
+                      name="email"
+                      autoComplete="email"
+                      onChange={(event) => setEmail(event.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      name="phone"
+                      label="Phone Number"
+                      type="phone"
+                      id="phone"
+                      autoComplete="current-phone"
+                      onChange={(event) => setPhone(event.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                      onChange={(event) => setPassword(event.target.value)}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      variant="outlined"
+                      required
+                      fullWidth
+                      name="password"
+                      label="Password"
+                      type="password"
+                      id="password"
+                      autoComplete="current-password"
+                      onChange={(event) => setConfirmPassword(event.target.value)}
+                    />
+                  </Grid>
+                </Grid>
+                <Button
+                  type="button"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  onClick={submit}
+                >
+                  Sign Up
+              </Button>
+                <Grid container justify="space-between">
+                  <Grid item>
+                    <Link href="/jobberlogin" variant="body2">
+                      Already have an account? Sign in
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="/" variant="body2">
+                      Go back
+                    </Link>
+                  </Grid>
+                </Grid>
+              </form>
+            </div>
+          </Container>
         </React.Fragment>
       </MuiThemeProvider>
-    );
-  }
+  );
 }
-
-const styles = {
-  button: {
-    margin: 15
-  }
-}
-
-export default JobberSignup
