@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import AppBar from './Appbar';
 import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import StripeCheckout from 'react-stripe-checkout';
@@ -46,7 +46,7 @@ export class ConfirmJobDetails extends Component {
     return (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Confirm Job" />
+          <AppBar title="Confirm Job" user={true}/>
           <List>
             <ListItem
               primaryText="Service Type"

@@ -1,10 +1,27 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import AppBar from './Appbar';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
+import axios from 'axios';
 
 export class JobDetails extends Component {
+  constructor (props) {
+    super(props);
+    this.state = {skills: []}
+  }
+  
+  componentDidMount() {
+    axios.get("/skills")
+      .then((response) => {
+        console.log(response);
+        this.setState({skills: response.data});
+      });
+  }
+  
   continue = e => {
     console.log(this);
     if (this.props.values.serviceType === "") {
@@ -39,20 +56,33 @@ export class JobDetails extends Component {
     this.props.nextStep();
   }
 
+  generateSkillList = () => {
+    const skills = [];
+
+    this.state.skills.map((skill, i) => 
+      skills.push(<MenuItem key={i} value={`${skill.name}`}>{skill.name}</MenuItem>)
+    );
+      
+    return skills;
+  }
+
   render() {
-    const { values, handleChange, browser } = this.props;
+    const { values, handleChange, browser } = this.props;  
+
     return (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Enter Job Details" />
-          <br />
-          <TextField
-            hintText="Enter Service Type"
-            floatingLabelText="Service Type"
-            onChange={handleChange('serviceType')}
+          <AppBar title="Enter Job Details" user={true} />
+          <br/>
+          <InputLabel>Service Type</InputLabel>
+          <Select
             defaultValue={values.serviceType}
-          />
-          <br />
+            onChange={handleChange('serviceType')}
+            style={{width: 256}}
+          >
+            {this.generateSkillList()}
+          </Select> 
+          <br/>
           <TextField
             hintText="Enter a Description"
             floatingLabelText="Description"

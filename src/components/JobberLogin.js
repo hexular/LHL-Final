@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import AppBar from '@material-ui/core/AppBar';
+
+import React, { Component, useState } from 'react'
+import AppBar from './Appbar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -66,7 +67,7 @@ export default function JobberLogin() {
     submitted ? <Redirect to="/jobs" /> :
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar position="static">
+          <AppBar position="static" user={ false }>
             <Toolbar variant="dense">
               <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                 <MenuIcon />
