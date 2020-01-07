@@ -13,20 +13,20 @@ export default function MyJobs(props) {
 
   useEffect(() => {
     axios.get("/myjobs")
-    .then((res) => {
-      setResponse(res.data)
-    });
+      .then((res) => {
+        setResponse(res.data)
+      });
   }, [])
 
   const jobs = response.map(job => {
     console.log(job)
     return (
       <article key={job.id}>
-        <h2>{job.servicetype}</h2>
+        <h2>{job.service_type}</h2>
         <p>Description: {job.description}</p>
         <p>Estimate Time: {job.time_estimate} hours</p>
         <p>Location: {job.street_address}</p>
-        <RaisedButton 
+        <RaisedButton
           label="Delete"
           onClick={() => axios.put(`/myjobs`, [job.id])}
           primary={false}
@@ -34,43 +34,43 @@ export default function MyJobs(props) {
         />
       </article>)
   })
-  
-  return newJob ? 
-  <Redirect to="/newjobpost" /> :
-  !goBack ? 
-  (response.length !== 0 ? (
-    <MuiThemeProvider>
-      <AppBar title="My Jobs #Lit-Final"/>
-      <React.Fragment>
-        {jobs}
-      </React.Fragment>
-      <RaisedButton 
-        label="Back" 
-        onClick={() => setGoBack(true)}
-        primary={true}
-        style={styles.button}
-      />
-      <RaisedButton 
-        label="New Job" 
-        onClick={() => setNewJob(true)}
-        primary={true}
-        style={styles.button}
-      />
-    </MuiThemeProvider>
-  ) : 
-    <MuiThemeProvider>
-      <AppBar title="My Jobs #Lit-Final"/>
-      <React.Fragment>
-        <p>no jobs</p>
-      </React.Fragment>
-      <RaisedButton 
-        label="Back" 
-        onClick={() => setGoBack(true)}
-        primary={true}
-        style={styles.button}
-      />
-    </MuiThemeProvider>) :
-  <Redirect to="/" />;
+
+  return newJob ?
+    <Redirect to="/newjobpost" /> :
+    !goBack ?
+      (response.length !== 0 ? (
+        <MuiThemeProvider>
+          <AppBar title="My Jobs #Lit-Final" />
+          <React.Fragment>
+            {jobs}
+          </React.Fragment>
+          <RaisedButton
+            label="Back"
+            onClick={() => setGoBack(true)}
+            primary={true}
+            style={styles.button}
+          />
+          <RaisedButton
+            label="New Job"
+            onClick={() => setNewJob(true)}
+            primary={true}
+            style={styles.button}
+          />
+        </MuiThemeProvider>
+      ) :
+        <MuiThemeProvider>
+          <AppBar title="My Jobs #Lit-Final" />
+          <React.Fragment>
+            <p>no jobs</p>
+          </React.Fragment>
+          <RaisedButton
+            label="Back"
+            onClick={() => setGoBack(true)}
+            primary={true}
+            style={styles.button}
+          />
+        </MuiThemeProvider>) :
+      <Redirect to="/" />;
 }
 
 const styles = {
