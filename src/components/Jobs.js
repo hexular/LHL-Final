@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Open from './Job/Open'
 import AppBar from '@material-ui/core/AppBar';
-import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';

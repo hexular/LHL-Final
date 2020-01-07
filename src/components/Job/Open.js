@@ -43,7 +43,7 @@ export default function Open({ serviceType, userId, streetAddress, hourlyRate, t
           <Typography>Description: {description}</Typography>
           <Typography>Requested By: User #{userId}</Typography>
           <Typography>Address: {streetAddress}</Typography>
-          <Typography>Payout: {hourlyRate * timeEstimate}</Typography>
+          <Typography>Payout: ${hourlyRate * timeEstimate}</Typography>
           <Button
             type="button"
             fullWidth
