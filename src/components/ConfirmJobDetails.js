@@ -50,7 +50,7 @@ export class ConfirmJobDetails extends Component {
           <List>
             <ListItem
               primaryText="Service Type"
-              secondaryText={values.service_type}
+              secondaryText={values.serviceType}
             />
             <ListItem
               primaryText="Description"
@@ -84,7 +84,7 @@ export class ConfirmJobDetails extends Component {
             stripeKey={STRIPE_KEY}
             token={handleToken}
             amount={values.requiredTime * values.payRate * 100}
-            name={values.service_type}
+            name={values.serviceType}
             billingAddress
             shippingAddress
           />
