@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
-import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
@@ -15,15 +14,15 @@ export default function MyJobs(props) {
   useEffect(() => {
     axios.get("/myjobs")
     .then((res) => {
-      console.log(res.data)
       setResponse(res.data)
     });
   }, [])
 
   const jobs = response.map(job => {
+    console.log(job)
     return (
-      <article>
-        <h2>{job.serviceType}</h2>
+      <article key={job.id}>
+        <h2>{job.servicetype}</h2>
         <p>Description: {job.description}</p>
         <p>Estimate Time: {job.time_estimate} hours</p>
         <p>Location: {job.street_address}</p>
@@ -70,7 +69,7 @@ export default function MyJobs(props) {
         primary={true}
         style={styles.button}
       />
-  </MuiThemeProvider>) :
+    </MuiThemeProvider>) :
   <Redirect to="/" />;
 }
 
