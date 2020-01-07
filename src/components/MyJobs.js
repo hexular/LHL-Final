@@ -70,20 +70,21 @@ export default function MyJobs(props) {
         spacing={2}
       >
         {jobs}
-      
+      <Grid container direction="row" justify="center" alignItems="center">
       <RaisedButton 
         label="Back" 
         onClick={() => setGoBack(true)}
         primary={true}
         style={styles.button}
       />
+      
       <RaisedButton 
         label="New Job" 
         onClick={() => setNewJob(true)}
         primary={true}
         style={styles.button}
-        
       />
+      </Grid>
       </Grid> 
       </React.Fragment>
     </MuiThemeProvider>
