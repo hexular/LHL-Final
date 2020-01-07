@@ -181,11 +181,16 @@ export default function JobberSignup() {
                 >
                   Sign Up
               </Button>
-                <Grid container justify="flex-end">
+                <Grid container justify="space-between">
                   <Grid item>
                     <Link href="/userlogin" variant="body2">
                       Already have an account? Sign in
-                  </Link>
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="/" variant="body2">
+                      Go back
+                    </Link>
                   </Grid>
                 </Grid>
               </form>

@@ -3,6 +3,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -118,9 +119,18 @@ export default function UserLogin() {
                 >
                   Sign In
               </Button>
-                <Link href="/usersignup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <Grid container justify="space-between">
+                  <Grid item>
+                    <Link href="/usersignup" variant="body2">
+                      Don't have an account? Sign up
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="/" variant="body2">
+                      Go back
+                    </Link>
+                  </Grid>
+                </Grid>
               </form>
             </div>
           </Container>
