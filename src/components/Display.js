@@ -83,7 +83,7 @@ export default function Display(props) {
         </React.Fragment>
       </MuiThemeProvider>
     )
-    : <Redirect to="/" />;
+    : <Redirect to="/jobs" />;
 }
 
 const styles = {

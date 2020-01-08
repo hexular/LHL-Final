@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import JobDetails from './JobDetails'
 import ConfirmJobDetails from './ConfirmJobDetails'
 import Display from './Display'
+import { Redirect } from 'react-router';
 
 export class NewJobPost extends Component {
   state = {
@@ -66,15 +67,7 @@ export class NewJobPost extends Component {
         )
       case 3:
         return (
-          <Display
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            category={values.serviceType}
-            description={values.description}
-            time={values.requiredTime}
-            // number={values.number}
-            payment={values.payRate}
-            location={values.address}
+          <Redirect to="/myjobs"
           />
         )
       default:
