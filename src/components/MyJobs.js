@@ -31,12 +31,12 @@ export default function MyJobs(props) {
     
     console.log(props.update)
     axios.get("/myjobs")
-    .then((res) => {
-      setResponse(res.data)
+    .then( async res => {
+      await setResponse(res.data)
+      if (props.update) {
+          props.finished()
+      }
     });
-    if (props.update) {
-        props.finished()
-    }
   }, [props.update])
   
   const jobs = response.map(job => {
