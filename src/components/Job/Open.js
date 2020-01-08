@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -24,18 +25,25 @@ const useStyles = makeStyles(theme => ({
 export default function Open({ jobId, serviceType, userId, streetAddress, hourlyRate, timeEstimate, description }) {
   // TODO: Implement distance calculating here?
 
+  const [accepted, setAccepted] = useState(false);
+
   const acceptJob = function (jobId) {
     console.log(jobId)
     axios.put(
       `/jobs/${jobId}`
     )
-      .then(res => console.log(res))
+      .then(
+        (res) => {
+          console.log(res);
+          setAccepted(true);
+        }
+      )
       .catch(err => console.log(err))
   }
 
   const classes = useStyles()
 
-  return (
+  return (accepted ? <Redirect to={`/jobs/${jobId}`} /> :
     <ExpansionPanel>
       <ExpansionPanelSummary
         expandIcon={<ExpandMoreIcon />}
