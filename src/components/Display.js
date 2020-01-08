@@ -46,6 +46,23 @@ export default function Display(props) {
       .catch(err => console.log("error", err));
   }
 
+  const markComplete = function () {
+    axios.put(
+      `/jobs/`,
+      {
+        params: {
+          id: id,
+          markComplete: true
+        }
+      }
+    )
+      .then((res) => {
+        console.log(res)
+        setGoBack(true)
+      })
+      .catch(err => console.log("error", err));
+  }
+
   useEffect(() => {
     axios.get(`/jobs?id=${id}`)
       .then((res) => {
@@ -93,6 +110,12 @@ export default function Display(props) {
           <RaisedButton
             label="Back"
             onClick={() => setGoBack(true)}
+            primary={true}
+            style={styles.button}
+          />
+          <RaisedButton
+            label="Mark Complete"
+            onClick={() => markComplete(true)}
             primary={true}
             style={styles.button}
           />
