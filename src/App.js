@@ -21,7 +21,7 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {change: true, connected: false};
+    this.state = {change: true, connected: false, update: false};
   }
 
   connect = () => {
@@ -44,7 +44,7 @@ export class App extends Component {
     }
     this.ws.onmessage = event => {
       const message = JSON.parse(event.data)
-      if (message.type === 'newJob') this.setState({change: true});
+      if (message.type === 'update') this.setState({update: true});
       console.log(message)
     }
 
@@ -71,14 +71,16 @@ export class App extends Component {
         <Route path="/user" component={User} />
         <Route path="/jobs" component={Jobs} />
         <Route path="/info" component={Info} />
-        <Route path="/newjobpost" component={NewJobPost} />
+        <Route path="/newjobpost" component={() => <NewJobPost websock={this.updateMyJobs}/>} />
         <Route path="/test" component={Appbar} />
         <Route path="/myjobs" 
           component={() => <MyJobs 
-            update={this.state.change} 
+            connect={this.connect}
+            change={this.state.change} 
             connected={this.state.connected}
             finished={this.finished} 
             websock={this.updateMyJobs}
+            update={this.state.update}
           />} 
         />
       </BrowserRouter>   

@@ -28,16 +28,14 @@ export default function MyJobs(props) {
   const classes = useStyles();
   
   useEffect(() => {
-    console.log(props.connected)
-    props.websock()
     axios.get("/myjobs")
     .then(res => {
       setResponse(res.data)
-      if (props.update) {
+      if (props.change) {
           props.finished()
       }
     });
-  }, [props.update])
+  }, [props.change, props.update])
   
   const jobs = response.map(job => {
     
