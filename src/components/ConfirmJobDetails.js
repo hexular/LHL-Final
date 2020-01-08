@@ -6,8 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import { STRIPE_KEY } from '../var';
-import socketIOClient from "socket.io-client";
-const endpoint = 'localhost:8001';
+
 
 export class ConfirmJobDetails extends Component {
   continue = e => {
@@ -23,9 +22,7 @@ export class ConfirmJobDetails extends Component {
   }
 
   componentDidMount() {
-    const socket = socketIOClient(endpoint);
-    socket.emit('job', 1)
-    // socket.on("job", data => this.setState({ response: data }));
+    
   }
 
   render() {
