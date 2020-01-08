@@ -9,13 +9,13 @@ import MyJobs from './components/MyJobs';
 import User from './components/User';
 import Info from './components/Job/Info';
 import Jobs from './components/Jobs';
+import Display from './components/Display';
 import axios from 'axios';
 import NewJobPost from './components/NewJobPost';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Appbar from './components/Appbar';
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
-
 
 export class App extends Component {
 
@@ -56,7 +56,8 @@ export class App extends Component {
         <Route path="/jobberlogin" component={JobberLogin} />
         <Route path="/jobbersignup" component={JobberSignup} />
         <Route path="/user" component={User} />
-        <Route path="/jobs" component={Jobs} />
+        <Route path="/jobs" component={Jobs} exact />
+        <Route path="/jobs/:id" component={Display} />
         <Route path="/info" component={Info} />
         <Route path="/newjobpost" component={NewJobPost} />
         <Route path="/test" component={Appbar} />

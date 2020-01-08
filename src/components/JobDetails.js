@@ -9,19 +9,20 @@ import InputLabel from '@material-ui/core/InputLabel';
 import axios from 'axios';
 
 export class JobDetails extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.state = {skills: []}
+    this.state = { skills: [] }
   }
-  
+
   componentDidMount() {
     axios.get("/skills")
       .then((response) => {
         console.log(response);
-        this.setState({skills: response.data});
-      });
+        this.setState({ skills: response.data });
+      })
+      .catch(e => console.log(e));
   }
-  
+
   continue = e => {
     console.log(this);
     if (this.props.values.serviceType === "") {
@@ -59,30 +60,30 @@ export class JobDetails extends Component {
   generateSkillList = () => {
     const skills = [];
 
-    this.state.skills.map((skill, i) => 
+    this.state.skills.map((skill, i) =>
       skills.push(<MenuItem key={i} value={`${skill.name}`}>{skill.name}</MenuItem>)
     );
-      
+
     return skills;
   }
 
   render() {
-    const { values, handleChange, browser } = this.props;  
+    const { values, handleChange, browser } = this.props;
 
     return (
       <MuiThemeProvider>
         <React.Fragment>
           <AppBar title="Enter Job Details" user={true} />
-          <br/>
+          <br />
           <InputLabel>Service Type</InputLabel>
           <Select
             defaultValue={values.serviceType}
             onChange={handleChange('serviceType')}
-            style={{width: 256}}
+            style={{ width: 256 }}
           >
             {this.generateSkillList()}
-          </Select> 
-          <br/>
+          </Select>
+          <br />
           <TextField
             hintText="Enter a Description"
             floatingLabelText="Description"
