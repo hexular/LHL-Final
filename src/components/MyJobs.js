@@ -28,11 +28,11 @@ export default function MyJobs(props) {
   const classes = useStyles();
   
   useEffect(() => {
-    
-    console.log(props.update)
+    console.log(props.connected)
+    props.websock()
     axios.get("/myjobs")
-    .then( async res => {
-      await setResponse(res.data)
+    .then(res => {
+      setResponse(res.data)
       if (props.update) {
           props.finished()
       }
@@ -40,7 +40,7 @@ export default function MyJobs(props) {
   }, [props.update])
   
   const jobs = response.map(job => {
-    console.log(job)
+    
     return (
       <Paper className={classes.paper} key={job.id}>
         <Grid item key={job.id}>

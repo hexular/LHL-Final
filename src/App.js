@@ -21,7 +21,12 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {change: true};
+    this.state = {change: true, connected: false};
+  }
+
+  connect = () => {
+    this.ws = new WebSocket("ws://localhost:8080")
+    this.setState({connected: true})
   }
 
   componentDidMount() {
@@ -31,7 +36,9 @@ export class App extends Component {
       console.log(res.data)
     });
 
-    this.ws = new WebSocket("ws://localhost:8080");
+    
+
+    this.connect();
     this.ws.onopen = () => {
       this.ws.send(JSON.stringify({type: 'newJob', message: 'hello'}))
     }
@@ -43,8 +50,14 @@ export class App extends Component {
 
   }
 
+  
+
   finished = () => {
     this.setState({change: false})
+  }
+
+  updateMyJobs = () => {
+    this.ws.send(JSON.stringify({type: 'update', message: 'new'}))
   }
 
   render(){
@@ -60,7 +73,14 @@ export class App extends Component {
         <Route path="/info" component={Info} />
         <Route path="/newjobpost" component={NewJobPost} />
         <Route path="/test" component={Appbar} />
-        <Route path="/myjobs" component={() => <MyJobs update={this.state.change} finished={this.finished} />} />
+        <Route path="/myjobs" 
+          component={() => <MyJobs 
+            update={this.state.change} 
+            connected={this.state.connected}
+            finished={this.finished} 
+            websock={this.updateMyJobs}
+          />} 
+        />
       </BrowserRouter>   
     );
   }
