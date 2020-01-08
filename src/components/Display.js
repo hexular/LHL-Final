@@ -31,11 +31,15 @@ export default function Display(props) {
   const { id } = useParams();
 
   const dropJob = function () {
-    axios.put(`/jobs/${id}`, {
-      params: {
-        dropJob: true,
+    axios.put(
+      `/jobs/`,
+      {
+        params: {
+          id: id,
+          dropJob: true
+        }
       }
-    })
+    )
       .then(() => {
         setGoBack(true)
       })

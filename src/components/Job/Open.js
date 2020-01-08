@@ -29,7 +29,13 @@ export default function Open({ jobId, serviceType, userId, streetAddress, hourly
   const acceptJob = function (jobId) {
     console.log(jobId)
     axios.put(
-      `/jobs/${jobId}`
+      `/jobs/`,
+      {
+        params: {
+          id: jobId,
+          dropJob: false,
+        }
+      }
     )
       .then(
         (res) => {
