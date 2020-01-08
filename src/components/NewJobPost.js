@@ -66,9 +66,8 @@ export class NewJobPost extends Component {
           />
         )
       case 3:
-        return (
-          <Redirect to="/myjobs"
-          />
+        return (        
+          <Redirect to="/myjobs" />
         )
       default:
         return <h1>hmm something went wrong</h1>

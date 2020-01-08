@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
+const endpoint = 'localhost:8000';
 
 export class Home extends Component {
+  componentDidMount() {
+    
+  }
+
   render(){
     return (
       <MuiThemeProvider>
@@ -33,6 +38,26 @@ export class Home extends Component {
             primary={true}
             style={styles.button}
             onClick={() => this.props.history.push("/jobbersignup")}
+          />
+          <br/><br/>
+          <RaisedButton
+            label="My Jobs"
+            primary={true}
+            style={styles.button}
+            onClick={() => this.props.history.push("/myjobs")}
+          />
+          <RaisedButton
+            label="New Job"
+            primary={true}
+            style={styles.button}
+            onClick={() => this.props.history.push("/newjobpost")}
+          />
+          <br/><br/>
+          <RaisedButton
+            label="View Jobs"
+            primary={true}
+            style={styles.button}
+            onClick={() => this.props.history.push("/jobs")}
           />
         </React.Fragment>
       </MuiThemeProvider>
