@@ -34,6 +34,19 @@ export class Home extends Component {
             style={styles.button}
             onClick={() => this.props.history.push("/jobbersignup")}
           />
+          <br/><br/>
+          <RaisedButton
+            label="My Jobs"
+            primary={true}
+            style={styles.button}
+            onClick={() => this.props.history.push("/myjobs")}
+          />
+          <RaisedButton
+            label="New Job"
+            primary={true}
+            style={styles.button}
+            onClick={() => this.props.history.push("/newjobpost")}
+          />
         </React.Fragment>
       </MuiThemeProvider>
     );
