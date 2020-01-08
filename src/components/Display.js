@@ -30,6 +30,18 @@ export default function Display(props) {
   const [response, setResponse] = useState([]);
   const { id } = useParams();
 
+  const dropJob = function () {
+    axios.put(`/jobs/${id}`, {
+      params: {
+        dropJob: true,
+      }
+    })
+      .then(() => {
+        setGoBack(true)
+      })
+      .catch(err => console.log("error", err));
+  }
+
   useEffect(() => {
     axios.get(`/jobs?id=${id}`)
       .then((res) => {
@@ -69,8 +81,8 @@ export default function Display(props) {
             </ExpansionPanelDetails>
           </ExpansionPanel>
           <RaisedButton
-            label="Delete"
-            onClick={console.log('deleted')}
+            label="Cancel"
+            onClick={() => dropJob()}
             primary={true}
             style={styles.button}
           />
