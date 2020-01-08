@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,8 +20,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Open({ serviceType, userId, streetAddress, hourlyRate, timeEstimate, description }) {
+
+export default function Open({ jobId, serviceType, userId, streetAddress, hourlyRate, timeEstimate, description }) {
   // TODO: Implement distance calculating here?
+
+  const acceptJob = function (jobId) {
+    console.log(jobId)
+    axios.put(
+      `/jobs/${jobId}`
+    )
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+  }
 
   const classes = useStyles()
 
@@ -50,6 +61,7 @@ export default function Open({ serviceType, userId, streetAddress, hourlyRate, t
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => acceptJob(jobId)}
           >
             Accept
           </Button>

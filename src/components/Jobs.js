@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Open from './Job/Open'
-import AppBar from '@material-ui/core/AppBar';
+import AppBar from './Appbar';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -36,6 +36,7 @@ export default function Jobs(props) {
     axios.get("/jobs")
       .then((res) => {
         setResponse(res.data)
+        console.log(res.data)
       });
   }, [])
 
@@ -45,6 +46,7 @@ export default function Jobs(props) {
     return (
       <Open
         key={job.id}
+        jobId={job.id}
         serviceType={job.service_type}
         userId={job.user_id}
         streetAddress={job.street_address}
@@ -56,16 +58,7 @@ export default function Jobs(props) {
 
   return (
     <React.Fragment>
-      <AppBar position="static">
-        <Toolbar variant="dense">
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            Open Jobs
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <AppBar title="Open Jobs" user={true} />
       {openJobs}
     </React.Fragment>
   )
