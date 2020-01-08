@@ -1,5 +1,4 @@
-
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import AppBar from './Appbar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';

@@ -5,7 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -38,19 +37,19 @@ export default function MyJobs(props) {
   const jobs = response.map(job => {
     console.log(job)
     return (
-      <Paper className={classes.paper}>
-      <Grid item key={job.id}>
-        <h2>{job.service_type}</h2>
+      <Paper className={classes.paper} key={job.id}>
+        <Grid item key={job.id}>
+          <h2>{job.service_type}</h2>
 
-        <p>Description: {job.description}</p>
-        <p>Estimate Time: {job.time_estimate} hours</p>
-        <p>Location: {job.street_address}</p>
-        <RaisedButton
-          label="Delete"
-          onClick={() => axios.put(`/myjobs`, [job.id])}
-          primary={false}
-        />
-      </Grid>
+          <p>Description: {job.description}</p>
+          <p>Estimate Time: {job.time_estimate} hours</p>
+          <p>Location: {job.street_address}</p>
+          <RaisedButton
+            label="Delete"
+            onClick={() => axios.put(`/myjobs`, [job.id])}
+            primary={false}
+          />
+        </Grid>
       </Paper>
       )
   })
@@ -61,33 +60,32 @@ export default function MyJobs(props) {
   (response.length !== 0 ? (
     <MuiThemeProvider>
       <AppBar title="My Jobs #Lit-Final" user={true}/>
-      <React.Fragment className={classes.root}>
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-        wrap="nowrap"
-        spacing={2}
-      >
-        {jobs}
-      <Grid container direction="row" justify="center" alignItems="center">
-      <RaisedButton 
-        label="Back" 
-        onClick={() => setGoBack(true)}
-        primary={true}
-        style={styles.button}
-      />
-      
-      <RaisedButton 
-        label="New Job" 
-        onClick={() => setNewJob(true)}
-        primary={true}
-        style={styles.button}
-      />
-      </Grid>
-      </Grid> 
-      </React.Fragment>
+        <Grid
+          className={classes.root}
+          container
+          direction="column"
+          justify="center"
+          alignItems="center"
+          wrap="nowrap"
+          spacing={2}
+        >
+          {jobs}
+          <Grid container direction="row" justify="center" alignItems="center">
+            <RaisedButton 
+              label="Back" 
+              onClick={() => setGoBack(true)}
+              primary={true}
+              style={styles.button}
+            />
+            
+            <RaisedButton 
+              label="New Job" 
+              onClick={() => setNewJob(true)}
+              primary={true}
+              style={styles.button}
+            />
+          </Grid>
+        </Grid> 
     </MuiThemeProvider>
 
   ) : 
