@@ -7,6 +7,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import { STRIPE_KEY } from '../var';
 
+
 export class ConfirmJobDetails extends Component {
   continue = e => {
     e.preventDefault();
@@ -18,6 +19,10 @@ export class ConfirmJobDetails extends Component {
   back = e => {
     e.preventDefault();
     this.props.prevStep();
+  }
+
+  componentDidMount() {
+    
   }
 
   render() {
@@ -35,6 +40,7 @@ export class ConfirmJobDetails extends Component {
       console.log("Response:", response.data);
       if (status === "success") {
         axios.post('/myjobs', values)
+        
         alert("Success");
         console.log(jobDetail);
         console.log("Response:", response.data);

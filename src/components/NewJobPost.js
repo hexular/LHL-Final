@@ -66,6 +66,7 @@ export class NewJobPost extends Component {
         )
       case 3:
         return (
+          
           <Redirect to="/myjobs" />
         )
       default:

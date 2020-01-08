@@ -2,8 +2,13 @@ import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
+const endpoint = 'localhost:8000';
 
 export class Home extends Component {
+  componentDidMount() {
+    
+  }
+
   render(){
     return (
       <MuiThemeProvider>

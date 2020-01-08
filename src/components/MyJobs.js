@@ -26,14 +26,19 @@ export default function MyJobs(props) {
   const [goBack, setGoBack] = useState(false)
   const [newJob, setNewJob] = useState(false)
   const classes = useStyles();
-
+  
   useEffect(() => {
+    
+    console.log(props.update)
     axios.get("/myjobs")
-      .then((res) => {
-        setResponse(res.data)
-      });
-  }, [])
-
+    .then( async res => {
+      await setResponse(res.data)
+      if (props.update) {
+          props.finished()
+      }
+    });
+  }, [props.update])
+  
   const jobs = response.map(job => {
     console.log(job)
     return (
@@ -46,7 +51,11 @@ export default function MyJobs(props) {
           <p>Location: {job.street_address}</p>
           <RaisedButton
             label="Delete"
-            onClick={() => axios.put(`/myjobs`, [job.id])}
+            onClick={() => {
+              axios.put(`/myjobs`, [job.id])
+              props.finished()
+              }
+            }
             primary={false}
           />
         </Grid>
@@ -54,6 +63,7 @@ export default function MyJobs(props) {
       )
   })
 
+  console.log(response.length)
   return newJob ? 
   <Redirect to="/newjobpost" /> :
   !goBack ? 
