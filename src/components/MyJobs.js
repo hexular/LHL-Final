@@ -50,8 +50,9 @@ export default function MyJobs(props) {
           <RaisedButton
             label="Delete"
             onClick={() => {
-              axios.put(`/myjobs`, [job.id])
-              props.finished()
+                axios.put(`/myjobs`, [job.id])
+                // props.finished()
+                props.updateMyJobs()
               }
             }
             primary={false}

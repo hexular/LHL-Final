@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import JobDetails from './JobDetails'
 import ConfirmJobDetails from './ConfirmJobDetails'
+import Display from './Display'
 import { Redirect } from 'react-router';
 
 export class NewJobPost extends Component {
@@ -65,7 +66,7 @@ export class NewJobPost extends Component {
           />
         )
       case 3:
-        this.props.websock()
+        this.props.updateMyJobs()
         return (
           <Redirect to="/myjobs" />
         )

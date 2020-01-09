@@ -9,13 +9,13 @@ import MyJobs from './components/MyJobs';
 import User from './components/User';
 import Info from './components/Job/Info';
 import Jobs from './components/Jobs';
+import Display from './components/Display';
 import axios from 'axios';
 import NewJobPost from './components/NewJobPost';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Appbar from './components/Appbar';
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
-
 
 export class App extends Component {
 
@@ -36,8 +36,6 @@ export class App extends Component {
       console.log(res.data)
     });
 
-    
-
     this.connect();
     this.ws.onopen = () => {
       this.ws.send(JSON.stringify({type: 'newJob', message: 'hello'}))
@@ -47,7 +45,6 @@ export class App extends Component {
       if (message.type === 'update') this.setState({update: true});
       console.log(message)
     }
-
   }
 
   
@@ -60,6 +57,10 @@ export class App extends Component {
     this.ws.send(JSON.stringify({type: 'update', message: 'new'}))
   }
 
+  updateAllJobs = () => {
+    this.ws.send(JSON.stringify({type: 'update', message: 'all'}))
+  }
+
   render(){
     return (   
       <BrowserRouter history = { history } >
@@ -69,9 +70,15 @@ export class App extends Component {
         <Route path="/jobberlogin" component={JobberLogin} />
         <Route path="/jobbersignup" component={JobberSignup} />
         <Route path="/user" component={User} />
-        <Route path="/jobs" component={Jobs} />
+        <Route path="/jobs" 
+          component={() => <Jobs 
+            updateAllJobs={this.updateAllJobs}
+            update={this.state.update}
+          />} 
+          exact />
+        <Route path="/jobs/:id" component={Display} />
         <Route path="/info" component={Info} />
-        <Route path="/newjobpost" component={() => <NewJobPost websock={this.updateMyJobs}/>} />
+        <Route path="/newjobpost" component={() => <NewJobPost updateMyJobs={this.updateMyJobs}/>} />
         <Route path="/test" component={Appbar} />
         <Route path="/myjobs" 
           component={() => <MyJobs 
@@ -79,7 +86,7 @@ export class App extends Component {
             change={this.state.change} 
             connected={this.state.connected}
             finished={this.finished} 
-            websock={this.updateMyJobs}
+            updateMyJobs={this.updateMyJobs}
             update={this.state.update}
           />} 
         />
