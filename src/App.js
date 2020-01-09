@@ -84,7 +84,11 @@ export class App extends Component {
         />}
         />
         <Route path="/info" component={Info} />
-        <Route path="/newjobpost" component={() => <NewJobPost updateMyJobs={this.updateMyJobs} />} />
+        <Route path="/newjobpost" component={() => <NewJobPost 
+          updateMyJobs={this.updateMyJobs} 
+          updateAllJobs={this.updateAllJobs}
+          />} 
+        />
         <Route path="/test" component={Appbar} />
         <Route path="/myjobs"
           component={() => <MyJobs
