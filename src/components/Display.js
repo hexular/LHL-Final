@@ -56,11 +56,19 @@ export default function Display(props) {
         }
       }
     )
-      .then((res) => {
-        console.log(res)
-        setGoBack(true)
-      })
       .catch(err => console.log("error", err));
+  }
+
+  const jobStatus = function (job) {
+    if (job.jobber_id === null) {
+      return "Open"
+    } else if (job.jobber_id !== null && job.jobber_confirm === false && job.user_confirm === false) {
+      return "In Progress"
+    } else if (job.jobber_confirm === true && job.user_confirm === false) {
+      return "Marked Complete. Awaiting User Confirmation"
+    } else if (job.jobber_confirm === true && job.user_confirm === true) {
+      return "Completed"
+    }
   }
 
   useEffect(() => {
@@ -98,6 +106,7 @@ export default function Display(props) {
                 <Typography>Requested By: User #{response.user_id}</Typography>
                 <Typography>Address: {response.street_address}</Typography>
                 <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
+                <Typography>Status: {jobStatus(response)}</Typography>
               </Grid>
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -115,7 +124,7 @@ export default function Display(props) {
           />
           <RaisedButton
             label="Mark Complete"
-            onClick={() => markComplete(true)}
+            onClick={() => markComplete()}
             primary={true}
             style={styles.button}
           />
