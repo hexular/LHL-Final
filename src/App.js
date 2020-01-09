@@ -21,7 +21,12 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {change: true};
+    this.state = {change: true, connected: false, update: false};
+  }
+
+  connect = () => {
+    this.ws = new WebSocket("ws://localhost:8080")
+    this.setState({connected: true})
   }
 
   componentDidMount() {
@@ -31,20 +36,29 @@ export class App extends Component {
       console.log(res.data)
     });
 
-    this.ws = new WebSocket("ws://localhost:8080");
+    this.connect();
     this.ws.onopen = () => {
       this.ws.send(JSON.stringify({type: 'newJob', message: 'hello'}))
     }
     this.ws.onmessage = event => {
       const message = JSON.parse(event.data)
-      if (message.type === 'newJob') this.setState({change: true});
+      if (message.type === 'update') this.setState({update: true});
       console.log(message)
     }
-
   }
+
+  
 
   finished = () => {
     this.setState({change: false})
+  }
+
+  updateMyJobs = () => {
+    this.ws.send(JSON.stringify({type: 'update', message: 'new'}))
+  }
+
+  updateAllJobs = () => {
+    this.ws.send(JSON.stringify({type: 'update', message: 'all'}))
   }
 
   render(){
@@ -56,12 +70,26 @@ export class App extends Component {
         <Route path="/jobberlogin" component={JobberLogin} />
         <Route path="/jobbersignup" component={JobberSignup} />
         <Route path="/user" component={User} />
-        <Route path="/jobs" component={Jobs} exact />
+        <Route path="/jobs" 
+          component={() => <Jobs 
+            updateAllJobs={this.updateAllJobs}
+            update={this.state.update}
+          />} 
+          exact />
         <Route path="/jobs/:id" component={Display} />
         <Route path="/info" component={Info} />
-        <Route path="/newjobpost" component={NewJobPost} />
+        <Route path="/newjobpost" component={() => <NewJobPost updateMyJobs={this.updateMyJobs}/>} />
         <Route path="/test" component={Appbar} />
-        <Route path="/myjobs" component={() => <MyJobs update={this.state.change} finished={this.finished} />} />
+        <Route path="/myjobs" 
+          component={() => <MyJobs 
+            connect={this.connect}
+            change={this.state.change} 
+            connected={this.state.connected}
+            finished={this.finished} 
+            updateMyJobs={this.updateMyJobs}
+            update={this.state.update}
+          />} 
+        />
       </BrowserRouter>   
     );
   }

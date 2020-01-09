@@ -28,19 +28,17 @@ export default function MyJobs(props) {
   const classes = useStyles();
   
   useEffect(() => {
-    
-    console.log(props.update)
     axios.get("/myjobs")
-    .then( async res => {
-      await setResponse(res.data)
-      if (props.update) {
+    .then(res => {
+      setResponse(res.data)
+      if (props.change) {
           props.finished()
       }
     });
-  }, [props.update])
+  }, [props.change, props.update])
   
   const jobs = response.map(job => {
-    console.log(job)
+    
     return (
       <Paper className={classes.paper} key={job.id}>
         <Grid item key={job.id}>
@@ -52,8 +50,9 @@ export default function MyJobs(props) {
           <RaisedButton
             label="Delete"
             onClick={() => {
-              axios.put(`/myjobs`, [job.id])
-              props.finished()
+                axios.put(`/myjobs`, [job.id])
+                // props.finished()
+                props.updateMyJobs()
               }
             }
             primary={false}

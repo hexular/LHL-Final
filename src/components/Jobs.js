@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react'
 import Open from './Job/Open'
 import AppBar from './Appbar';
 import { makeStyles } from '@material-ui/core/styles';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -27,14 +30,18 @@ const useStyles = makeStyles(theme => ({
 export default function Jobs(props) {
   const classes = useStyles();
   const [response, setResponse] = useState([])
+  const [goBack, setGoBack] = useState(false)
 
   useEffect(() => {
     axios.get("/jobs")
       .then((res) => {
         setResponse(res.data)
+        if (props.change) {
+          props.finished()
+        }
         console.log(res.data)
       });
-  }, [])
+  }, [props.update, props.change])
 
   const jobs = response
 
@@ -52,10 +59,26 @@ export default function Jobs(props) {
     )
   })
 
-  return (
-    <React.Fragment>
+  return !goBack ? (
+    <MuiThemeProvider>
       <AppBar title="Open Jobs" user={true} />
+    <React.Fragment>
       {openJobs}
+    
+    <RaisedButton 
+      label="Back" 
+      onClick={() => setGoBack(true)}
+      primary={true}
+      style={styles.button}
+    />
     </React.Fragment>
-  )
+    </MuiThemeProvider>
+  ) :
+  <Redirect to="/" />
+}
+
+const styles = {
+  button: {
+    margin: 15
+  }
 }
