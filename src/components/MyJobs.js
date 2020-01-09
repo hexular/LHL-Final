@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from './Appbar';
+import UserJob from './UserJob';
 import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -62,43 +63,28 @@ export default function MyJobs(props) {
     }
   }
 
-  const jobs = response.map(job => {
+  const jobsFilter = function (jobs, status) {
+    const filtered = jobs.filter(job => jobStatus(job) === status)
 
-    return (
-      <Paper className={classes.paper} key={job.id}>
-        <Grid item key={job.id}>
-          <h2>{job.service_type}</h2>
+    return filtered.map(job => {
+      return (
+        <UserJob
+          key={job.id}
+          job={job}
+          jobStatus={jobStatus}
+          updateMyJobs={props.updateMyJobs}
+          updateAllJobs={props.updateAllJobs}
+          markComplete={markComplete}
+        />
+      )
+    })
+  }
 
-          <p>Description: {job.description}</p>
-          <p>Estimate Time: {job.time_estimate} hours</p>
-          <p>Location: {job.street_address}</p>
-          <p>Status: {jobStatus(job)}</p>
-          <RaisedButton
-            label="Delete"
-            onClick={() => {
-              axios.put(`/myjobs`, [job.id])
-              // props.finished()
-              props.updateMyJobs()
-            }
-            }
-            primary={false}
-          />
-          <RaisedButton
-            label="Mark Complete"
-            onClick={() => {
-              markComplete(job.id)
-              props.updateMyJobs()
-              props.updateAllJobs()
-            }}
-            primary={true}
-            style={styles.button}
-          />
-        </Grid>
-      </Paper>
-    )
-  })
+  const openJobs = jobsFilter(response, "Open");
+  const progressJobs = jobsFilter(response, "In Progress");
+  const userConfirmJobs = jobsFilter(response, "Marked Complete. Awaiting User Confirmation");
+  const completeJobs = jobsFilter(response, "Completed");
 
-  console.log(response.length)
   return newJob ?
     <Redirect to="/newjobpost" /> :
     !goBack ?
@@ -114,7 +100,22 @@ export default function MyJobs(props) {
             wrap="nowrap"
             spacing={2}
           >
-            {jobs}
+            <Typography className={classes.heading}>
+              Open Jobs
+            </Typography>
+            {openJobs.length ? openJobs : <Typography>None</Typography>}
+            <Typography className={classes.heading}>
+              Jobs In Progress
+            </Typography>
+            {progressJobs.length ? progressJobs : <Typography>None</Typography>}
+            <Typography className={classes.heading}>
+              Jobs Awaiting User Confirmation
+            </Typography>
+            {userConfirmJobs.length ? userConfirmJobs : <Typography>None</Typography>}
+            <Typography className={classes.heading}>
+              Completed Jobs
+            </Typography>
+            {completeJobs.length ? completeJobs : <Typography>None</Typography>}
             <Grid container direction="row" justify="center" alignItems="center">
               <RaisedButton
                 label="Back"
