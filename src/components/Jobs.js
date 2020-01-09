@@ -32,9 +32,12 @@ export default function Jobs(props) {
     axios.get("/jobs")
       .then((res) => {
         setResponse(res.data)
+        if (props.change) {
+          props.finished()
+        }
         console.log(res.data)
       });
-  }, [])
+  }, [props.update, props.change])
 
   const jobs = response
 

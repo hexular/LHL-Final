@@ -66,7 +66,8 @@ export class NewJobPost extends Component {
           />
         )
       case 3:
-        return (        
+        this.props.updateMyJobs()
+        return (
           <Redirect to="/myjobs" />
         )
       default:
