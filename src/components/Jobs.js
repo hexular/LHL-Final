@@ -55,26 +55,28 @@ export default function Jobs(props) {
         streetAddress={job.street_address}
         hourlyRate={job.hourly_rate}
         timeEstimate={job.time_estimate}
-        description={job.description} />
+        description={job.description}
+        updateAllJobs={props.updateAllJobs}
+        updateMyJobs={props.updateMyJobs} />
     )
   })
 
   return !goBack ? (
     <MuiThemeProvider>
       <AppBar title="Open Jobs" user={true} />
-    <React.Fragment>
-      {openJobs}
-    
-    <RaisedButton 
-      label="Back" 
-      onClick={() => setGoBack(true)}
-      primary={true}
-      style={styles.button}
-    />
-    </React.Fragment>
+      <React.Fragment>
+        {openJobs}
+
+        <RaisedButton
+          label="Back"
+          onClick={() => setGoBack(true)}
+          primary={true}
+          style={styles.button}
+        />
+      </React.Fragment>
     </MuiThemeProvider>
   ) :
-  <Redirect to="/" />
+    <Redirect to="/" />
 }
 
 const styles = {

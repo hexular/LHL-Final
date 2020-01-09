@@ -26,19 +26,44 @@ export default function MyJobs(props) {
   const [goBack, setGoBack] = useState(false)
   const [newJob, setNewJob] = useState(false)
   const classes = useStyles();
-  
+
   useEffect(() => {
     axios.get("/myjobs")
-    .then(res => {
-      setResponse(res.data)
-      if (props.change) {
+      .then(res => {
+        setResponse(res.data)
+        if (props.change) {
           props.finished()
-      }
-    });
+        }
+      });
   }, [props.change, props.update])
-  
+
+  const markComplete = function (id) {
+    axios.put(
+      `/jobs/`,
+      {
+        params: {
+          id: id,
+          confirmComplete: true
+        }
+      }
+    )
+      .catch(err => console.log("error", err));
+  }
+
+  const jobStatus = function (job) {
+    if (job.jobber_id === null) {
+      return "Open"
+    } else if (job.jobber_id !== null && job.jobber_confirm === false && job.user_confirm === false) {
+      return "In Progress"
+    } else if (job.jobber_confirm === true && job.user_confirm === false) {
+      return "Marked Complete. Awaiting User Confirmation"
+    } else if (job.jobber_confirm === true && job.user_confirm === true) {
+      return "Completed"
+    }
+  }
+
   const jobs = response.map(job => {
-    
+
     return (
       <Paper className={classes.paper} key={job.id}>
         <Grid item key={job.id}>
@@ -47,70 +72,81 @@ export default function MyJobs(props) {
           <p>Description: {job.description}</p>
           <p>Estimate Time: {job.time_estimate} hours</p>
           <p>Location: {job.street_address}</p>
+          <p>Status: {jobStatus(job)}</p>
           <RaisedButton
             label="Delete"
             onClick={() => {
-                axios.put(`/myjobs`, [job.id])
-                // props.finished()
-                props.updateMyJobs()
-              }
+              axios.put(`/myjobs`, [job.id])
+              // props.finished()
+              props.updateMyJobs()
+            }
             }
             primary={false}
           />
+          <RaisedButton
+            label="Mark Complete"
+            onClick={() => {
+              markComplete(job.id)
+              props.updateMyJobs()
+              props.updateAllJobs()
+            }}
+            primary={true}
+            style={styles.button}
+          />
         </Grid>
       </Paper>
-      )
+    )
   })
 
   console.log(response.length)
-  return newJob ? 
-  <Redirect to="/newjobpost" /> :
-  !goBack ? 
-  (response.length !== 0 ? (
-    <MuiThemeProvider>
-      <AppBar title="My Jobs #Lit-Final" user={true}/>
-        <Grid
-          className={classes.root}
-          container
-          direction="column"
-          justify="center"
-          alignItems="center"
-          wrap="nowrap"
-          spacing={2}
-        >
-          {jobs}
-          <Grid container direction="row" justify="center" alignItems="center">
-            <RaisedButton 
-              label="Back" 
-              onClick={() => setGoBack(true)}
-              primary={true}
-              style={styles.button}
-            />
-            
-            <RaisedButton 
-              label="New Job" 
-              onClick={() => setNewJob(true)}
-              primary={true}
-              style={styles.button}
-            />
-          </Grid>
-        </Grid> 
-    </MuiThemeProvider>
+  return newJob ?
+    <Redirect to="/newjobpost" /> :
+    !goBack ?
+      (response.length !== 0 ? (
+        <MuiThemeProvider>
+          <AppBar title="My Jobs #Lit-Final" user={true} />
+          <Grid
+            className={classes.root}
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            wrap="nowrap"
+            spacing={2}
+          >
+            {jobs}
+            <Grid container direction="row" justify="center" alignItems="center">
+              <RaisedButton
+                label="Back"
+                onClick={() => setGoBack(true)}
+                primary={true}
+                style={styles.button}
+              />
 
-  ) : 
-    <MuiThemeProvider>
-      <AppBar title="My Jobs #Lit-Final"/>
-      <React.Fragment>
-        <p>no jobs</p>
-      </React.Fragment>
-      <RaisedButton 
-        label="Back" 
-        onClick={() => setGoBack(true)}
-        primary={true}
-        style={styles.button}
-      />
-    </MuiThemeProvider>) :
-  <Redirect to="/" />;
+              <RaisedButton
+                label="New Job"
+                onClick={() => setNewJob(true)}
+                primary={true}
+                style={styles.button}
+              />
+            </Grid>
+          </Grid>
+        </MuiThemeProvider>
+
+      ) :
+        <MuiThemeProvider>
+          <AppBar title="My Jobs #Lit-Final" />
+          <React.Fragment>
+            <p>no jobs</p>
+          </React.Fragment>
+          <RaisedButton
+            label="Back"
+            onClick={() => setGoBack(true)}
+            primary={true}
+            style={styles.button}
+          />
+        </MuiThemeProvider>) :
+      <Redirect to="/" />;
 }
 
 const styles = {
