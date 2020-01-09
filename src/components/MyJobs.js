@@ -85,7 +85,11 @@ export default function MyJobs(props) {
           />
           <RaisedButton
             label="Mark Complete"
-            onClick={() => markComplete(job.id)}
+            onClick={() => {
+              markComplete(job.id)
+              props.updateMyJobs()
+              props.updateAllJobs()
+            }}
             primary={true}
             style={styles.button}
           />

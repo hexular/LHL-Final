@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Open({ jobId, serviceType, userId, streetAddress, hourlyRate, timeEstimate, description }) {
+export default function Open({ jobId, serviceType, userId, streetAddress, hourlyRate, timeEstimate, description, updateAllJobs, updateMyJobs }) {
   // TODO: Implement distance calculating here?
 
   const [accepted, setAccepted] = useState(false);
@@ -74,7 +74,11 @@ export default function Open({ jobId, serviceType, userId, streetAddress, hourly
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => acceptJob(jobId)}
+            onClick={() => {
+              acceptJob(jobId)
+              updateMyJobs()
+            }
+            }
           >
             Accept
           </Button>

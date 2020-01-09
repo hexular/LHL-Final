@@ -75,10 +75,12 @@ export default function Display(props) {
     axios.get(`/jobs?id=${id}`)
       .then((res) => {
         setResponse(res.data[0])
-        console.log(res)
+        if (props.change) {
+          props.finished()
+        }
       })
       .catch(err => console.log("error", err));
-  }, [])
+  }, [props.update, props.change])
 
   return !goBack ?
     (
@@ -112,7 +114,11 @@ export default function Display(props) {
           </ExpansionPanel>
           <RaisedButton
             label="Cancel"
-            onClick={() => dropJob()}
+            onClick={() => {
+              dropJob()
+              props.updateMyJobs()
+              props.updateAllJobs()
+            }}
             primary={true}
             style={styles.button}
           />
@@ -124,7 +130,11 @@ export default function Display(props) {
           />
           <RaisedButton
             label="Mark Complete"
-            onClick={() => markComplete()}
+            onClick={() => {
+              markComplete()
+              props.updateMyJobs()
+              props.updateAllJobs()
+            }}
             primary={true}
             style={styles.button}
           />
