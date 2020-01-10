@@ -7,6 +7,12 @@ import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import { STRIPE_KEY } from '../var';
 
+const getCoords = async (postcode, value) => {
+  const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=AIzaSyA0FZO0N4sb2MrGhmSgv8WD872-D9-lmnE`)
+  const jsonRes = await res.data.results[0]
+  console.log('getcoords', jsonRes.geometry.location)
+  value.coords = jsonRes.geometry.location
+}
 
 export class ConfirmJobDetails extends Component {
   continue = e => {
@@ -39,7 +45,11 @@ export class ConfirmJobDetails extends Component {
       const { status } = response.data;
       console.log("Response:", response.data);
       if (status === "success") {
-        axios.post('/myjobs', values)
+        getCoords(values.postalCode.split(" ").join(""), values)
+        .then(() => {
+          
+          axios.post('/myjobs', values)
+        })
         
         alert("Success");
         console.log(jobDetail);

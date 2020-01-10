@@ -18,6 +18,7 @@ import Appbar from './components/Appbar';
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
 
+
 export class App extends Component {
 
   constructor(props) {
@@ -26,8 +27,7 @@ export class App extends Component {
   }
 
   showPosition = (pos) => {
-    this.setState({ long: pos.coords.longitude })
-    this.setState({ lat: pos.coords.latitude })
+    this.setState({ long: pos.coords.longitude, lat: pos.coords.latitude  })
   }
 
   track = () => {
@@ -40,6 +40,9 @@ export class App extends Component {
   }
 
   componentDidMount() {
+
+    const google = Window.google;
+    console.log(google)
 
     axios.get("/auth")
       .then((res) => {
@@ -77,6 +80,9 @@ export class App extends Component {
           track={this.track()}
           long={this.state.long}
           lat={this.state.lat}
+          updateAllJobs={this.updateAllJobs}
+          update={this.state.update}
+          history={history}
         />}
         />
         <Route path="/userlogin" component={UserLogin} />
