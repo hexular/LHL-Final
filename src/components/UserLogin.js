@@ -61,11 +61,10 @@ export default function UserLogin(props) {
   const submit = () => {
     const loginInfo = {
       email: email.trim().toLowerCase(),
-      password: password,
-      withCredentials: true
+      password: password
     }
     console.log("DEPLOY PLZZZZZ")
-    axios.post('/auth/login', loginInfo)
+    axios.post('/auth/login', loginInfo, {withCredentials: true})
       .then(function (response) {
         if (response.data.result) {
           setSubmitted(true)
