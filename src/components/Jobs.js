@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import Open from './Job/Open'
+import Open from './Open'
 import AppBar from './Appbar';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
