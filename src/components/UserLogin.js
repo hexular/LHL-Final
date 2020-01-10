@@ -49,6 +49,8 @@ export default function UserLogin(props) {
     .then((response) => {
       if (response.data.result === "user") {
         props.history.replace("/user")
+      } else if (response.data.result === "jobber") {
+        props.history.replace("/jobs")
       } else {
         setLoading(false)
       }
