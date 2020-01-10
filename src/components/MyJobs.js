@@ -31,7 +31,7 @@ export default function MyJobs(props) {
 
   useEffect(() => {
     console.log("thisss", props)
-    axios.get("/myjobs")
+    axios.get("/myjobs", {withCredentials: true})
       .then(res => {
         setResponse(res.data)
         if (props.change) {
