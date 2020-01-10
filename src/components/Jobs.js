@@ -31,6 +31,28 @@ export default function Jobs(props) {
   const classes = useStyles();
   const [response, setResponse] = useState([])
   const [goBack, setGoBack] = useState(false)
+  const [accepted, setAccepted] = useState(false);
+
+  const acceptJob = function (jobId) {
+    console.log(jobId)
+    axios.put(
+      `/jobs/`,
+      {
+        params: {
+          id: jobId,
+          dropJob: false,
+        }
+      }
+    )
+      .then(
+        (res) => {
+          console.log("HERE", jobId)
+          setAccepted(jobId);
+
+        }
+      )
+      .catch(err => console.log(err))
+  }
 
   useEffect(() => {
     axios.get("/jobs")
@@ -39,7 +61,6 @@ export default function Jobs(props) {
         if (props.change) {
           props.finished()
         }
-        console.log(res.data)
       });
   }, [props.update, props.change])
 
@@ -57,26 +78,34 @@ export default function Jobs(props) {
         timeEstimate={job.time_estimate}
         description={job.description}
         updateAllJobs={props.updateAllJobs}
-        updateMyJobs={props.updateMyJobs} />
+        updateMyJobs={props.updateMyJobs}
+        acceptJob={(id) => acceptJob(id)} />
     )
   })
 
-  return !goBack ? (
-    <MuiThemeProvider>
-      <AppBar title="Open Jobs" user={true} />
-      <React.Fragment>
-        {openJobs}
+  if (goBack) {
+    return <Redirect to="/" />
+  } else if (accepted) {
+    console.log("TRYING TO REDIRECT TO ", accepted)
+    return <Redirect to={`/jobs/${accepted}`} />
+  } else {
+    return (
+      <MuiThemeProvider>
+        <AppBar title="Open Jobs" user={true} />
+        <React.Fragment>
+          {openJobs}
 
-        <RaisedButton
-          label="Back"
-          onClick={() => setGoBack(true)}
-          primary={true}
-          style={styles.button}
-        />
-      </React.Fragment>
-    </MuiThemeProvider>
-  ) :
-    <Redirect to="/" />
+          <RaisedButton
+            label="Back"
+            onClick={() => setGoBack(true)}
+            primary={true}
+            style={styles.button}
+          />
+        </React.Fragment>
+      </MuiThemeProvider>
+    )
+  }
+
 }
 
 const styles = {
