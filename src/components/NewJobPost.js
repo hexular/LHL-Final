@@ -3,8 +3,10 @@ import JobDetails from './JobDetails'
 import ConfirmJobDetails from './ConfirmJobDetails'
 import Display from './Display'
 import { Redirect } from 'react-router';
+import axios from 'axios'
 
 export class NewJobPost extends Component {
+  
   state = {
     step: 1,
     serviceType: '',

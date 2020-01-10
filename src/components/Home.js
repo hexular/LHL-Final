@@ -2,15 +2,35 @@ import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
-const endpoint = 'localhost:8000';
+import axios from 'axios';
 
 export class Home extends Component {
+  constructor (props){
+    super(props);
+    this.state = {
+      loading: true
+    }
+  }
   componentDidMount() {
-    
+    axios.get('/auth')
+    .then((response) => {
+      console.log(response)
+      if (response.data.result === "user") {
+        console.log(true)
+        this.props.history.replace("/user")
+      } else if (response.data.result === "jobber") {
+        this.props.history.replace("/jobs")
+      } else {
+        this.setState({
+          loading: false
+        })
+      }
+    });
   }
 
   render(){
-    return (
+    return this.state.loading ? null
+    : (
       <MuiThemeProvider>
         <React.Fragment>
           <AppBar title="Main Portal #Lit-Final"/>

@@ -26,13 +26,25 @@ export default function MyJobs(props) {
   const [goBack, setGoBack] = useState(false)
   const [newJob, setNewJob] = useState(false)
   const classes = useStyles();
+  const [loading, setLoading] = useState(true)
   
   useEffect(() => {
+    console.log("thisss", props)
     axios.get("/myjobs")
     .then(res => {
       setResponse(res.data)
       if (props.change) {
           props.finished()
+      }
+    });
+
+    axios.get('/auth')
+    .then((response) => {
+      if (response.data.result !== "user") {
+        props.history.replace("/")
+        props.history.go()
+      } else {
+        setLoading(false)
       }
     });
   }, [props.change, props.update])
@@ -63,7 +75,7 @@ export default function MyJobs(props) {
   })
 
   console.log(response.length)
-  return newJob ? 
+  return loading ? null : (newJob ? 
   <Redirect to="/newjobpost" /> :
   !goBack ? 
   (response.length !== 0 ? (
@@ -110,7 +122,7 @@ export default function MyJobs(props) {
         style={styles.button}
       />
     </MuiThemeProvider>) :
-  <Redirect to="/" />;
+  <Redirect to="/" />)
 }
 
 const styles = {

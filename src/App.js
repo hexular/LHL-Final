@@ -74,11 +74,12 @@ export class App extends Component {
           component={() => <Jobs 
             updateAllJobs={this.updateAllJobs}
             update={this.state.update}
+            history={history}
           />} 
           exact />
         <Route path="/jobs/:id" component={Display} />
         <Route path="/info" component={Info} />
-        <Route path="/newjobpost" component={() => <NewJobPost updateMyJobs={this.updateMyJobs}/>} />
+        <Route path="/newjobpost" component={() => <NewJobPost history={history} updateMyJobs={this.updateMyJobs}/>} />
         <Route path="/test" component={Appbar} />
         <Route path="/myjobs" 
           component={() => <MyJobs 
@@ -88,6 +89,7 @@ export class App extends Component {
             finished={this.finished} 
             updateMyJobs={this.updateMyJobs}
             update={this.state.update}
+            history={history}
           />} 
         />
       </BrowserRouter>   

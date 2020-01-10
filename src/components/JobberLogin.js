@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AppBar from './Appbar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -37,11 +37,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function JobberLogin() {
+export default function JobberLogin(props) {
   const classes = useStyles();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {    
+    axios.get('/auth')
+    .then((response) => {
+      if (response.data.result === "jobber") {
+        props.history.replace("/jobs")
+      } else {
+        setLoading(false)
+      }
+    });
+  }, [])
 
   const submit = () => {
     const loginInfo = {
@@ -62,7 +74,8 @@ export default function JobberLogin() {
       );
   }
 
-  return (
+  return loading ? null
+  : (
     submitted ? <Redirect to="/jobs" /> :
       <MuiThemeProvider>
         <React.Fragment>

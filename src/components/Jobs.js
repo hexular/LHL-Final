@@ -31,8 +31,10 @@ export default function Jobs(props) {
   const classes = useStyles();
   const [response, setResponse] = useState([])
   const [goBack, setGoBack] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    console.log(props)
     axios.get("/jobs")
       .then((res) => {
         setResponse(res.data)
@@ -41,6 +43,16 @@ export default function Jobs(props) {
         }
         console.log(res.data)
       });
+    
+    axios.get('/auth')
+    .then((response) => {
+      if (response.data.result !== "jobber") {
+        props.history.replace("/")
+        props.history.go()
+      } else {
+        setLoading(false)
+      }
+    });
   }, [props.update, props.change])
 
   const jobs = response
@@ -59,7 +71,7 @@ export default function Jobs(props) {
     )
   })
 
-  return !goBack ? (
+  return loading ? null : (!goBack ? (
     <MuiThemeProvider>
       <AppBar title="Open Jobs" user={true} />
     <React.Fragment>
@@ -74,7 +86,7 @@ export default function Jobs(props) {
     </React.Fragment>
     </MuiThemeProvider>
   ) :
-  <Redirect to="/" />
+  <Redirect to="/" />)
 }
 
 const styles = {

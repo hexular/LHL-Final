@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import AppBar from './Appbar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -37,11 +37,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function UserLogin() {
+export default function UserLogin(props) {
   const classes = useStyles();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {    
+    axios.get('/auth')
+    .then((response) => {
+      if (response.data.result === "user") {
+        props.history.replace("/user")
+      } else {
+        setLoading(false)
+      }
+    });
+  }, [])
 
   const submit = () => {
     const loginInfo = {
@@ -61,7 +73,8 @@ export default function UserLogin() {
       );
   }
 
-  return (
+  return loading ? null 
+  : (
     submitted ? <Redirect to="/user" /> :
       <MuiThemeProvider>
         <React.Fragment>
