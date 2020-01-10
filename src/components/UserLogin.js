@@ -63,6 +63,7 @@ export default function UserLogin(props) {
       email: email.trim().toLowerCase(),
       password: password
     }
+    console.log("DEPLOY PLZZZZZ")
     axios.post('/auth/login', loginInfo)
       .then(function (response) {
         if (response.data.result) {
