@@ -17,6 +17,7 @@ import Appbar from './components/Appbar';
 import { createBrowserHistory } from 'history';
 const history = createBrowserHistory();
 
+
 export class App extends Component {
 
   constructor(props) {
@@ -34,7 +35,7 @@ export class App extends Component {
   }
 
   connect = () => {
-    this.ws = new WebSocket("ws://localhost:8080")
+    this.ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
     this.setState({ connected: true })
   }
 
