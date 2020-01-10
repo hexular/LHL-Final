@@ -23,18 +23,18 @@ export class JobDetails extends Component {
         this.props.browser.replace('/')
         this.props.browser.go();
       } else {
+        axios.get("/skills")
+      .then((response) => {
+        console.log(response);
+        this.setState({ skills: response.data })
         this.setState({
           loading: false
         })
+      })
+      .catch(e => console.log(e))
       }
     });
-    if (!this.state.loading){
-    axios.get("/skills")
-      .then((response) => {
-        console.log(response);
-        this.setState({ skills: response.data });
-      })
-      .catch(e => console.log(e));}
+   
   }
 
   continue = e => {
