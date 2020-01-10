@@ -44,17 +44,17 @@ export default function JobberLogin(props) {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {    
+  useEffect(() => {
     axios.get('/auth')
-    .then((response) => {
-      if (response.data.result === "jobber") {
-        props.history.replace("/jobs")
-      } else if (response.data.result === "user") {
-        props.history.replace("/user")
-      } else {
-        setLoading(false)
-      }
-    });
+      .then((response) => {
+        if (response.data.result === "jobber") {
+          props.history.replace("/jobs")
+        } else if (response.data.result === "user") {
+          props.history.replace("/user")
+        } else {
+          setLoading(false)
+        }
+      });
   }, [])
 
   const submit = () => {
@@ -71,88 +71,88 @@ export default function JobberLogin(props) {
           alert("account does not exist or invalid email/pw");
         }
       })
-      .catch(
-        console.log("error")
+      .catch(err =>
+        console.log("Error: ", err)
       );
   }
 
   return loading ? null
-  : (
-    submitted ? <Redirect to="/jobs" /> :
-      <MuiThemeProvider>
-        <React.Fragment>
-          <AppBar position="static" user={ false }>
-            <Toolbar variant="dense">
-              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit">
-                Jobber Login
+    : (
+      submitted ? <Redirect to="/jobs" /> :
+        <MuiThemeProvider>
+          <React.Fragment>
+            <AppBar position="static" user={false}>
+              <Toolbar variant="dense">
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" color="inherit">
+                  Jobber Login
             </Typography>
-            </Toolbar>
-          </AppBar>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-              <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign in
+              </Toolbar>
+            </AppBar>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Sign in
             </Typography>
-              <form className={classes.form} noValidate>
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                  onChange={(event) => setEmail(event.target.value)}
-                />
-                <TextField
-                  variant="outlined"
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  onClick={submit}
-                >
-                  Sign In
+                <form className={classes.form} noValidate>
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
+                  <TextField
+                    variant="outlined"
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
+                  <Button
+                    type="button"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={submit}
+                  >
+                    Sign In
               </Button>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <Link href="/jobbersignup" variant="body2">
-                      Don't have an account? Sign up
+                  <Grid container justify="space-between">
+                    <Grid item>
+                      <Link href="/jobbersignup" variant="body2">
+                        Don't have an account? Sign up
                     </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="/" variant="body2">
-                      Go back
+                    </Grid>
+                    <Grid item>
+                      <Link href="/" variant="body2">
+                        Go back
                     </Link>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </form>
-            </div>
-          </Container>
-        </React.Fragment>
-      </MuiThemeProvider>
-  );
+                </form>
+              </div>
+            </Container>
+          </React.Fragment>
+        </MuiThemeProvider>
+    );
 }
 
 
