@@ -35,7 +35,7 @@ export class ConfirmJobDetails extends Component {
       const response = await axios.post("/checkout", {
         token,
         values
-      });
+      }, {withCredentials: true});
       const { status } = response.data;
       console.log("Response:", response.data);
       if (status === "success") {

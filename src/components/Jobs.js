@@ -43,7 +43,7 @@ export default function Jobs(props) {
           id: jobId,
           dropJob: false,
         }
-      }
+      }, {withCredentials: true}
     )
       .then(
         (res) => {

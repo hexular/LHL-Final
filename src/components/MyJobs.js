@@ -59,7 +59,7 @@ export default function MyJobs(props) {
           id: id,
           confirmComplete: true
         }
-      }
+      }, {withCredentials: true}
     )
       .catch(err => console.log("error", err));
   }
