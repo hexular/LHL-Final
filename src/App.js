@@ -97,6 +97,7 @@ export class App extends Component {
           updateAllJobs={this.updateAllJobs}
           updateMyJobs={this.updateMyJobs}
           update={this.state.update}
+          history={history}
         />}
         />
         <Route path="/info" component={Info} />
