@@ -5,7 +5,7 @@ import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
-import { STRIPE_KEY } from '../var';
+
 
 
 export class ConfirmJobDetails extends Component {
@@ -26,7 +26,7 @@ export class ConfirmJobDetails extends Component {
   }
 
   render() {
-    console.log(STRIPE_KEY)
+    
     const { values } = this.props;
     const jobDetail = this.props;
     async function handleToken(token) {
@@ -87,7 +87,7 @@ export class ConfirmJobDetails extends Component {
             onClick={this.continue}
           />
           <StripeCheckout
-            stripeKey={STRIPE_KEY}
+            stripeKey={"pk_test_QEftqbWZl6SLY8KvZULv7CXc005D5SWunq"}
             token={handleToken}
             amount={values.requiredTime * values.payRate * 100}
             name={values.serviceType}
