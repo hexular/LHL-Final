@@ -41,7 +41,7 @@ export class App extends Component {
 
   componentDidMount() {
 
-    axios.get("/auth")
+    axios.get("/auth", {withCredentials: true})
       .then((res) => {
         console.log(res.data)
       });

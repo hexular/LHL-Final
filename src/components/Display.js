@@ -85,7 +85,7 @@ export default function Display(props) {
       })
       .catch(err => console.log("error", err));
 
-    axios.get('/auth')
+    axios.get('/auth', {withCredentials: true})
       .then((response) => {
         if (response.data.result !== "jobber") {
           props.history.replace("/")

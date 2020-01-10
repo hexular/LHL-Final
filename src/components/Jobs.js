@@ -67,7 +67,7 @@ export default function Jobs(props) {
         }
       });
 
-    axios.get('/auth')
+    axios.get('/auth', {withCredentials: true})
       .then((response) => {
         if (response.data.result !== "jobber") {
           props.history.replace("/")
