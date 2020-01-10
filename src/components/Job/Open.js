@@ -53,8 +53,6 @@ export default function Open({ jobId, serviceType, userId, streetAddress, hourly
             className={classes.submit}
             onClick={() => {
               acceptJob(jobId)
-              updateMyJobs()
-              updateAllJobs()
             }
             }
           >

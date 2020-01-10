@@ -49,6 +49,8 @@ export default function Jobs(props) {
         (res) => {
           console.log("HERE", jobId)
           setAccepted(jobId);
+          props.updateMyJobs();
+          props.updateAllJobs();
 
         }
       )
@@ -56,7 +58,7 @@ export default function Jobs(props) {
   }
 
   useEffect(() => {
-    console.log(props)
+    console.log("~~~~~~~~~ACCEPTED: ", accepted)
     axios.get("/jobs")
       .then((res) => {
         setResponse(res.data)
