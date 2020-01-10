@@ -36,26 +36,32 @@ export default function UserJob(props) {
         <p>Estimate Time: {props.job.time_estimate} hours</p>
         <p>Location: {props.job.street_address}</p>
         <p>Status: {props.jobStatus(props.job)}</p>
-        <RaisedButton
-          label="Delete"
-          onClick={() => {
-            axios.put(`/myjobs`, [props.job.id])
-            // props.finished()
-            props.updateMyJobs()
-          }
-          }
-          primary={false}
-        />
-        <RaisedButton
-          label="Mark Complete"
-          onClick={() => {
-            props.markComplete(props.job.id)
-            props.updateMyJobs()
-            props.updateAllJobs()
-          }}
-          primary={true}
-          style={styles.button}
-        />
+        {
+          props.jobStatus(props.job) === "Open" || props.jobStatus(props.job) === "In Progress" ?
+            <RaisedButton
+              label="Delete"
+              onClick={() => {
+                axios.put(`/myjobs`, [props.job.id])
+                // props.finished()
+                props.updateMyJobs()
+              }
+              }
+              primary={false}
+            /> : null
+        }
+        {
+          props.jobStatus(props.job) === "Marked Complete. Awaiting User Confirmation" ?
+            <RaisedButton
+              label="Mark Complete"
+              onClick={() => {
+                props.markComplete(props.job.id)
+                props.updateMyJobs()
+                props.updateAllJobs()
+              }}
+              primary={true}
+              style={styles.button}
+            /> : null
+        }
       </Grid>
     </Paper>
   )

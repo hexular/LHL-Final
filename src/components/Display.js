@@ -86,14 +86,14 @@ export default function Display(props) {
       .catch(err => console.log("error", err));
 
     axios.get('/auth')
-    .then((response) => {
-      if (response.data.result !== "jobber") {
-        props.history.replace("/")
-        props.history.go()
-      } else {
-        setLoading(false)
-      }
-    });
+      .then((response) => {
+        if (response.data.result !== "jobber") {
+          props.history.replace("/")
+          props.history.go()
+        } else {
+          setLoading(false)
+        }
+      });
   }, [props.update, props.change])
 
 
