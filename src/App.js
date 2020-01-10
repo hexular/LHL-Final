@@ -9,6 +9,7 @@ import MyJobs from './components/MyJobs';
 import User from './components/User';
 import Info from './components/Job/Info';
 import Jobs from './components/Jobs';
+import Map from './components/Map';
 import Display from './components/Display';
 import axios from 'axios';
 import NewJobPost from './components/NewJobPost';
@@ -21,78 +22,104 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {change: true, connected: false, update: false};
+    this.state = { change: true, connected: false, update: false, long: 0, lat: 0 };
+  }
+
+  showPosition = (pos) => {
+    this.setState({long: pos.coords.longitude})
+    this.setState({lat: pos.coords.latitude})
+  }
+
+  track = () => {
+    navigator.geolocation.getCurrentPosition(this.showPosition)
   }
 
   connect = () => {
     this.ws = new WebSocket("ws://localhost:8080")
-    this.setState({connected: true})
+    this.setState({ connected: true })
   }
 
   componentDidMount() {
 
     axios.get("/auth")
-    .then((res) => {
-      console.log(res.data)
-    });
+      .then((res) => {
+        console.log(res.data)
+      });
 
     this.connect();
     this.ws.onopen = () => {
-      this.ws.send(JSON.stringify({type: 'newJob', message: 'hello'}))
+      this.ws.send(JSON.stringify({ type: 'newJob', message: 'hello' }))
     }
     this.ws.onmessage = event => {
       const message = JSON.parse(event.data)
-      if (message.type === 'update') this.setState({update: true});
+      if (message.type === 'update') this.setState({ update: true });
       console.log(message)
     }
   }
 
-  
-
   finished = () => {
-    this.setState({change: false})
+    this.setState({ change: false })
   }
 
   updateMyJobs = () => {
-    this.ws.send(JSON.stringify({type: 'update', message: 'new'}))
+    this.ws.send(JSON.stringify({ type: 'update', message: 'new' }))
   }
 
   updateAllJobs = () => {
-    this.ws.send(JSON.stringify({type: 'update', message: 'all'}))
+    this.ws.send(JSON.stringify({ type: 'update', message: 'all' }))
   }
 
-  render(){
-    return (   
-      <BrowserRouter history = { history } >
+  render() {
+    return (
+      <BrowserRouter history={history} >
         <Route path="/" component={Home} exact />
+        <Route path="/map" component={() => <Map 
+            track={this.track()}
+            long={this.state.long}
+            lat={this.state.lat}
+          />} 
+        />
         <Route path="/userlogin" component={UserLogin} />
         <Route path="/usersignup" component={UserSignup} />
         <Route path="/jobberlogin" component={JobberLogin} />
         <Route path="/jobbersignup" component={JobberSignup} />
         <Route path="/user" component={User} />
-        <Route path="/jobs" 
-          component={() => <Jobs 
+        <Route path="/jobs"
+          component={() => <Jobs
             updateAllJobs={this.updateAllJobs}
+            updateMyJobs={this.updateMyJobs}
             update={this.state.update}
             history={history}
           />} 
+
           exact />
-        <Route path="/jobs/:id" component={Display} />
+        <Route path="/jobs/:id" component={() => <Display
+          updateAllJobs={this.updateAllJobs}
+          updateMyJobs={this.updateMyJobs}
+          update={this.state.update}
+        />}
+        />
         <Route path="/info" component={Info} />
-        <Route path="/newjobpost" component={() => <NewJobPost history={history} updateMyJobs={this.updateMyJobs}/>} />
+        <Route path="/newjobpost" component={() => <NewJobPost 
+          updateMyJobs={this.updateMyJobs} 
+          updateAllJobs={this.updateAllJobs}
+          history={history}
+          />} 
+        />
         <Route path="/test" component={Appbar} />
-        <Route path="/myjobs" 
-          component={() => <MyJobs 
+        <Route path="/myjobs"
+          component={() => <MyJobs
             connect={this.connect}
-            change={this.state.change} 
+            change={this.state.change}
             connected={this.state.connected}
-            finished={this.finished} 
+            finished={this.finished}
+            updateAllJobs={this.updateAllJobs}
             updateMyJobs={this.updateMyJobs}
             update={this.state.update}
             history={history}
           />} 
         />
-      </BrowserRouter>   
+      </BrowserRouter>
     );
   }
 }

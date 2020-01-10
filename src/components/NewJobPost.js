@@ -69,6 +69,7 @@ export class NewJobPost extends Component {
         )
       case 3:
         this.props.updateMyJobs()
+        this.props.updateAllJobs()
         return (
           <Redirect to="/myjobs" />
         )

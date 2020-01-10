@@ -47,12 +47,39 @@ export default function Display(props) {
       .catch(err => console.log("error", err));
   }
 
+  const markComplete = function () {
+    axios.put(
+      `/jobs/`,
+      {
+        params: {
+          id: id,
+          markComplete: true
+        }
+      }
+    )
+      .catch(err => console.log("error", err));
+  }
+
+  const jobStatus = function (job) {
+    if (job.jobber_id === null) {
+      return "Open"
+    } else if (job.jobber_id !== null && job.jobber_confirm === false && job.user_confirm === false) {
+      return "In Progress"
+    } else if (job.jobber_confirm === true && job.user_confirm === false) {
+      return "Marked Complete. Awaiting User Confirmation"
+    } else if (job.jobber_confirm === true && job.user_confirm === true) {
+      return "Completed"
+    }
+  }
+
   useEffect(() => {
-    console.log("propss", props)
+    console.log("props", props)
     axios.get(`/jobs?id=${id}`)
       .then((res) => {
         setResponse(res.data[0])
-        console.log(res)
+        if (props.change) {
+          props.finished()
+        }
       })
       .catch(err => console.log("error", err));
 
@@ -65,7 +92,8 @@ export default function Display(props) {
         setLoading(false)
       }
     });
-  }, [])
+  }, [props.update, props.change])
+
 
   return loading ? null : (!goBack ?
     (
@@ -93,18 +121,33 @@ export default function Display(props) {
                 <Typography>Requested By: User #{response.user_id}</Typography>
                 <Typography>Address: {response.street_address}</Typography>
                 <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
+                <Typography>Status: {jobStatus(response)}</Typography>
               </Grid>
             </ExpansionPanelDetails>
           </ExpansionPanel>
           <RaisedButton
             label="Cancel"
-            onClick={() => dropJob()}
+            onClick={() => {
+              dropJob()
+              props.updateMyJobs()
+              props.updateAllJobs()
+            }}
             primary={true}
             style={styles.button}
           />
           <RaisedButton
             label="Back"
             onClick={() => setGoBack(true)}
+            primary={true}
+            style={styles.button}
+          />
+          <RaisedButton
+            label="Mark Complete"
+            onClick={() => {
+              markComplete()
+              props.updateMyJobs()
+              props.updateAllJobs()
+            }}
             primary={true}
             style={styles.button}
           />
