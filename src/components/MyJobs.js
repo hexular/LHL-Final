@@ -27,15 +27,28 @@ export default function MyJobs(props) {
   const [goBack, setGoBack] = useState(false)
   const [newJob, setNewJob] = useState(false)
   const classes = useStyles();
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    console.log("thisss", props)
     axios.get("/myjobs")
       .then(res => {
         setResponse(res.data)
         if (props.change) {
           props.finished()
-        }
-      });
+      }
+    });
+
+    axios.get('/auth')
+    .then((response) => {
+      if (response.data.result !== "user") {
+        props.history.replace("/")
+        props.history.go()
+      } else {
+        setLoading(false)
+      }
+    });
+
   }, [props.change, props.update])
 
   const markComplete = function (id) {
@@ -85,7 +98,7 @@ export default function MyJobs(props) {
   const userConfirmJobs = jobsFilter(response, "Marked Complete. Awaiting User Confirmation");
   const completeJobs = jobsFilter(response, "Completed");
 
-  return newJob ?
+  return loading ? null : (newJob ?
     <Redirect to="/newjobpost" /> :
     !goBack ?
       (response.length !== 0 ? (
@@ -133,21 +146,20 @@ export default function MyJobs(props) {
             </Grid>
           </Grid>
         </MuiThemeProvider>
-
-      ) :
-        <MuiThemeProvider>
-          <AppBar title="My Jobs #Lit-Final" />
-          <React.Fragment>
-            <p>no jobs</p>
-          </React.Fragment>
-          <RaisedButton
-            label="Back"
-            onClick={() => setGoBack(true)}
-            primary={true}
-            style={styles.button}
-          />
-        </MuiThemeProvider>) :
-      <Redirect to="/" />;
+  ) : 
+    <MuiThemeProvider>
+      <AppBar title="My Jobs #Lit-Final"/>
+      <React.Fragment>
+        <p>no jobs</p>
+      </React.Fragment>
+      <RaisedButton 
+        label="Back" 
+        onClick={() => setGoBack(true)}
+        primary={true}
+        style={styles.button}
+      />
+    </MuiThemeProvider>) :
+  <Redirect to="/" />)
 }
 
 const styles = {

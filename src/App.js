@@ -9,6 +9,7 @@ import MyJobs from './components/MyJobs';
 import User from './components/User';
 import Info from './components/Job/Info';
 import Jobs from './components/Jobs';
+import Map from './components/Map';
 import Display from './components/Display';
 import axios from 'axios';
 import NewJobPost from './components/NewJobPost';
@@ -21,7 +22,16 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { change: true, connected: false, update: false };
+    this.state = { change: true, connected: false, update: false, long: 0, lat: 0 };
+  }
+
+  showPosition = (pos) => {
+    this.setState({ long: pos.coords.longitude })
+    this.setState({ lat: pos.coords.latitude })
+  }
+
+  track = () => {
+    navigator.geolocation.getCurrentPosition(this.showPosition)
   }
 
   connect = () => {
@@ -47,8 +57,6 @@ export class App extends Component {
     }
   }
 
-
-
   finished = () => {
     this.setState({ change: false })
   }
@@ -65,6 +73,12 @@ export class App extends Component {
     return (
       <BrowserRouter history={history} >
         <Route path="/" component={Home} exact />
+        <Route path="/map" component={() => <Map
+          track={this.track()}
+          long={this.state.long}
+          lat={this.state.lat}
+        />}
+        />
         <Route path="/userlogin" component={UserLogin} />
         <Route path="/usersignup" component={UserSignup} />
         <Route path="/jobberlogin" component={JobberLogin} />
@@ -75,7 +89,9 @@ export class App extends Component {
             updateAllJobs={this.updateAllJobs}
             updateMyJobs={this.updateMyJobs}
             update={this.state.update}
+            history={history}
           />}
+
           exact />
         <Route path="/jobs/:id" component={() => <Display
           updateAllJobs={this.updateAllJobs}
@@ -87,6 +103,7 @@ export class App extends Component {
         <Route path="/newjobpost" component={() => <NewJobPost
           updateMyJobs={this.updateMyJobs}
           updateAllJobs={this.updateAllJobs}
+          history={history}
         />}
         />
         <Route path="/test" component={Appbar} />
@@ -99,6 +116,7 @@ export class App extends Component {
             updateAllJobs={this.updateAllJobs}
             updateMyJobs={this.updateMyJobs}
             update={this.state.update}
+            history={history}
           />}
         />
       </BrowserRouter>

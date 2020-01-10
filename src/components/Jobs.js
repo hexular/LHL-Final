@@ -32,6 +32,7 @@ export default function Jobs(props) {
   const [response, setResponse] = useState([])
   const [goBack, setGoBack] = useState(false)
   const [accepted, setAccepted] = useState(false);
+  const [loading, setLoading] = useState(true)
 
   const acceptJob = function (jobId) {
     console.log(jobId)
@@ -55,11 +56,22 @@ export default function Jobs(props) {
   }
 
   useEffect(() => {
+    console.log(props)
     axios.get("/jobs")
       .then((res) => {
         setResponse(res.data)
         if (props.change) {
           props.finished()
+        }
+      });
+
+    axios.get('/auth')
+      .then((response) => {
+        if (response.data.result !== "jobber") {
+          props.history.replace("/")
+          props.history.go()
+        } else {
+          setLoading(false)
         }
       });
   }, [props.update, props.change])
@@ -83,7 +95,9 @@ export default function Jobs(props) {
     )
   })
 
-  if (goBack) {
+  if (loading) {
+    return null
+  } else if (goBack) {
     return <Redirect to="/" />
   } else if (accepted) {
     console.log("TRYING TO REDIRECT TO ", accepted)
