@@ -26,8 +26,8 @@ export class App extends Component {
   }
 
   showPosition = (pos) => {
-    this.setState({long: pos.coords.longitude})
-    this.setState({lat: pos.coords.latitude})
+    this.setState({ long: pos.coords.longitude })
+    this.setState({ lat: pos.coords.latitude })
   }
 
   track = () => {
@@ -53,7 +53,7 @@ export class App extends Component {
     this.ws.onmessage = event => {
       const message = JSON.parse(event.data)
       if (message.type === 'update') this.setState({ update: true });
-      console.log(message)
+      // console.log(message)
     }
   }
 
@@ -73,11 +73,11 @@ export class App extends Component {
     return (
       <BrowserRouter history={history} >
         <Route path="/" component={Home} exact />
-        <Route path="/map" component={() => <Map 
-            track={this.track()}
-            long={this.state.long}
-            lat={this.state.lat}
-          />} 
+        <Route path="/map" component={() => <Map
+          track={this.track()}
+          long={this.state.long}
+          lat={this.state.lat}
+        />}
         />
         <Route path="/userlogin" component={UserLogin} />
         <Route path="/usersignup" component={UserSignup} />
@@ -90,7 +90,7 @@ export class App extends Component {
             updateMyJobs={this.updateMyJobs}
             update={this.state.update}
             history={history}
-          />} 
+          />}
 
           exact />
         <Route path="/jobs/:id" component={() => <Display
@@ -101,11 +101,11 @@ export class App extends Component {
         />}
         />
         <Route path="/info" component={Info} />
-        <Route path="/newjobpost" component={() => <NewJobPost 
-          updateMyJobs={this.updateMyJobs} 
+        <Route path="/newjobpost" component={() => <NewJobPost
+          updateMyJobs={this.updateMyJobs}
           updateAllJobs={this.updateAllJobs}
           history={history}
-          />} 
+        />}
         />
         <Route path="/test" component={Appbar} />
         <Route path="/myjobs"
@@ -118,7 +118,7 @@ export class App extends Component {
             updateMyJobs={this.updateMyJobs}
             update={this.state.update}
             history={history}
-          />} 
+          />}
         />
       </BrowserRouter>
     );

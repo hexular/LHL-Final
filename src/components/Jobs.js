@@ -31,28 +31,51 @@ export default function Jobs(props) {
   const classes = useStyles();
   const [response, setResponse] = useState([])
   const [goBack, setGoBack] = useState(false)
+  const [accepted, setAccepted] = useState(false);
   const [loading, setLoading] = useState(true)
 
+  const acceptJob = function (jobId) {
+    console.log(jobId)
+    axios.put(
+      `/jobs/`,
+      {
+        params: {
+          id: jobId,
+          dropJob: false,
+        }
+      }
+    )
+      .then(
+        (res) => {
+          console.log("HERE", jobId)
+          setAccepted(jobId);
+          props.updateMyJobs();
+          props.updateAllJobs();
+
+        }
+      )
+      .catch(err => console.log(err))
+  }
+
   useEffect(() => {
-    console.log(props)
+    console.log("~~~~~~~~~ACCEPTED: ", accepted)
     axios.get("/jobs")
       .then((res) => {
         setResponse(res.data)
         if (props.change) {
           props.finished()
         }
-        console.log(res.data)
       });
-    
+
     axios.get('/auth')
-    .then((response) => {
-      if (response.data.result !== "jobber") {
-        props.history.replace("/")
-        props.history.go()
-      } else {
-        setLoading(false)
-      }
-    });
+      .then((response) => {
+        if (response.data.result !== "jobber") {
+          props.history.replace("/")
+          props.history.go()
+        } else {
+          setLoading(false)
+        }
+      });
   }, [props.update, props.change])
 
   const jobs = response
@@ -69,26 +92,36 @@ export default function Jobs(props) {
         timeEstimate={job.time_estimate}
         description={job.description}
         updateAllJobs={props.updateAllJobs}
-        updateMyJobs={props.updateMyJobs} />
+        updateMyJobs={props.updateMyJobs}
+        acceptJob={(id) => acceptJob(id)} />
     )
   })
 
-  return loading ? null : (!goBack ? (
-    <MuiThemeProvider>
-      <AppBar title="Open Jobs" user={true} />
-      <React.Fragment>
-        {openJobs}
+  if (loading) {
+    return null
+  } else if (goBack) {
+    return <Redirect to="/" />
+  } else if (accepted) {
+    console.log("TRYING TO REDIRECT TO ", accepted)
+    return <Redirect to={`/jobs/${accepted}`} />
+  } else {
+    return (
+      <MuiThemeProvider>
+        <AppBar title="Open Jobs" user={true} />
+        <React.Fragment>
+          {openJobs}
 
-        <RaisedButton
-          label="Back"
-          onClick={() => setGoBack(true)}
-          primary={true}
-          style={styles.button}
-        />
-      </React.Fragment>
-    </MuiThemeProvider>
-  ) :
-  <Redirect to="/" />)
+          <RaisedButton
+            label="Back"
+            onClick={() => setGoBack(true)}
+            primary={true}
+            style={styles.button}
+          />
+        </React.Fragment>
+      </MuiThemeProvider>
+    )
+  }
+
 }
 
 const styles = {

@@ -61,7 +61,9 @@ export default function Display(props) {
   }
 
   const jobStatus = function (job) {
-    if (job.jobber_id === null) {
+    if (job.is_deleted) {
+      return "Deleted"
+    } else if (job.jobber_id === null) {
       return "Open"
     } else if (job.jobber_id !== null && job.jobber_confirm === false && job.user_confirm === false) {
       return "In Progress"
