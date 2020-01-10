@@ -1,13 +1,36 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import AppBar from './Appbar';
 import RaisedButton from 'material-ui/RaisedButton';
+import axios from 'axios';
 
 export class User extends Component {
+  constructor (props){
+    super(props);
+    this.state = {
+      loading: true
+    }
+  }
+  componentDidMount() {
+    axios.get('/auth')
+    .then((response) => {
+      console.log(response)
+      if (response.data.result !== "user") {
+        console.log(true)
+        this.props.history.replace("/")
+      } else {
+        this.setState({
+          loading: false
+        })
+      }
+    });
+  }
+
   render(){
-    return (
+    return this.state.loading ? null 
+    : (
       <MuiThemeProvider>
-      <AppBar title="Job Info #Lit-Final"/>
+      <AppBar title="Job Info #Lit-Final" user={true}/>
       <React.Fragment>
         <p>profile goes here</p>
         <RaisedButton 

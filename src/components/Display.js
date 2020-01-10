@@ -28,6 +28,7 @@ export default function Display(props) {
   const classes = useStyles();
   const [goBack, setGoBack] = useState(false)
   const [response, setResponse] = useState([]);
+  const [loading, setLoading] = useState(true)
   const { id } = useParams();
 
   const dropJob = function () {
@@ -72,6 +73,7 @@ export default function Display(props) {
   }
 
   useEffect(() => {
+    console.log("props", props)
     axios.get(`/jobs?id=${id}`)
       .then((res) => {
         setResponse(res.data[0])
@@ -80,9 +82,20 @@ export default function Display(props) {
         }
       })
       .catch(err => console.log("error", err));
+
+    axios.get('/auth')
+    .then((response) => {
+      if (response.data.result !== "jobber") {
+        props.history.replace("/")
+        props.history.go()
+      } else {
+        setLoading(false)
+      }
+    });
   }, [props.update, props.change])
 
-  return !goBack ?
+
+  return loading ? null : (!goBack ?
     (
       <MuiThemeProvider>
         <React.Fragment>
@@ -141,7 +154,7 @@ export default function Display(props) {
         </React.Fragment>
       </MuiThemeProvider>
     )
-    : <Redirect to="/jobs" />;
+    : <Redirect to="/jobs" />)
 }
 
 const styles = {

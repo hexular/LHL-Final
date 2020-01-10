@@ -11,16 +11,30 @@ import axios from 'axios';
 export class JobDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = { skills: [] }
+    this.state = { skills: [], loading: true }
   }
 
   componentDidMount() {
+    axios.get('/auth')
+    .then((response) => {
+      console.log(response)
+      if (response.data.result !== "user") {
+        console.log("thissss", this)
+        this.props.browser.replace('/')
+        this.props.browser.go();
+      } else {
+        this.setState({
+          loading: false
+        })
+      }
+    });
+    if (!this.state.loading){
     axios.get("/skills")
       .then((response) => {
         console.log(response);
         this.setState({ skills: response.data });
       })
-      .catch(e => console.log(e));
+      .catch(e => console.log(e));}
   }
 
   continue = e => {
@@ -69,8 +83,9 @@ export class JobDetails extends Component {
 
   render() {
     const { values, handleChange, browser } = this.props;
-
-    return (
+    //console.log("this yo", this)
+    
+    return this.state.loading ? null : (
       <MuiThemeProvider>
         <React.Fragment>
           <AppBar title="Enter Job Details" user={true} />

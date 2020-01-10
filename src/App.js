@@ -89,7 +89,9 @@ export class App extends Component {
             updateAllJobs={this.updateAllJobs}
             updateMyJobs={this.updateMyJobs}
             update={this.state.update}
-          />}
+            history={history}
+          />} 
+
           exact />
         <Route path="/jobs/:id" component={() => <Display
           updateAllJobs={this.updateAllJobs}
@@ -101,6 +103,7 @@ export class App extends Component {
         <Route path="/newjobpost" component={() => <NewJobPost 
           updateMyJobs={this.updateMyJobs} 
           updateAllJobs={this.updateAllJobs}
+          history={history}
           />} 
         />
         <Route path="/test" component={Appbar} />
@@ -113,7 +116,8 @@ export class App extends Component {
             updateAllJobs={this.updateAllJobs}
             updateMyJobs={this.updateMyJobs}
             update={this.state.update}
-          />}
+            history={history}
+          />} 
         />
       </BrowserRouter>
     );
