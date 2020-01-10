@@ -59,7 +59,7 @@ export default function Jobs(props) {
 
   useEffect(() => {
     console.log("~~~~~~~~~ACCEPTED: ", accepted)
-    axios.get("/jobs")
+    axios.get("/jobs", {withCredentials: true})
       .then((res) => {
         setResponse(res.data)
         if (props.change) {
