@@ -46,7 +46,7 @@ export default function UserLogin(props) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {    
-    axios.get('/auth')
+    axios.get('/auth', {withCredentials: true})
     .then((response) => {
       if (response.data.result === "user") {
         props.history.replace("/user")
