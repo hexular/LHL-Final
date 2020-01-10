@@ -127,32 +127,38 @@ export default function Display(props) {
               </Grid>
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <RaisedButton
-            label="Cancel"
-            onClick={() => {
-              dropJob()
-              props.updateMyJobs()
-              props.updateAllJobs()
-            }}
-            primary={true}
-            style={styles.button}
-          />
+          {
+            jobStatus(response) === "In Progress" ?
+              <RaisedButton
+                label="Cancel"
+                onClick={() => {
+                  dropJob()
+                  props.updateMyJobs()
+                  props.updateAllJobs()
+                }}
+                primary={true}
+                style={styles.button}
+              /> : null
+          }
           <RaisedButton
             label="Back"
             onClick={() => setGoBack(true)}
             primary={true}
             style={styles.button}
           />
-          <RaisedButton
-            label="Mark Complete"
-            onClick={() => {
-              markComplete()
-              props.updateMyJobs()
-              props.updateAllJobs()
-            }}
-            primary={true}
-            style={styles.button}
-          />
+          {
+            jobStatus(response) === "In Progress" ?
+              <RaisedButton
+                label="Mark Complete"
+                onClick={() => {
+                  markComplete()
+                  props.updateMyJobs()
+                  props.updateAllJobs()
+                }}
+                primary={true}
+                style={styles.button}
+              /> : null
+          }
         </React.Fragment>
       </MuiThemeProvider>
     )
