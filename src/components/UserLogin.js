@@ -16,6 +16,7 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 
+axios.defaults.withCredentials = true
 
 const useStyles = makeStyles(theme => ({
   paper: {
