@@ -61,7 +61,8 @@ export default function UserLogin(props) {
   const submit = () => {
     const loginInfo = {
       email: email.trim().toLowerCase(),
-      password: password
+      password: password,
+      withCredentials: true
     }
     console.log("DEPLOY PLZZZZZ")
     axios.post('/auth/login', loginInfo)
