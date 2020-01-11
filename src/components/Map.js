@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Redirect } from 'react-router';
 import axios from 'axios';
 
 // const geocoder = new google.maps.Geocoder();
@@ -77,19 +81,31 @@ class SimpleMap extends Component {
      const openJobs = this.state.response.map(job => {
       return (
         <div
-          lat={44.123}
-          lng={-80.112}
+          lat={job.lat}
+          lng={job.long}
           text={job.service_type}
         > 
           {job.service_type}
         </div>
       )
     });
+
+
+    const styles = {
+      button: {
+        margin: 15
+      }
+    }
   
     console.log(this.props.long)
     console.log(this.props.lat)
-    return (
+    return this.state.goBack ? 
+      <Redirect to={'/jobs'} /> :
+    (
       // Important! Always set the container height explicitly
+      <MuiThemeProvider>
+      
+        <AppBar title="Main Portal #Lit-Final" user={true}/>
       <div style={{ height: '70vh', width: '80%' }}>
         <GoogleMapReact
           // add key here for deployment
@@ -99,6 +115,13 @@ class SimpleMap extends Component {
           {openJobs}
         </GoogleMapReact>
       </div>
+      <RaisedButton
+            label="Back"
+            onClick={() => this.setState({goBack: true})}
+            primary={true}
+            style={styles.button}
+          />
+      </MuiThemeProvider>
     );
   }
 }

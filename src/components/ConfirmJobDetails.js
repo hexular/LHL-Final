@@ -47,7 +47,6 @@ export class ConfirmJobDetails extends Component {
       if (status === "success") {
         getCoords(values.postalCode.split(" ").join(""), values)
         .then(() => {
-          
           axios.post('/myjobs', values)
         })
         
