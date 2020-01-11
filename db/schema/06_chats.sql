@@ -1,8 +1,0 @@
-DROP TABLE IF EXISTS chats CASCADE;
-
-CREATE TABLE chats (
-  id SERIAL PRIMARY KEY NOT NULL,
-  user_id  INTEGER REFERENCES users(id),
-  jobber_id INTEGER REFERENCES jobbers(id),
-  job_id INTEGER REFERENCES jobs(id),
-)

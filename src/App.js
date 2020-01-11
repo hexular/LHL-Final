@@ -7,7 +7,6 @@ import JobberLogin from './components/JobberLogin';
 import JobberSignup from './components/JobberSignup';
 import MyJobs from './components/MyJobs';
 import User from './components/User';
-import Info from './components/Job/Info';
 import Jobs from './components/Jobs';
 import Map from './components/Map';
 import Display from './components/Display';
@@ -106,7 +105,6 @@ export class App extends Component {
           history={history}
         />}
         />
-        <Route path="/info" component={Info} />
         <Route path="/newjobpost" component={() => <NewJobPost
           updateMyJobs={this.updateMyJobs}
           updateAllJobs={this.updateAllJobs}
