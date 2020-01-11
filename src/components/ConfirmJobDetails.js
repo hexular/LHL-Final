@@ -8,7 +8,7 @@ import axios from 'axios';
 
 
 const getCoords = async (postcode, value) => {
-  const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=AIzaSyA0FZO0N4sb2MrGhmSgv8WD872-D9-lmnE`)
+  const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=AIzaSyBQ1NimXDA1tP00n1hqmk3RDjM7vINTM78`)
   const jsonRes = await res.data.results[0]
   console.log('getcoords', jsonRes.geometry.location)
   value.coords = jsonRes.geometry.location
