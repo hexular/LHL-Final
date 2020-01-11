@@ -39,7 +39,7 @@ export class ConfirmJobDetails extends Component {
       const { status } = response.data;
       console.log("Response:", response.data);
       if (status === "success") {
-        axios.post('/myjobs', values)
+        axios.post('/myjobs', values, {withCredentials: true})
         
         alert("Success");
         console.log(jobDetail);
