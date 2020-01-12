@@ -108,6 +108,8 @@ export default function Jobs(props) {
         hourlyRate={job.hourly_rate}
         timeEstimate={job.time_estimate}
         description={job.description}
+        distance={job.distance}
+        time={job.time}
         updateAllJobs={props.updateAllJobs}
         updateMyJobs={props.updateMyJobs}
         acceptJob={(id) => acceptJob(id)} />
