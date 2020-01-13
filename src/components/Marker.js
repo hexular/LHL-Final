@@ -57,7 +57,7 @@ class Marker extends Component {
     let linkStyle;
     let content;
    if (!this.state.hover) {
-    linkStyle = this.regular
+    // linkStyle = this.regular
     switch(this.props.text) {
       case 'Lawn Mow':
         content = <FaPeopleCarry className={this.antiRotate}/>
@@ -74,7 +74,7 @@ class Marker extends Component {
     }
     
    } else {
-     linkStyle = this.onHover
+    //  linkStyle = this.onHover
      content = 
      <div className={this.antiRotate}>
        {this.props.text}
@@ -87,7 +87,7 @@ class Marker extends Component {
    }
 	return(
     <div 
-    className={this.marker}
+    // className={this.marker}
       className={this.markerClass}
       style={linkStyle} 
       onMouseEnter={() => this.toggleHover()} 

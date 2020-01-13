@@ -90,7 +90,7 @@ class SimpleMap extends Component {
       <MuiThemeProvider>
       
         <AppBar title="Main Portal #Lit-Final" user={true}/>
-      <div style={{ height: '70vh', width: '80%' }}>
+      <div style={{ height: '70vh', width: '100%' }}>
         <GoogleMapReact
           // add key here for deployment
           defaultCenter={{lat: this.props.lat, lng: this.props.long}}
