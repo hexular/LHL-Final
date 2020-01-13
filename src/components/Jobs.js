@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Open from './Open'
 import AppBar from './Appbar';
+import Loading from './Loading';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -128,7 +129,8 @@ export default function Jobs(props) {
       <MuiThemeProvider>
         <AppBar title="Open Jobs" user={true} />
         <React.Fragment>
-          {openJobs}
+          {openJobs.length === 0 ? <Loading /> : openJobs}
+          {/* {openJobs} */}
 
           <RaisedButton
             label="Back"
