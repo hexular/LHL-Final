@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Open from './Open'
 import AppBar from './Appbar';
+import Loading from './Loading';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import { getGeoCoordinates } from '../helpers/getLocation'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -35,6 +37,21 @@ export default function Jobs(props) {
   const [map, setMap] = useState(false);
   const [loading, setLoading] = useState(true)
 
+  const fetchJobWithCoords = async function () {
+    try {
+      const { latitude: lat, longitude: lng } = await getGeoCoordinates({ latitude: 23.644272, longitude: -59.402242 });
+      axios.get(`/jobs?lat=${lat}&lng=${lng}`)
+        .then((res) => {
+          setResponse(res.data)
+          if (props.change) {
+            props.finished()
+          }
+        });
+    } catch (err) {
+      console.log("Failed to retrieve location data. Distance mapping unavailable. Error: ", err)
+    }
+  }
+
   const acceptJob = function (jobId) {
     console.log(jobId)
     axios.put(
@@ -48,7 +65,6 @@ export default function Jobs(props) {
     )
       .then(
         (res) => {
-          console.log("HERE", jobId)
           setAccepted(jobId);
           props.updateMyJobs();
           props.updateAllJobs();
@@ -59,14 +75,16 @@ export default function Jobs(props) {
   }
 
   useEffect(() => {
-    console.log("~~~~~~~~~ACCEPTED: ", accepted)
-    axios.get("/jobs")
-      .then((res) => {
-        setResponse(res.data)
-        if (props.change) {
-          props.finished()
-        }
-      });
+    fetchJobWithCoords();
+
+
+    // axios.get(`/jobs?lat=${lat}&long=${lng}`)
+    //   .then((res) => {
+    //     setResponse(res.data)
+    //     if (props.change) {
+    //       props.finished()
+    //     }
+    //   });
 
     axios.get('/auth')
       .then((response) => {
@@ -92,6 +110,8 @@ export default function Jobs(props) {
         hourlyRate={job.hourly_rate}
         timeEstimate={job.time_estimate}
         description={job.description}
+        distance={job.distance}
+        time={job.time}
         updateAllJobs={props.updateAllJobs}
         updateMyJobs={props.updateMyJobs}
         acceptJob={(id) => acceptJob(id)} />
@@ -111,9 +131,7 @@ export default function Jobs(props) {
     return (
       <MuiThemeProvider>
         <AppBar title="Open Jobs" user={true} />
-        <React.Fragment>
-          {openJobs}
-
+          {openJobs.length === 0 ? <Loading /> : openJobs}
           <RaisedButton
             label="Back"
             onClick={() => setGoBack(true)}
@@ -126,7 +144,6 @@ export default function Jobs(props) {
             primary={true}
             style={styles.button}
           />
-        </React.Fragment>
       </MuiThemeProvider>
     )
   }
