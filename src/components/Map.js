@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Redirect } from 'react-router';
 import axios from 'axios';
 import Marker from './Marker';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class SimpleMap extends Component {
   
