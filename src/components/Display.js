@@ -39,7 +39,7 @@ export default function Display(props) {
           id: id,
           dropJob: true
         }
-      }
+      }, {withCredentials: true}
     )
       .then(() => {
         setGoBack(true)
@@ -55,7 +55,7 @@ export default function Display(props) {
           id: id,
           markComplete: true
         }
-      }
+      }, {withCredentials: true}
     )
       .catch(err => console.log("error", err));
   }
@@ -76,7 +76,7 @@ export default function Display(props) {
 
   useEffect(() => {
     console.log("props", props)
-    axios.get(`/jobs?id=${id}`)
+    axios.get(`/jobs?id=${id}`, {withCredentials: true})
       .then((res) => {
         setResponse(res.data[0])
         if (props.change) {
@@ -85,7 +85,7 @@ export default function Display(props) {
       })
       .catch(err => console.log("error", err));
 
-    axios.get('/auth')
+    axios.get('/auth', {withCredentials: true})
       .then((response) => {
         if (response.data.result !== "jobber") {
           props.history.replace("/")

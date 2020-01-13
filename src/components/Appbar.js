@@ -11,7 +11,7 @@ export default function Appbar(props) {
   const [homePage, setHomePage] = useState(false);
 
   const logout = () => {
-    axios.post('/auth/logout')
+    axios.post('/auth/logout', null, {withCredentials: true})
       .then((response) => {
         alert(response.data.message);
         setHomePage(true);

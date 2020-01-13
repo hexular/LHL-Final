@@ -44,17 +44,18 @@ export default function JobberLogin(props) {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    axios.get('/auth')
-      .then((response) => {
-        if (response.data.result === "jobber") {
-          props.history.replace("/jobs")
-        } else if (response.data.result === "user") {
-          props.history.replace("/user")
-        } else {
-          setLoading(false)
-        }
-      });
+  useEffect(() => {    
+    axios.get('/auth', {withCredentials: true})
+    .then((response) => {
+      if (response.data.result === "jobber") {
+        props.history.replace("/jobs")
+      } else if (response.data.result === "user") {
+        props.history.replace("/user")
+      } else {
+        setLoading(false)
+      }
+    });
+
   }, [])
 
   const submit = () => {
@@ -63,7 +64,7 @@ export default function JobberLogin(props) {
       email: email.trim().toLowerCase(),
       password: password
     }
-    axios.post('/auth/login', loginInfo)
+    axios.post('/auth/login', loginInfo, {withCredentials: true})
       .then(function (response) {
         if (response.data.result) {
           setSubmitted(true)

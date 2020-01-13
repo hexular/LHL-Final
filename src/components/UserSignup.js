@@ -49,7 +49,7 @@ export default function UserSignup(props) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {    
-    axios.get('/auth')
+    axios.get('/auth', {withCredentials: true})
     .then((response) => {
       if (response.data.result === "user") {
         props.history.replace("/user")
@@ -78,7 +78,7 @@ export default function UserSignup(props) {
         phone: phone.trim()
       }
 
-      axios.post('/auth/signup', newUserInfo)
+      axios.post('/auth/signup', newUserInfo, {withCredentials: true})
         .then(function (response) {
           console.log(response)
           if (response.data.result) {
