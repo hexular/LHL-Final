@@ -7,7 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
-import { getGeoCoordinates } from '../helpers/getLocation'
+//import { getGeoCoordinates } from '../helpers/getLocation'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -37,20 +37,64 @@ export default function Jobs(props) {
   const [map, setMap] = useState(false);
   const [loading, setLoading] = useState(true)
 
-  const fetchJobWithCoords = async function () {
-    try {
-      const { latitude: lat, longitude: lng } = await getGeoCoordinates({ latitude: 23.644272, longitude: -59.402242 });
-      axios.get(`/jobs?lat=${lat}&lng=${lng}`, {withCredentials: true})
+  const getGeoCoordinates = (defaultCoords) => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) return resolve(defaultCoords);
+      navigator.geolocation.getCurrentPosition(
+        (position) =>
+          resolve({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }),
+        (error) => resolve(defaultCoords),
+        {
+          enableHighAccuracy: true,
+          maximumAge: 30000,
+          timeout: 30000
+        }
+      );
+    });
+  };
+
+  const fetchJobWithCoords = () => {
+    const defaultCoords = { latitude: 43.644272, longitude: -79.402242 };
+    if (!navigator.geolocation) return defaultCoords;
+    else {
+      navigator.geolocation.getCurrentPosition((result) => {
+        const lat = result.coords.latitude;
+        const lon = result.coords.longitude;
+        axios.get(`/jobs?lat=${lat}&lng=${lon}`, {withCredentials: true})
         .then((res) => {
           setResponse(res.data)
           if (props.change) {
             props.finished()
           }
-        });
-    } catch (err) {
-      console.log("Failed to retrieve location data. Distance mapping unavailable. Error: ", err)
+        })
+      })
     }
   }
+
+  // const fetchJobWithCoords = async function () {
+  //   try {
+  //     const { latitude: lat, longitude: lng } = await getGeoCoordinates({ latitude: 43.644272, longitude: -79.402242 });
+      
+  //     console.log("From Jobs.js - fetchJobWithCoords: ", lat, lng)
+  //     if (lat) {
+  //       console.log("CALLED")
+  //       axios.get(`/jobs?lat=${lat}&lng=${lng}`, {withCredentials: true})
+  //       .then((res) => {
+  //         setResponse(res.data)
+  //         if (props.change) {
+  //           props.finished()
+  //         }
+  //       });
+  //     }
+  //   } catch (err) {
+  //     console.log("Failed to retrieve location data. Distance mapping unavailable. Error: ", err)
+  //   }
+  // }
+
+  
 
   const acceptJob = function (jobId) {
     console.log(jobId)
@@ -81,10 +125,9 @@ export default function Jobs(props) {
         setResponse(res.data)
         if (props.change) {
           props.finished()
+          
         }
       });
-
-    fetchJobWithCoords();
 
     axios.get('/auth', {withCredentials: true})
       .then((response) => {
@@ -93,6 +136,7 @@ export default function Jobs(props) {
           props.history.go()
         } else {
           setLoading(false)
+          fetchJobWithCoords();
         }
       });
   }, [props.update, props.change])
