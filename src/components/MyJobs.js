@@ -36,18 +36,18 @@ export default function MyJobs(props) {
         setResponse(res.data)
         if (props.change) {
           props.finished()
-      }
-    });
+        }
+      });
 
     axios.get('/auth')
-    .then((response) => {
-      if (response.data.result !== "user") {
-        props.history.replace("/")
-        props.history.go()
-      } else {
-        setLoading(false)
-      }
-    });
+      .then((response) => {
+        if (response.data.result !== "user") {
+          props.history.replace("/")
+          props.history.go()
+        } else {
+          setLoading(false)
+        }
+      });
 
   }, [props.change, props.update])
 
@@ -146,20 +146,20 @@ export default function MyJobs(props) {
             </Grid>
           </Grid>
         </MuiThemeProvider>
-  ) : 
-    <MuiThemeProvider>
-      <AppBar title="My Jobs #Lit-Final"/>
-      <React.Fragment>
-        <p>no jobs</p>
-      </React.Fragment>
-      <RaisedButton 
-        label="Back" 
-        onClick={() => setGoBack(true)}
-        primary={true}
-        style={styles.button}
-      />
-    </MuiThemeProvider>) :
-  <Redirect to="/" />)
+      ) :
+        <MuiThemeProvider>
+          <AppBar title="My Jobs #Lit-Final" />
+          <React.Fragment>
+            <p>no jobs</p>
+          </React.Fragment>
+          <RaisedButton
+            label="Back"
+            onClick={() => setGoBack(true)}
+            primary={true}
+            style={styles.button}
+          />
+        </MuiThemeProvider>) :
+      <Redirect to="/" />)
 }
 
 const styles = {
