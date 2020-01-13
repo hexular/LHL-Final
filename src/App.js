@@ -26,8 +26,7 @@ export class App extends Component {
   }
 
   showPosition = (pos) => {
-    this.setState({ long: pos.coords.longitude })
-    this.setState({ lat: pos.coords.latitude })
+    this.setState({ long: pos.coords.longitude, lat: pos.coords.latitude  })
   }
 
   track = () => {
@@ -77,6 +76,9 @@ export class App extends Component {
           track={this.track()}
           long={this.state.long}
           lat={this.state.lat}
+          updateAllJobs={this.updateAllJobs}
+          update={this.state.update}
+          history={history}
         />}
         />
         <Route path="/userlogin" component={UserLogin} />
@@ -103,6 +105,11 @@ export class App extends Component {
         <Route path="/newjobpost" component={() => <NewJobPost
           updateMyJobs={this.updateMyJobs}
           updateAllJobs={this.updateAllJobs}
+          finished={this.finished}
+          connect={this.connect}
+          change={this.state.change}
+          connected={this.state.connected}
+          update={this.state.update}
           history={history}
         />}
         />

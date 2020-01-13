@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import JobDetails from './JobDetails'
 import ConfirmJobDetails from './ConfirmJobDetails'
+import MyJobs from './MyJobs'
 import Display from './Display'
 import { Redirect } from 'react-router';
 import axios from 'axios'
@@ -70,8 +71,21 @@ export class NewJobPost extends Component {
       case 3:
         this.props.updateMyJobs()
         this.props.updateAllJobs()
+        setTimeout(() => {
+          this.props.updateAllJobs()
+          this.props.updateMyJobs()
+        }, 1000)
         return (
-          <Redirect to="/myjobs" />
+          <Redirect to="/myjobs"
+            connect={true}
+            change={this.props.change}
+            connected={this.props.connected}
+            finished={this.props.finished}
+            updateAllJobs={this.props.updateAllJobs}
+            updateMyJobs={this.props.updateMyJobs}
+            update={this.props.update}
+            // history={this.props.history}
+          />
         )
       default:
         return <h1>hmm something went wrong</h1>

@@ -102,8 +102,6 @@ export default function Display(props) {
       <MuiThemeProvider>
         <React.Fragment>
           <AppBar title="Job Info #Lit-Final" user={true} />
-          <Button name="message icon"></Button>
-          <Button name="navbar icon"></Button>
           <ExpansionPanel>
             <ExpansionPanelSummary
               expandIcon={<ExpandMoreIcon />}
@@ -120,7 +118,7 @@ export default function Display(props) {
                 alignItems="flex-start"
               >
                 <Typography>Description: {response.description}</Typography>
-                <Typography>Requested By: User #{response.user_id}</Typography>
+                <Typography>Requested By: {response.name}</Typography>
                 <Typography>Address: {response.street_address}</Typography>
                 <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
                 <Typography>Status: {jobStatus(response)}</Typography>
