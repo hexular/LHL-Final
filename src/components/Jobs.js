@@ -121,7 +121,7 @@ export default function Jobs(props) {
   if (loading) {
     return null
   } else if (goHistory) {
-    return <Redirect to="/" />
+    return <Redirect to="/history" />
   } else if (accepted) {
     console.log("TRYING TO REDIRECT TO ", accepted)
     return <Redirect to={`/jobs/${accepted}`} />

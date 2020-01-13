@@ -96,7 +96,7 @@ export default function MyJobs(props) {
   const openJobs = jobsFilter(response, "Open");
   const progressJobs = jobsFilter(response, "In Progress");
   const userConfirmJobs = jobsFilter(response, "Marked Complete. Awaiting User Confirmation");
-  const completeJobs = jobsFilter(response, "Completed");
+  // const completeJobs = jobsFilter(response, "Completed");
 
   return loading ? null : (newJob ?
     <Redirect to="/newjobpost" /> :
@@ -125,10 +125,10 @@ export default function MyJobs(props) {
               Jobs Awaiting User Confirmation
             </Typography>
             {userConfirmJobs.length ? userConfirmJobs : <Typography>None</Typography>}
-            <Typography className={classes.heading}>
+            {/* <Typography className={classes.heading}>
               Completed Jobs
             </Typography>
-            {completeJobs.length ? completeJobs : <Typography>None</Typography>}
+            {completeJobs.length ? completeJobs : <Typography>None</Typography>} */}
             <Grid container direction="row" justify="center" alignItems="center">
               <RaisedButton
                 label="Back"

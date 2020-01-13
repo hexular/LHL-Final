@@ -10,6 +10,7 @@ import User from './components/User';
 import Jobs from './components/Jobs';
 import Map from './components/Map';
 import Display from './components/Display';
+import JobHistory from './components/JobHistory';
 import axios from 'axios';
 import NewJobPost from './components/NewJobPost';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -26,7 +27,7 @@ export class App extends Component {
   }
 
   showPosition = (pos) => {
-    this.setState({ long: pos.coords.longitude, lat: pos.coords.latitude  })
+    this.setState({ long: pos.coords.longitude, lat: pos.coords.latitude })
   }
 
   track = () => {
@@ -126,6 +127,15 @@ export class App extends Component {
             history={history}
           />}
         />
+        <Route path="/history"
+          component={() => <JobHistory
+            updateAllJobs={this.updateAllJobs}
+            updateMyJobs={this.updateMyJobs}
+            change={this.state.change}
+            history={history}
+          />}
+
+          exact />
       </BrowserRouter>
     );
   }
