@@ -20,8 +20,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Open({ jobId, serviceType, userName, streetAddress, hourlyRate, timeEstimate, description, acceptJob, updateMyJobs, updateAllJobs }) {
-  // TODO: Implement distance calculating here?
+
+export default function Open({ jobId, serviceType, userName, streetAddress, hourlyRate, timeEstimate, description, acceptJob, distance, time, updateMyJobs, updateAllJobs }) {
 
   const classes = useStyles()
 
@@ -32,8 +32,29 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography className={classes.heading}>{serviceType}</Typography>
-      </ExpansionPanelSummary>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="flex-start"
+        >
+          <Grid item xs={4}>
+            <Typography className={classes.heading}>
+              {serviceType}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography className={classes.heading}>
+              Distance: {distance}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography className={classes.heading}>
+              Travel Time: {time}
+            </Typography>
+          </Grid>
+        </Grid>
+      </ExpansionPanelSummary >
       <ExpansionPanelDetails>
         <Grid
           container
@@ -60,7 +81,7 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
           </Button>
         </Grid>
       </ExpansionPanelDetails>
-    </ExpansionPanel>
+    </ExpansionPanel >
   )
 }
 
