@@ -128,17 +128,13 @@ export default function Jobs(props) {
     return (
       <MuiThemeProvider>
         <AppBar title="Open Jobs" user={true} />
-        <React.Fragment>
-          {openJobs.length === 0 ? <Loading /> : openJobs}
-          {/* {openJobs} */}
-
-          <RaisedButton
-            label="Back"
-            onClick={() => setGoBack(true)}
-            primary={true}
-            style={styles.button}
-          />
-        </React.Fragment>
+        {openJobs.length === 0 ? <Loading /> : openJobs}
+        <RaisedButton
+          label="Back"
+          onClick={() => setGoBack(true)}
+          primary={true}
+          style={styles.button}
+        />
       </MuiThemeProvider>
     )
   }
