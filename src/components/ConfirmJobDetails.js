@@ -5,8 +5,7 @@ import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
-import keys from '../var.js';
-// import stripe_key from '../var.js';
+
 
 
 // const getCoords = async (postcode, value) => {
@@ -101,7 +100,7 @@ export class ConfirmJobDetails extends Component {
             onClick={this.continue}
           />
           <StripeCheckout
-            stripeKey={keys.STRIPE_KEY}
+            stripeKey={"pk_test_QEftqbWZl6SLY8KvZULv7CXc005D5SWunq"}
             token={handleToken}
             amount={values.requiredTime * values.payRate * 100}
             name={values.serviceType}
