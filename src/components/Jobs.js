@@ -34,6 +34,7 @@ export default function Jobs(props) {
   const [response, setResponse] = useState([])
   const [goBack, setGoBack] = useState(false)
   const [accepted, setAccepted] = useState(false);
+  const [map, setMap] = useState(false);
   const [loading, setLoading] = useState(true)
 
   const fetchJobWithCoords = async function () {
@@ -124,17 +125,25 @@ export default function Jobs(props) {
   } else if (accepted) {
     console.log("TRYING TO REDIRECT TO ", accepted)
     return <Redirect to={`/jobs/${accepted}`} />
+  } else if (map) {
+    return <Redirect to={'/map'} />
   } else {
     return (
       <MuiThemeProvider>
         <AppBar title="Open Jobs" user={true} />
-        {openJobs.length === 0 ? <Loading /> : openJobs}
-        <RaisedButton
-          label="Back"
-          onClick={() => setGoBack(true)}
-          primary={true}
-          style={styles.button}
-        />
+          {openJobs.length === 0 ? <Loading /> : openJobs}
+          <RaisedButton
+            label="Back"
+            onClick={() => setGoBack(true)}
+            primary={true}
+            style={styles.button}
+          />
+          <RaisedButton
+            label="Map View"
+            onClick={() => setMap(true)}
+            primary={true}
+            style={styles.button}
+          />
       </MuiThemeProvider>
     )
   }
