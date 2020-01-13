@@ -86,6 +86,7 @@ class SimpleMap extends Component {
           text={job.service_type}
         > 
           {job.service_type}
+          <p>lololol</p>
         </div>
       )
     });
