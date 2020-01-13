@@ -20,8 +20,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function Open({ jobId, serviceType, userId, streetAddress, hourlyRate, timeEstimate, description, acceptJob, distance, time, updateMyJobs, updateAllJobs }) {
-  // TODO: Implement distance calculating here?
+
+export default function Open({ jobId, serviceType, userName, streetAddress, hourlyRate, timeEstimate, description, acceptJob, distance, time, updateMyJobs, updateAllJobs }) {
 
   const classes = useStyles()
 
@@ -63,7 +63,7 @@ export default function Open({ jobId, serviceType, userId, streetAddress, hourly
           alignItems="flex-start"
         >
           <Typography>Description: {description}</Typography>
-          <Typography>Requested By: User #{userId}</Typography>
+          <Typography>Requested By: {userName}</Typography>
           <Typography>Address: {streetAddress}</Typography>
           <Typography>Payout: ${hourlyRate * timeEstimate}</Typography>
           <Button
