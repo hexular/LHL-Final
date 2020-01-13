@@ -5,30 +5,10 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Redirect } from 'react-router';
 import axios from 'axios';
-
-// const geocoder = new google.maps.Geocoder();
-// import Open from './Job/Open'
-// import { geolocated } from "react-geolocated";
-
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-// var lat = '';
-// var lng = '';
-// var address = 'L4E3T6';
-// geocoder.geocode( { 'address': address}, function(results, status) {
-//   if (status == google.maps.GeocoderStatus.OK) {
-//      lat = results[0].geometry.location.lat();
-//      lng = results[0].geometry.location.lng();
-//   } else {
-//     alert("Geocode was not successful for the following reason: " + status);
-//   }
-// });
-// alert('Latitude: ' + lat + ' Logitude: ' + lng);
+import Marker from './Marker';
 
 class SimpleMap extends Component {
   
-  // response = []
-
   constructor(props) {
     super(props);
     this.state = { response: [], goBack: false, accepted: false, loading: false };
@@ -76,21 +56,23 @@ class SimpleMap extends Component {
 
   render = () => {
 
-    console.log(this.state.response)
+    console.log('RESPONSE HERE WOOOOHOOO', this.state.response)
 
      const openJobs = this.state.response.map(job => {
       return (
-        <div
+        <Marker
+          text={job.service_type}
+          pay={job.hourly_rate}
+          time={job.time_estimate}
+          desc={job.description}
           lat={job.lat}
           lng={job.long}
-          text={job.service_type}
+          onClick={() => console.log('lol')}
         > 
-          {job.service_type}
-          <p>lololol</p>
-        </div>
+          
+        </Marker>
       )
     });
-
 
     const styles = {
       button: {
