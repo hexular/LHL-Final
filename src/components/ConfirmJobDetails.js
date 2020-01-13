@@ -5,12 +5,15 @@ import { List, ListItem } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
+import keys from '../var.js';
+// import stripe_key from '../var.js';
 
 
 const getCoords = async (postcode, value) => {
-  const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=AIzaSyBQ1NimXDA1tP00n1hqmk3RDjM7vINTM78`)
+  console.log('this is my gmaps key lol', keys.GMAPS_KEY)
+  const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=${keys.GMAPS_KEY}`)
   const jsonRes = await res.data.results[0]
-  console.log('getcoords', jsonRes.geometry.location)
+  // console.log('getcoords', jsonRes.geometry.location)
   value.coords = jsonRes.geometry.location
 }
 
@@ -96,7 +99,7 @@ export class ConfirmJobDetails extends Component {
             onClick={this.continue}
           />
           <StripeCheckout
-            stripeKey={"pk_test_QEftqbWZl6SLY8KvZULv7CXc005D5SWunq"}
+            stripeKey={keys.STRIPE_KEY}
             token={handleToken}
             amount={values.requiredTime * values.payRate * 100}
             name={values.serviceType}
