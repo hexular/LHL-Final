@@ -74,7 +74,7 @@ export class NewJobPost extends Component {
         setTimeout(() => {
           this.props.updateAllJobs()
           this.props.updateMyJobs()
-        }, 500)
+        }, 1000)
         return (
           <Redirect to="/myjobs"
             connect={true}
