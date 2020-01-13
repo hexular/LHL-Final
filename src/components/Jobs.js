@@ -86,7 +86,7 @@ export default function Jobs(props) {
         key={job.id}
         jobId={job.id}
         serviceType={job.service_type}
-        userId={job.user_id}
+        userName={job.name}
         streetAddress={job.street_address}
         hourlyRate={job.hourly_rate}
         timeEstimate={job.time_estimate}
