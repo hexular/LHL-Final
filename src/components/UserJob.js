@@ -44,6 +44,7 @@ export default function UserJob(props) {
                 axios.put(`/myjobs`, [props.job.id])
                 // props.finished()
                 props.updateMyJobs()
+                props.updateAllJobs()
               }
               }
               primary={false}
