@@ -43,7 +43,7 @@ class SimpleMap extends Component {
           id: jobId,
           dropJob: false,
         }
-      }
+      }, {withCredentials: true}
     )
       .then(
         (res) => {
@@ -65,7 +65,7 @@ class SimpleMap extends Component {
 
   componentDidMount() {
     const loadJobs = () => {
-      axios.get("/jobs")
+      axios.get("/jobs", {withCredentials: true})
         .then((res) => {
           console.log(res)
           this.setState({response: res.data})

@@ -40,7 +40,7 @@ export default function Jobs(props) {
   const fetchJobWithCoords = async function () {
     try {
       const { latitude: lat, longitude: lng } = await getGeoCoordinates({ latitude: 23.644272, longitude: -59.402242 });
-      axios.get(`/jobs?lat=${lat}&lng=${lng}`)
+      axios.get(`/jobs?lat=${lat}&lng=${lng}`, {withCredentials: true})
         .then((res) => {
           setResponse(res.data)
           if (props.change) {
