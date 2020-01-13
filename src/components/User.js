@@ -12,7 +12,7 @@ export class User extends Component {
     }
   }
   componentDidMount() {
-    axios.get('/auth')
+    axios.get('/auth', {withCredentials: true})
     .then((response) => {
       console.log(response)
       if (response.data.result !== "user") {

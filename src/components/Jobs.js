@@ -61,7 +61,7 @@ export default function Jobs(props) {
           id: jobId,
           dropJob: false,
         }
-      }
+      }, {withCredentials: true}
     )
       .then(
         (res) => {
@@ -75,18 +75,18 @@ export default function Jobs(props) {
   }
 
   useEffect(() => {
+    console.log("~~~~~~~~~ACCEPTED: ", accepted)
+    axios.get("/jobs", {withCredentials: true})
+      .then((res) => {
+        setResponse(res.data)
+        if (props.change) {
+          props.finished()
+        }
+      });
+
     fetchJobWithCoords();
 
-
-    // axios.get(`/jobs?lat=${lat}&long=${lng}`)
-    //   .then((res) => {
-    //     setResponse(res.data)
-    //     if (props.change) {
-    //       props.finished()
-    //     }
-    //   });
-
-    axios.get('/auth')
+    axios.get('/auth', {withCredentials: true})
       .then((response) => {
         if (response.data.result !== "jobber") {
           props.history.replace("/")

@@ -31,7 +31,7 @@ export default function MyJobs(props) {
 
   useEffect(() => {
     console.log("thisss", props)
-    axios.get("/myjobs")
+    axios.get("/myjobs", {withCredentials: true})
       .then(res => {
         setResponse(res.data)
         if (props.change) {
@@ -39,7 +39,7 @@ export default function MyJobs(props) {
       }
     });
 
-    axios.get('/auth')
+    axios.get('/auth', {withCredentials: true})
     .then((response) => {
       if (response.data.result !== "user") {
         props.history.replace("/")
@@ -59,7 +59,7 @@ export default function MyJobs(props) {
           id: id,
           confirmComplete: true
         }
-      }
+      }, {withCredentials: true}
     )
       .catch(err => console.log("error", err));
   }
