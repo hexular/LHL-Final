@@ -42,9 +42,10 @@ export default function UserJob(props) {
               label="Delete"
               onClick={() => {
                 axios.put(`/myjobs`, [props.job.id])
-                // props.finished()
-                props.updateMyJobs()
-                props.updateAllJobs()
+                .then(() => {
+                  props.updateMyJobs()
+                  props.updateAllJobs()
+                })
               }
               }
               primary={false}
