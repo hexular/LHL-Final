@@ -12,7 +12,7 @@ class SimpleMap extends Component {
   
   constructor(props) {
     super(props);
-    this.state = { response: [], goBack: false, accepted: false, loading: false };
+    this.state = { response: [], goBack: false, accepted: false, loading: false, job: null };
   }
 
   acceptJob = function (jobId) {
@@ -46,9 +46,9 @@ class SimpleMap extends Component {
 
   componentDidMount() {
     const loadJobs = () => {
-      axios.get("/jobs")
+      axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`)
         .then((res) => {
-          console.log(res)
+          console.log('in component did mount res', res)
           this.setState({response: res.data})
         });
     }
@@ -56,6 +56,8 @@ class SimpleMap extends Component {
   }
 
   render = () => {
+
+    
 
     console.log('RESPONSE HERE WOOOOHOOO', this.state.response)
 
@@ -68,7 +70,7 @@ class SimpleMap extends Component {
           desc={job.description}
           lat={job.lat}
           lng={job.long}
-          onClick={() => console.log('lol')}
+          onClick={() => this.setState({job: job.id})}
         > 
           
         </Marker>
@@ -83,8 +85,9 @@ class SimpleMap extends Component {
   
     console.log(this.props.long)
     console.log(this.props.lat)
-    return this.state.goBack ? 
-      <Redirect to={'/jobs'} /> :
+    if (this.state.job) return <Redirect to={`/jobs/${this.state.job}`} />
+    else return this.state.goBack ? 
+      <Redirect to={'/jobs'} /> : 
     (
       // Important! Always set the container height explicitly
       <MuiThemeProvider>

@@ -34,13 +34,13 @@ export class App extends Component {
   }
 
   connect = () => {
-    this.ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
+    this.ws = new WebSocket("ws://localhost:8080")
     this.setState({ connected: true })
   }
 
   componentDidMount() {
 
-    axios.get("/auth", {withCredentials: true})
+    axios.get("/auth")
       .then((res) => {
         console.log(res.data)
       });

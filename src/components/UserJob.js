@@ -41,18 +41,11 @@ export default function UserJob(props) {
             <RaisedButton
               label="Delete"
               onClick={() => {
-<<<<<<< HEAD
-                axios.put(`/myjobs`, [props.job.id])
+                axios.put(`/myjobs`, [props.job.id], {withCredentials: true})
                 .then(() => {
                   props.updateMyJobs()
                   props.updateAllJobs()
                 })
-=======
-                axios.put(`/myjobs`, [props.job.id], {withCredentials: true})
-                // props.finished()
-                props.updateMyJobs()
-                props.updateAllJobs()
->>>>>>> master
               }
               }
               primary={false}
