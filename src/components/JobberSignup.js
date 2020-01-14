@@ -49,7 +49,7 @@ export default function JobberSignup(props) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {    
-    axios.get('/auth')
+    axios.get('/auth', {withCredentials: true})
     .then((response) => {
       if (response.data.result === "jobber") {
         props.history.replace("/jobs")
@@ -80,7 +80,7 @@ export default function JobberSignup(props) {
         phone: phone.trim()
       }
 
-      axios.post('/auth/signup', newUserInfo)
+      axios.post('/auth/signup', newUserInfo, {withCredentials: true})
         .then(function (response) {
           console.log(response)
           if (response.data.result) {

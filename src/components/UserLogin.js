@@ -16,6 +16,7 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 
+// axios.defaults.withCredentials = true
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -44,17 +45,18 @@ export default function UserLogin(props) {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    axios.get('/auth')
-      .then((response) => {
-        if (response.data.result === "user") {
-          props.history.replace("/user")
-        } else if (response.data.result === "jobber") {
-          props.history.replace("/jobs")
-        } else {
-          setLoading(false)
-        }
-      });
+  useEffect(() => {    
+    axios.get('/auth', {withCredentials: true})
+    .then((response) => {
+      if (response.data.result === "user") {
+        props.history.replace("/user")
+      } else if (response.data.result === "jobber") {
+        props.history.replace("/jobs")
+      } else {
+        setLoading(false)
+      }
+    });
+
   }, [])
 
   const submit = () => {
@@ -62,7 +64,8 @@ export default function UserLogin(props) {
       email: email.trim().toLowerCase(),
       password: password
     }
-    axios.post('/auth/login', loginInfo)
+    console.log("DEPLOY PLZZZZZ")
+    axios.post('/auth/login', loginInfo, {withCredentials: true})
       .then(function (response) {
         if (response.data.result) {
           setSubmitted(true)

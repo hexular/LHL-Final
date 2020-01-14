@@ -12,18 +12,18 @@ export class User extends Component {
     }
   }
   componentDidMount() {
-    axios.get('/auth')
-      .then((response) => {
-        console.log(response)
-        if (response.data.result !== "user") {
-          console.log(true)
-          this.props.history.replace("/")
-        } else {
-          this.setState({
-            loading: false
-          })
-        }
-      });
+    axios.get('/auth', {withCredentials: true})
+    .then((response) => {
+      console.log(response)
+      if (response.data.result !== "user") {
+        console.log(true)
+        this.props.history.replace("/")
+      } else {
+        this.setState({
+          loading: false
+        })
+      }
+    });
   }
 
   render() {

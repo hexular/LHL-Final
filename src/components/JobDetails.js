@@ -15,7 +15,7 @@ export class JobDetails extends Component {
   }
 
   componentDidMount() {
-    axios.get('/auth')
+    axios.get('/auth', {withCredentials: true})
     .then((response) => {
       console.log(response)
       if (response.data.result !== "user") {
@@ -23,7 +23,7 @@ export class JobDetails extends Component {
         this.props.browser.replace('/')
         this.props.browser.go();
       } else {
-        axios.get("/skills")
+        axios.get("/skills", {withCredentials: true})
       .then((response) => {
         console.log(response);
         this.setState({ skills: response.data })
