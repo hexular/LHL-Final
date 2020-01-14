@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import HistoryIcon from '@material-ui/icons/History';
 import axios from 'axios';
 
 
@@ -71,7 +72,7 @@ export class User extends Component {
                   >
                     <AddToHomeScreenIcon style={styles.icon} />
                     <Typography
-                      variant='h4'
+                      variant='h5'
                       align="center"
                     >
                       New Job Posting
@@ -100,7 +101,7 @@ export class User extends Component {
                   >
                     <AssignmentIcon style={styles.icon} />
                     <Typography
-                      variant='h4'
+                      variant='h5'
                       align="center"
                     >
                       View Active Jobs
@@ -110,17 +111,35 @@ export class User extends Component {
 
               </ButtonBase>
 
-            </Grid>
+              <ButtonBase
+                focusRipple
+                type="button"
+                onClick={() => this.props.history.push('/history')}
+              >
+                <Paper
+                  elevation={3}
+                  style={styles.paper}
+                >
+                  <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                    style={styles.subGrid}
+                  >
+                    <HistoryIcon style={styles.icon} />
+                    <Typography
+                      variant='h5'
+                      align="center"
+                    >
+                      History
+                    </Typography>
+                  </Grid>
+                </Paper>
 
-            <Button
-              type="button"
-              fullWidth
-              variant="contained"
-              color="primary"
-              onClick={() => this.props.history.push('/history')}
-            >
-              History
-          </Button>
+              </ButtonBase>
+
+            </Grid>
 
           </React.Fragment>
         </MuiThemeProvider>
@@ -133,7 +152,7 @@ const styles = {
     margin: 15
   },
   icon: {
-    fontSize: 120,
+    fontSize: 60,
     color: "#3f51b5",
     padding: ".2em"
   },
@@ -142,7 +161,8 @@ const styles = {
     height: "80vh"
   },
   subGrid: {
-    height: "33vh"
+    height: "20vh",
+    width: "70vw"
   },
   paper: {
     padding: "1.5em",
