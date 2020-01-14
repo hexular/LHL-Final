@@ -110,42 +110,17 @@ export class User extends Component {
 
               </ButtonBase>
 
-
-              {/* <Button
-                type="button"
-                variant="contained"
-                color="primary"
-                style={styles.button}
-                onClick={() => this.props.history.push("/newjobpost")}
-              >
-                NEW JOB
-              </Button>
-              <Button
-                type="button"
-                variant="contained"
-                color="primary"
-                style={styles.button}
-                onClick={() => this.props.history.push('/myjobs')}
-              >
-                ACTIVE JOBS
-              </Button> */}
-              {/* <Button
-                type="button"
-                variant="contained"
-                color="primary"
-                style={styles.button}
-                onClick={() => console.log("Clicked messages")}
-              >
-                MESSAGES
-              </Button> */}
             </Grid>
 
-            <RaisedButton
-              label="History"
+            <Button
+              type="button"
+              fullWidth
+              variant="contained"
+              color="primary"
               onClick={() => this.props.history.push('/history')}
-              primary={false}
-              style={styles.button}
-            />
+            >
+              History
+          </Button>
 
           </React.Fragment>
         </MuiThemeProvider>
