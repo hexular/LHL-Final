@@ -103,7 +103,7 @@ class SimpleMap extends Component {
           <AppBar title="Main Portal #Lit-Final" user={true} />
           <div style={{ height: '70vh', width: '100%' }}>
             <GoogleMapReact
-              // add key here for deployment
+              bootstrapURLKeys={{ key: 'AIzaSyA0FZO0N4sb2MrGhmSgv8WD872-D9-lmnE' }}
               defaultCenter={{ lat: this.props.lat, lng: this.props.long }}
               defaultZoom={this.props.zoom}
             >
