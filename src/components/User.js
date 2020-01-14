@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import axios from 'axios';
@@ -57,20 +58,27 @@ export class User extends Component {
                 type="button"
                 onClick={() => this.props.history.push("/newjobpost")}
               >
-                <Grid
-                  container
-                  direction="column"
-                  justify="center"
-                  alignItems="center"
+                <Paper
+                  elevation={3}
+                  style={styles.paper}
                 >
-                  <AddToHomeScreenIcon style={styles.icon} />
-                  <Typography
-                    variant='h4'
-                    align="center"
+                  <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                    style={styles.subGrid}
                   >
-                    New Job Posting
-                  </Typography>
-                </Grid>
+                    <AddToHomeScreenIcon style={styles.icon} />
+                    <Typography
+                      variant='h4'
+                      align="center"
+                    >
+                      New Job Posting
+                    </Typography>
+                  </Grid>
+                </Paper>
+
 
               </ButtonBase>
 
@@ -79,20 +87,26 @@ export class User extends Component {
                 type="button"
                 onClick={() => this.props.history.push('/myjobs')}
               >
-                <Grid
-                  container
-                  direction="column"
-                  justify="center"
-                  alignItems="center"
+                <Paper
+                  elevation={3}
+                  style={styles.paper}
                 >
-                  <AssignmentIcon style={styles.icon} />
-                  <Typography
-                    variant='h4'
-                    align="center"
+                  <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                    style={styles.subGrid}
                   >
-                    View Active Jobs
-                  </Typography>
-                </Grid>
+                    <AssignmentIcon style={styles.icon} />
+                    <Typography
+                      variant='h4'
+                      align="center"
+                    >
+                      View Active Jobs
+                    </Typography>
+                  </Grid>
+                </Paper>
 
               </ButtonBase>
 
@@ -142,7 +156,14 @@ const styles = {
   },
   grid: {
     marginTop: "1em",
-    height: "70vh"
+    height: "80vh"
+  },
+  subGrid: {
+    height: "33vh"
+  },
+  paper: {
+    padding: "1.5em",
+    // background: "#e0e0e0",
   }
 }
 
