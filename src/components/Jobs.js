@@ -132,6 +132,7 @@ export default function Jobs(props) {
             onClick={() => setGoHistory(true)}
             style={styles.button}
             variant="contained"
+            color="secondary"
           >
             History
           </Button>
@@ -139,6 +140,7 @@ export default function Jobs(props) {
             onClick={() => setMap(true)}
             style={styles.button}
             variant="contained"
+            color="secondary"
           >
             Map View
           </Button>

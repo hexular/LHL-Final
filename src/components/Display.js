@@ -142,67 +142,80 @@ export default function Display(props) {
               <Typography>Status: {jobStatus(response)}</Typography>
             </Grid>
           </Paper>
-          <Grid container direction="row" justify="center">
-            {
-              jobStatus(response) === "Open" ?
-                <Button
-                  onClick={() => {
-                    acceptJob(id)
-                    props.updateMyJobs()
-                    props.updateAllJobs()
-                  }}
-                  style={styles.button}
-                  variant="contained"
-                >
-                  Accept
-              </Button>
-                : null
-            }
-            {
-              jobStatus(response) === "In Progress" ?
-                <Button
-                  onClick={() => {
-                    dropJob()
-                    props.updateMyJobs()
-                    props.updateAllJobs()
-                  }}
-                  style={styles.button}
-                  variant="contained"
-                >
-                  Cancel
-              </Button>
-                : null
-            }
-            {
-              jobStatus(response) === "In Progress" ?
-                <Button
-                  onClick={() => {
-                    markComplete()
-                    props.updateMyJobs()
-                    props.updateAllJobs()
-                  }}
-                  style={styles.button}
-                  variant="contained"
-                >
-                  Mark Complete
-              </Button>
-                : null
-            }
-            <br />
-            <Button
-              onClick={() => setGoJobs(true)}
-              style={styles.button}
-              variant="contained"
+          <Grid container
+            direction="column"
+            justify="space-between"
+            style={{ height: "60vh" }}>
+            <Grid
+              container
+              direction="row"
+              justify="space-around">
+              {
+                jobStatus(response) === "Open" ?
+                  <Button
+                    onClick={() => {
+                      acceptJob(id)
+                      props.updateMyJobs()
+                      props.updateAllJobs()
+                    }}
+                    style={styles.button}
+                    variant="contained"
+                  >
+                    Accept
+                </Button>
+                  : null
+              }
+              {
+                jobStatus(response) === "In Progress" ?
+                  <Button
+                    onClick={() => {
+                      dropJob()
+                      props.updateMyJobs()
+                      props.updateAllJobs()
+                    }}
+                    style={styles.button}
+                    variant="contained"
+                  >
+                    Cancel
+                </Button>
+                  : null
+              }
+              {
+                jobStatus(response) === "In Progress" ?
+                  <Button
+                    onClick={() => {
+                      markComplete()
+                      props.updateMyJobs()
+                      props.updateAllJobs()
+                    }}
+                    style={styles.button}
+                    variant="contained"
+                  >
+                    Mark Complete
+                </Button>
+                  : null
+              }
+
+            </Grid>
+            <Grid
+              container
+              direction="column"
             >
-              Jobs
-          </Button>
-            <Button
-              onClick={() => setGoHistory(true)}
-              style={styles.button}
-              variant="contained"
-            >
-              History
-          </Button>
+              <Button
+                onClick={() => setGoJobs(true)}
+                style={styles.button}
+                variant="contained"
+              >
+                Jobs
+              </Button>
+              <Button
+                onClick={() => setGoHistory(true)}
+                style={styles.button}
+                variant="contained"
+              >
+                History
+              </Button>
+            </Grid>
           </Grid>
         </MuiThemeProvider >
       )
