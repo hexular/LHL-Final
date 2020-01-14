@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
+import AppBar from './Appbar';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Redirect } from 'react-router';
 import axios from 'axios';

@@ -12,16 +12,18 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0, 3),
   },
   paper: {
-    maxWidth: 400,
+    width: "80%",
     marginTop: 15,
     padding: theme.spacing(2),
+    marginLeft: 50,
+    marginRight: 50
   },
   button: {
-    width: "80vw",
+    width: "100%",
     padding: "auto"
   },
   container: {
-    width: "80vw",
+    width: "100%",
     wordWrap: "break-word"
   },
   serviceType: {

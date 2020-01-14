@@ -92,83 +92,81 @@ export class JobDetails extends Component {
         <React.Fragment>
           <AppBar title="Enter Job Details" user={true} />
           <br />
-          <Container justify="center">
-            <InputLabel>Service Type</InputLabel>
-            <Select
-              defaultValue={values.serviceType}
-              onChange={handleChange('serviceType')}
-              style={{ width: 256 }}
-            >
-              {this.generateSkillList()}
-            </Select>
-            <br />
-            <TextField
-              hintText="Enter a Description"
-              floatingLabelText="Description"
-              onChange={handleChange('description')}
-              defaultValue={values.description}
-            />
-            <br />
-            <TextField
-              type="number"
-              min="0"
-              hintText="Enter Pay Rate"
-              floatingLabelText="Pay Rate (Per Hour)"
-              onChange={handleChange('payRate')}
-              defaultValue={values.payRate}
-            />
-            <br />
-            <TextField
-              type="number"
-              min="0"
-              hintText="Enter Required Time"
-              floatingLabelText="Required Time (In Hours)"
-              onChange={handleChange('requiredTime')}
-              defaultValue={values.requiredTime}
-            />
-            <br />
-            <TextField
-              hintText="Enter Address"
-              floatingLabelText="Address"
-              onChange={handleChange('address')}
-              defaultValue={values.address}
-            />
-            <br />
-            <TextField
-              hintText="Enter Postal Code"
-              floatingLabelText="Postal Code (A1B 2D3)"
-              onChange={handleChange('postalCode')}
-              defaultValue={values.postalCode}
-            />
-            <br />
+          <Container justify="center">            
             <Grid
               container
-              direction="row"
-              justify="space-around"
+              direction="column"
+              alignContent="center"
+              style={{marginTop: 50}}
             >
-              <Button
-                type="button"
-                variant="contained"
-                color="primary"
-                style={styles.button}
-                onClick={this.continue}
+              <InputLabel>Service Type</InputLabel>
+              <Select
+                defaultValue={values.serviceType}
+                onChange={handleChange('serviceType')}
+                style={{ width: 256 }}
               >
-                Post Job
-              </Button>
-              <Button
-                type="button"
-                variant="contained"
-                color="primary"
-                size="large"
-                style={styles.button}
-                onClick={() => browser.goBack()}
-              >
-                Back
-              </Button>
+                {this.generateSkillList()}
+              </Select>
+              
+              <TextField
+                hintText="Enter a Description"
+                floatingLabelText="Description"
+                onChange={handleChange('description')}
+                defaultValue={values.description}
+              />
+              
+              <TextField
+                type="number"
+                min="0"
+                hintText="Enter Pay Rate"
+                floatingLabelText="Pay Rate (Per Hour)"
+                onChange={handleChange('payRate')}
+                defaultValue={values.payRate}
+              />
+              
+              <TextField
+                type="number"
+                min="0"
+                hintText="Enter Required Time"
+                floatingLabelText="Required Time (In Hours)"
+                onChange={handleChange('requiredTime')}
+                defaultValue={values.requiredTime}
+              />
+              
+              <TextField
+                hintText="Enter Address"
+                floatingLabelText="Address"
+                onChange={handleChange('address')}
+                defaultValue={values.address}
+              />
+              
+              <TextField
+                hintText="Enter Postal Code"
+                floatingLabelText="Postal Code (A1B 2D3)"
+                onChange={handleChange('postalCode')}
+                defaultValue={values.postalCode}
+              />
+              <section style={styles.buttonsContainer}>
+                <Button
+                  type="button"
+                  variant="contained"
+                  color="primary"
+                  style={styles.button}
+                  onClick={this.continue}
+                >
+                  Post Job
+                </Button>
+                <Button
+                  type="button"
+                  variant="contained"
+                  style={styles.button}
+                  onClick={() => browser.goBack()}
+                >
+                  Back
+                </Button>
+              </section>              
             </Grid>
-
           </Container>
-
         </React.Fragment>
       </MuiThemeProvider>
     )
@@ -177,7 +175,12 @@ export class JobDetails extends Component {
 
 const styles = {
   button: {
-    margin: 15,
+    width: 120,
+    marginTop: 50
+  },
+  buttonsContainer: {
+    display: "flex",
+    justifyContent: "space-around"
   }
 }
 
