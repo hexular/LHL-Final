@@ -1,13 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function Open({ jobId, serviceType, userName, streetAddress, hourlyRate, timeEstimate, description, acceptJob, distance, time, updateMyJobs, updateAllJobs }) {
+export default function Completed({ serviceType, userName, streetAddress, hourlyRate, timeEstimate, description, status }) {
 
   const classes = useStyles()
 
@@ -43,7 +41,11 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
               {serviceType}
             </Typography>
           </Grid>
-          
+          <Grid item xs={4}>
+            <Typography className={classes.heading}>
+              Status: {status}
+            </Typography>
+          </Grid>
         </Grid>
       </ExpansionPanelSummary >
       <ExpansionPanelDetails>
@@ -57,19 +59,6 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
           <Typography>Requested By: {userName}</Typography>
           <Typography>Address: {streetAddress}</Typography>
           <Typography>Payout: ${hourlyRate * timeEstimate}</Typography>
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            onClick={() => {
-              acceptJob(jobId)
-            }
-            }
-          >
-            Accept
-          </Button>
         </Grid>
       </ExpansionPanelDetails>
     </ExpansionPanel >

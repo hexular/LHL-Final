@@ -139,6 +139,14 @@ export class User extends Component {
                 MESSAGES
               </Button> */}
             </Grid>
+
+            <RaisedButton
+              label="History"
+              onClick={() => this.props.history.push('/history')}
+              primary={false}
+              style={styles.button}
+            />
+
           </React.Fragment>
         </MuiThemeProvider>
       );

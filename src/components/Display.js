@@ -4,19 +4,24 @@ import AppBar from './Appbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import RaisedButton from 'material-ui/RaisedButton';
-import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import keys from '../var';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
+    flexGrow: 1,
+    overflow: 'hidden',
+    padding: theme.spacing(0, 3),
+  },
+  paper: {
+    maxWidth: 400,
+    margin: `${theme.spacing(1)}px auto`,
+    padding: theme.spacing(2),
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -45,6 +50,27 @@ export default function Display(props) {
         setGoBack(true)
       })
       .catch(err => console.log("error", err));
+  }
+
+  const acceptJob = function (jobId) {
+    console.log(jobId)
+    axios.put(
+      `/jobs/`,
+      {
+        params: {
+          id: jobId,
+          dropJob: false,
+        }
+      }
+    )
+      .then(
+        (res) => {
+          props.updateMyJobs();
+          props.updateAllJobs();
+
+        }
+      )
+      .catch(err => console.log(err))
   }
 
   const markComplete = function () {
@@ -97,34 +123,37 @@ export default function Display(props) {
   }, [props.update, props.change])
 
 
+  console.log(props)
   return loading ? null : (!goBack ?
     (
       <MuiThemeProvider>
-        <React.Fragment>
-          <AppBar title="Job Info #Lit-Final" user={true} />
-          <ExpansionPanel>
-            <ExpansionPanelSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-            >
-              <Typography className={classes.heading}>{response.service_type}</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="flex-start"
-              >
-                <Typography>Description: {response.description}</Typography>
-                <Typography>Requested By: {response.name}</Typography>
-                <Typography>Address: {response.street_address}</Typography>
-                <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
-                <Typography>Status: {jobStatus(response)}</Typography>
-              </Grid>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+        <AppBar title="Job Info #Lit-Final" user={true} />
+
+        <Paper className={classes.paper}>
+          <Grid item>
+            <Typography variant="h4">{response.service_type}</Typography>
+
+            <Typography>Description: {response.description}</Typography>
+            <Typography>Requested By: {response.name}</Typography>
+            <Typography>Address: {response.street_address}</Typography>
+            <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
+            <Typography>Status: {jobStatus(response)}</Typography>
+          </Grid>
+        </Paper>
+        <Grid container direction="row" justify="center">
+          {
+            jobStatus(response) === "Open" ?
+              <RaisedButton
+                label="Accept"
+                onClick={() => {
+                  acceptJob(id)
+                  props.updateMyJobs()
+                  props.updateAllJobs()
+                }}
+                primary={true}
+                style={styles.button}
+              /> : null
+          }
           {
             jobStatus(response) === "In Progress" ?
               <RaisedButton
@@ -157,10 +186,10 @@ export default function Display(props) {
                 style={styles.button}
               /> : null
           }
-        </React.Fragment>
+        </Grid>
       </MuiThemeProvider>
     )
-    : <Redirect to="/jobs" />)
+    : <Redirect to={props.history.location.pathname} />)
 }
 
 const styles = {

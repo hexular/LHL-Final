@@ -7,7 +7,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
-import { getGeoCoordinates } from '../helpers/getLocation'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -32,25 +31,10 @@ const useStyles = makeStyles(theme => ({
 export default function Jobs(props) {
   const classes = useStyles();
   const [response, setResponse] = useState([])
-  const [goBack, setGoBack] = useState(false)
+  const [goHistory, setGoHistory] = useState(false)
   const [accepted, setAccepted] = useState(false);
   const [map, setMap] = useState(false);
   const [loading, setLoading] = useState(true)
-
-  const fetchJobWithCoords = async function () {
-    try {
-      const { latitude: lat, longitude: lng } = await getGeoCoordinates({ latitude: 23.644272, longitude: -59.402242 });
-      axios.get(`/jobs?lat=${lat}&lng=${lng}`)
-        .then((res) => {
-          setResponse(res.data)
-          if (props.change) {
-            props.finished()
-          }
-        });
-    } catch (err) {
-      console.log("Failed to retrieve location data. Distance mapping unavailable. Error: ", err)
-    }
-  }
 
   const acceptJob = function (jobId) {
     console.log(jobId)
@@ -76,7 +60,7 @@ export default function Jobs(props) {
 
   useEffect(() => {
     console.log("~~~~~~~~~ACCEPTED: ", accepted)
-    axios.get("/jobs", {withCredentials: true})
+    axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, {withCredentials: true})
       .then((res) => {
         setResponse(res.data)
         if (props.change) {
@@ -84,7 +68,7 @@ export default function Jobs(props) {
         }
       });
 
-    fetchJobWithCoords();
+      
 
     axios.get('/auth', {withCredentials: true})
       .then((response) => {
@@ -100,6 +84,8 @@ export default function Jobs(props) {
   const jobs = response
 
   const openJobs = jobs.map(job => {
+    console.log('from map', job)
+    
     return (
       <Open
         key={job.id}
@@ -114,14 +100,18 @@ export default function Jobs(props) {
         time={job.time}
         updateAllJobs={props.updateAllJobs}
         updateMyJobs={props.updateMyJobs}
-        acceptJob={(id) => acceptJob(id)} />
+        acceptJob={(id) => acceptJob(id)}
+        lat={props.lat}
+        long={props.long}
+        post={job.post_code} />
     )
+    
   })
 
   if (loading) {
     return null
-  } else if (goBack) {
-    return <Redirect to="/" />
+  } else if (goHistory) {
+    return <Redirect to="/history" />
   } else if (accepted) {
     console.log("TRYING TO REDIRECT TO ", accepted)
     return <Redirect to={`/jobs/${accepted}`} />
@@ -131,19 +121,19 @@ export default function Jobs(props) {
     return (
       <MuiThemeProvider>
         <AppBar title="Open Jobs" user={true} />
-          {openJobs.length === 0 ? <Loading /> : openJobs}
-          <RaisedButton
-            label="Back"
-            onClick={() => setGoBack(true)}
-            primary={true}
-            style={styles.button}
-          />
-          <RaisedButton
-            label="Map View"
-            onClick={() => setMap(true)}
-            primary={true}
-            style={styles.button}
-          />
+        {openJobs.length === 0 ? <Loading /> : openJobs}
+        <RaisedButton
+          label="History"
+          onClick={() => setGoHistory(true)}
+          primary={true}
+          style={styles.button}
+        />
+        <RaisedButton
+          label="Map View"
+          onClick={() => setMap(true)}
+          primary={true}
+          style={styles.button}
+        />
       </MuiThemeProvider>
     )
   }

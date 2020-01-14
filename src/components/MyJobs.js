@@ -50,8 +50,8 @@ export default function MyJobs(props) {
         setResponse(res.data)
         if (props.change) {
           props.finished()
-      }
-    });
+        }
+      });
 
     axios.get('/auth', {withCredentials: true})
     .then((response) => {
@@ -62,7 +62,6 @@ export default function MyJobs(props) {
         setLoading(false)
       }
     });
-
   }, [props.change, props.update])
 
   const markComplete = function (id) {
@@ -110,7 +109,7 @@ export default function MyJobs(props) {
   const openJobs = jobsFilter(response, "Open");
   const progressJobs = jobsFilter(response, "In Progress");
   const userConfirmJobs = jobsFilter(response, "Marked Complete. Awaiting User Confirmation");
-  const completeJobs = jobsFilter(response, "Completed");
+  // const completeJobs = jobsFilter(response, "Completed");
 
   return loading ? null : (newJob ?
     <Redirect to="/newjobpost" /> :
@@ -134,7 +133,6 @@ export default function MyJobs(props) {
             
             {(openJobs.length || progressJobs.length || userConfirmJobs.length) ? null : 
             <Typography className={classes.noJobMessage}>No Active Job(s)</Typography>}
-
             <Grid container direction="row" justify="center" alignItems="center">
               <Button                
                 onClick={() => setGoBack(true)}
