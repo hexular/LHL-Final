@@ -38,7 +38,7 @@ export class User extends Component {
     return this.state.loading ? null
       : (
         <MuiThemeProvider>
-          <AppBar title="Job Info #Lit-Final" user={true} />
+          <AppBar title="Job Info #Lit-Final" user={true} client={true} history={this.props.history}/>
           <React.Fragment>
             <Grid
               container

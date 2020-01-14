@@ -99,7 +99,7 @@ export class App extends Component {
             />} 
           />
         <Route path="/jobbersignup" component={JobberSignup} />
-        <Route path="/user" component={User} />
+        <Route path="/user" component={User} history={history}/>
         <Route path="/jobs"
           component={() => <Jobs
             finished={this.finished}
