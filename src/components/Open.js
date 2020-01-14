@@ -90,9 +90,9 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
           justify="space-between"
           alignItems="flex-start"
         >
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Typography className={classes.heading}>
-              {content}  {serviceType}
+              <b>{content}  {serviceType}</b>
             </Typography>
           </Grid>
 
@@ -104,11 +104,14 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
           direction="column"
           justify="center"
           alignItems="flex-start"
-        >
-          <Typography>Description: {description}</Typography>
+          >
           <Typography>Requested By: {userName}</Typography>
+          <br/>
+          <Typography>Description: {description}</Typography>
           <Typography>Address: {streetAddress}</Typography>
+          <Typography>Time Estimate: {timeEstimate} hr{timeEstimate > 1 ? 's' : ''}</Typography>
           <Typography>Payout: ${hourlyRate * timeEstimate}</Typography>
+          <br/>
           <Button
             type="button"
             fullWidth
