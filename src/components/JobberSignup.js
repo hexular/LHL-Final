@@ -101,7 +101,7 @@ export default function JobberSignup(props) {
     submitted ? <Redirect to="/jobberlogin" /> :
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar position="static" user={false}>
+          <AppBar position="static" user={false} title="Enter Details">
             <Toolbar variant="dense">
               <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                 <MenuIcon />
@@ -118,7 +118,7 @@ export default function JobberSignup(props) {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Sign up
+                Jobber Sign up
             </Typography>
               <form className={classes.form} noValidate>
                 <Grid container spacing={2}>

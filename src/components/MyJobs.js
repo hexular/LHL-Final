@@ -8,6 +8,7 @@ import { Redirect } from 'react-router';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,6 +21,19 @@ const useStyles = makeStyles(theme => ({
     margin: `${theme.spacing(1)}px auto`,
     padding: theme.spacing(2),
   },
+  jobContainer: {
+    margin: 20
+  },
+  noJobMessage: {
+    fontSize: "2rem",
+    marginTop: 200,
+    marginBottom: 200,
+    fontWeight: "bold"
+  },
+  button: {    
+    margin: 20,
+    width: 100    
+  }
 }));
 
 export default function MyJobs(props) {
@@ -102,7 +116,7 @@ export default function MyJobs(props) {
     !goBack ?
       (response.length !== 0 ? (
         <MuiThemeProvider>
-          <AppBar title="My Jobs #Lit-Final" user={true} />
+          <AppBar title="Active Job Board" user={true} />
           <Grid
             className={classes.root}
             container
@@ -112,53 +126,33 @@ export default function MyJobs(props) {
             wrap="nowrap"
             spacing={2}
           >
-            <Typography className={classes.heading}>
-              Open Jobs
-            </Typography>
-            {openJobs.length ? openJobs : <Typography>None</Typography>}
-            <Typography className={classes.heading}>
-              Jobs In Progress
-            </Typography>
-            {progressJobs.length ? progressJobs : <Typography>None</Typography>}
-            <Typography className={classes.heading}>
-              Jobs Awaiting User Confirmation
-            </Typography>
-            {userConfirmJobs.length ? userConfirmJobs : <Typography>None</Typography>}
-            {/* <Typography className={classes.heading}>
-              Completed Jobs
-            </Typography>
-            {completeJobs.length ? completeJobs : <Typography>None</Typography>} */}
+      
+            {openJobs.length ? openJobs : null}
+            {progressJobs.length ? progressJobs : null}
+            {userConfirmJobs.length ? userConfirmJobs : null}
+            
+            {(openJobs.length || progressJobs.length || userConfirmJobs.length) ? null : 
+            <Typography className={classes.noJobMessage}>No Active Job(s)</Typography>}
             <Grid container direction="row" justify="center" alignItems="center">
-              <RaisedButton
-                label="Back"
+              <Button                
                 onClick={() => setGoBack(true)}
                 primary={true}
-                style={styles.button}
-              />
+                className={classes.button}
+                variant="contained"             
+              >BACK</Button>
 
-              <RaisedButton
-                label="New Job"
+              <Button                
                 onClick={() => setNewJob(true)}
                 primary={true}
-                style={styles.button}
-              />
+                className={classes.button}
+                variant="contained"
+                color="primary"
+              >NEW JOB</Button>
             </Grid>
           </Grid>
         </MuiThemeProvider>
-      ) :
-        <MuiThemeProvider>
-          <AppBar title="My Jobs #Lit-Final" />
-          <React.Fragment>
-            <p>no jobs</p>
-          </React.Fragment>
-          <RaisedButton
-            label="Back"
-            onClick={() => setGoBack(true)}
-            primary={true}
-            style={styles.button}
-          />
-        </MuiThemeProvider>) :
-      <Redirect to="/" />)
+  )  :
+  null ) : <Redirect to="/" />)
 }
 
 const styles = {

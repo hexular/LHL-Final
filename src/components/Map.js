@@ -9,7 +9,7 @@ import Marker from './Marker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class SimpleMap extends Component {
-  
+
   constructor(props) {
     super(props);
     this.state = { response: [], goBack: false, accepted: false, loading: false, job: null };
@@ -29,7 +29,7 @@ class SimpleMap extends Component {
       .then(
         (res) => {
           console.log("HERE", jobId)
-          this.setState({accepted: jobId});
+          this.setState({ accepted: jobId });
           this.props.updateAllJobs();
         }
       )
@@ -49,7 +49,7 @@ class SimpleMap extends Component {
       axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`)
         .then((res) => {
           console.log('in component did mount res', res)
-          this.setState({response: res.data})
+          this.setState({ response: res.data })
         });
     }
     loadJobs()
@@ -57,11 +57,11 @@ class SimpleMap extends Component {
 
   render = () => {
 
-    
+
 
     console.log('RESPONSE HERE WOOOOHOOO', this.state.response)
 
-     const openJobs = this.state.response.map(job => {
+    const openJobs = this.state.response.map(job => {
       return (
         <Marker
           text={job.service_type}
@@ -70,12 +70,12 @@ class SimpleMap extends Component {
           desc={job.description}
           lat={job.lat}
           lng={job.long}
-          onClick={() => 
-            this.setState({job: job.id}) &&
+          onClick={() =>
+            this.setState({ job: job.id }) &&
             this.props.history.push("/map")
           }
-        > 
-          
+        >
+
         </Marker>
       )
     });
@@ -85,40 +85,40 @@ class SimpleMap extends Component {
         margin: 15
       }
     }
-  
+
     console.log(this.props.long)
     console.log(this.props.lat)
     if (this.state.job) return <Redirect to={{
-      pathname: `/jobs/${this.state.job}`, 
+      pathname: `/jobs/${this.state.job}`,
       map: true,
       lat: this.props.lat,
       long: this.props.long
-    }}/>
-    else return this.state.goBack ? 
-      <Redirect to={'/jobs'} /> : 
-    (
-      // Important! Always set the container height explicitly
-      <MuiThemeProvider>
-      
-        <AppBar title="Main Portal #Lit-Final" user={true}/>
-      <div style={{ height: '70vh', width: '100%' }}>
-        <GoogleMapReact
-          // add key here for deployment
-          defaultCenter={{lat: this.props.lat, lng: this.props.long}}
-          defaultZoom={this.props.zoom}
-        >
-          {openJobs}
-        </GoogleMapReact>
-      </div>
-      <RaisedButton
+    }} />
+    else return this.state.goBack ?
+      <Redirect to={'/jobs'} /> :
+      (
+        // Important! Always set the container height explicitly
+        <MuiThemeProvider>
+
+          <AppBar title="Main Portal #Lit-Final" user={true} />
+          <div style={{ height: '70vh', width: '100%' }}>
+            <GoogleMapReact
+              // add key here for deployment
+              defaultCenter={{ lat: this.props.lat, lng: this.props.long }}
+              defaultZoom={this.props.zoom}
+            >
+              {openJobs}
+            </GoogleMapReact>
+          </div>
+          <RaisedButton
             label="Back"
-            onClick={() => this.setState({goBack: true})}
+            onClick={() => this.setState({ goBack: true })}
             primary={true}
             style={styles.button}
           />
-      </MuiThemeProvider>
-    );
+        </MuiThemeProvider>
+      );
   }
 }
- 
+
 export default SimpleMap;

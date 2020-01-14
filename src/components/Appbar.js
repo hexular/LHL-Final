@@ -24,6 +24,7 @@ export default function Appbar(props) {
         <AppBar 
           title={props.title || "Test"}
           onLeftIconButtonClick={() => openDrawer(!drawer)}
+          style={{background: "#3f51b5", textAlign: "center"}}
         />
         <Drawer
           containerStyle={styles.margin}
