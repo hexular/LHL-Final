@@ -35,13 +35,21 @@ export class App extends Component {
   }
 
   connect = () => {
+<<<<<<< HEAD
     this.ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL ? process.env.REACT_APP_WEBSOCKET_URL : "ws://localhost:8080")
+=======
+    this.ws = new WebSocket("ws://localhost:8080")
+>>>>>>> feature/map_view
     this.setState({ connected: true })
   }
 
   componentDidMount() {
 
+<<<<<<< HEAD
     axios.get("/auth", { withCredentials: true })
+=======
+    axios.get("/auth")
+>>>>>>> feature/map_view
       .then((res) => {
         console.log(res.data)
       });
