@@ -34,7 +34,7 @@ const styles = {
   }
 }
 
-const JobHistory = () => {
+const JobHistory = (props) => {
   const classes = useStyles();
   const [response, setResponse] = useState([])
   const [goBack, setGoBack] = useState(false)
@@ -63,7 +63,7 @@ const JobHistory = () => {
     return (
       <Completed
         key={job.id}
-        obId={job.id}
+        jobId={job.id}
         serviceType={job.service_type}
         userName={job.name}
         streetAddress={job.street_address}
@@ -71,6 +71,7 @@ const JobHistory = () => {
         timeEstimate={job.time_estimate}
         status={jobStatus(job)}
         description={job.description}
+        history={props.history}
       />
     )
   })
