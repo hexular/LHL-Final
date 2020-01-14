@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import Open from './Open'
 import AppBar from './Appbar';
-import Loading from './Loading';
+// import Loading from './Loading';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import { Grid } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -34,7 +35,7 @@ export default function Jobs(props) {
   const [goHistory, setGoHistory] = useState(false)
   const [accepted, setAccepted] = useState(false);
   const [map, setMap] = useState(false);
-  const [loading, setLoading] = useState(true)
+  // const [loading, setLoading] = useState(true)
 
   const acceptJob = function (jobId) {
     console.log(jobId)
@@ -45,7 +46,7 @@ export default function Jobs(props) {
           id: jobId,
           dropJob: false,
         }
-      }, {withCredentials: true}
+      }, { withCredentials: true }
     )
       .then(
         (res) => {
@@ -60,7 +61,7 @@ export default function Jobs(props) {
 
   useEffect(() => {
     console.log("~~~~~~~~~ACCEPTED: ", accepted)
-    axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, {withCredentials: true})
+    axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, { withCredentials: true })
       .then((res) => {
         setResponse(res.data)
         if (props.change) {
@@ -68,15 +69,12 @@ export default function Jobs(props) {
         }
       });
 
-      
+    axios.get('/auth', { withCredentials: true })
 
-    axios.get('/auth', {withCredentials: true})
       .then((response) => {
         if (response.data.result !== "jobber") {
           props.history.replace("/")
           props.history.go()
-        } else {
-          setLoading(false)
         }
       });
   }, [props.update, props.change])
@@ -85,7 +83,7 @@ export default function Jobs(props) {
 
   const openJobs = jobs.map(job => {
     console.log('from map', job)
-    
+
     return (
       <Open
         key={job.id}
@@ -103,14 +101,13 @@ export default function Jobs(props) {
         acceptJob={(id) => acceptJob(id)}
         lat={props.lat}
         long={props.long}
-        post={job.post_code} />
+        post={job.post_code} 
+      />
     )
-    
+
   })
 
-  if (loading) {
-    return null
-  } else if (goHistory) {
+if (goHistory) {
     return <Redirect to="/history" />
   } else if (accepted) {
     console.log("TRYING TO REDIRECT TO ", accepted)
@@ -121,19 +118,31 @@ export default function Jobs(props) {
     return (
       <MuiThemeProvider>
         <AppBar title="Open Jobs" user={true} />
-        {openJobs.length === 0 ? <Loading /> : openJobs}
-        <RaisedButton
-          label="History"
-          onClick={() => setGoHistory(true)}
-          primary={true}
-          style={styles.button}
-        />
-        <RaisedButton
-          label="Map View"
-          onClick={() => setMap(true)}
-          primary={true}
-          style={styles.button}
-        />
+
+        {openJobs.length === 0 ? <p>lol</p> : openJobs}
+
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+        >
+          <Button
+            onClick={() => setGoHistory(true)}
+            style={styles.button}
+            variant="contained"
+            color="secondary"
+          >
+            History
+          </Button>
+          <Button
+            onClick={() => setMap(true)}
+            style={styles.button}
+            variant="contained"
+            color="secondary"
+          >
+            Map View
+          </Button>
+        </Grid>
       </MuiThemeProvider>
     )
   }

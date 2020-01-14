@@ -30,9 +30,9 @@ const useStyles = makeStyles(theme => ({
     marginBottom: 200,
     fontWeight: "bold"
   },
-  button: {    
+  button: {
     margin: 20,
-    width: 100    
+    width: 100
   }
 }));
 
@@ -45,7 +45,7 @@ export default function MyJobs(props) {
 
   useEffect(() => {
     console.log("thisss", props)
-    axios.get("/myjobs", {withCredentials: true})
+    axios.get("/myjobs", { withCredentials: true })
       .then(res => {
         setResponse(res.data)
         if (props.change) {
@@ -53,15 +53,15 @@ export default function MyJobs(props) {
         }
       });
 
-    axios.get('/auth', {withCredentials: true})
-    .then((response) => {
-      if (response.data.result !== "user") {
-        props.history.replace("/")
-        props.history.go()
-      } else {
-        setLoading(false)
-      }
-    });
+    axios.get('/auth', { withCredentials: true })
+      .then((response) => {
+        if (response.data.result !== "user") {
+          props.history.replace("/")
+          props.history.go()
+        } else {
+          setLoading(false)
+        }
+      });
   }, [props.change, props.update])
 
   const markComplete = function (id) {
@@ -72,7 +72,7 @@ export default function MyJobs(props) {
           id: id,
           confirmComplete: true
         }
-      }, {withCredentials: true}
+      }, { withCredentials: true }
     )
       .catch(err => console.log("error", err));
   }
@@ -126,24 +126,22 @@ export default function MyJobs(props) {
             wrap="nowrap"
             spacing={2}
           >
-      
+
             {openJobs.length ? openJobs : null}
             {progressJobs.length ? progressJobs : null}
             {userConfirmJobs.length ? userConfirmJobs : null}
-            
-            {(openJobs.length || progressJobs.length || userConfirmJobs.length) ? null : 
-            <Typography className={classes.noJobMessage}>No Active Job(s)</Typography>}
+
+            {(openJobs.length || progressJobs.length || userConfirmJobs.length) ? null :
+              <Typography className={classes.noJobMessage}>No Active Job(s)</Typography>}
             <Grid container direction="row" justify="center" alignItems="center">
-              <Button                
+              <Button
                 onClick={() => setGoBack(true)}
-                primary={true}
                 className={classes.button}
-                variant="contained"             
+                variant="contained"
               >BACK</Button>
 
-              <Button                
+              <Button
                 onClick={() => setNewJob(true)}
-                primary={true}
                 className={classes.button}
                 variant="contained"
                 color="primary"
@@ -151,8 +149,8 @@ export default function MyJobs(props) {
             </Grid>
           </Grid>
         </MuiThemeProvider>
-  )  :
-  null ) : <Redirect to="/" />)
+      ) :
+        null) : <Redirect to="/" />)
 }
 
 const styles = {

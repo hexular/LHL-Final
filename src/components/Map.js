@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from './Appbar';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router';
 import axios from 'axios';
+import { makeStyles } from '@material-ui/core/styles';
 import Marker from './Marker';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+
 
 class SimpleMap extends Component {
 
@@ -103,22 +106,35 @@ class SimpleMap extends Component {
           <AppBar title="Main Portal #Lit-Final" user={true} />
           <div style={{ height: '70vh', width: '100%' }}>
             <GoogleMapReact
-              // add key here for deployment
+              bootstrapURLKeys={{ key: 'AIzaSyA0FZO0N4sb2MrGhmSgv8WD872-D9-lmnE' }}
               defaultCenter={{ lat: this.props.lat, lng: this.props.long }}
               defaultZoom={this.props.zoom}
             >
               {openJobs}
+            
+              <Marker
+                text={'me'}
+                lat={this.props.lat}
+                lng={this.props.long} 
+              ></Marker>
             </GoogleMapReact>
           </div>
-          <RaisedButton
-            label="Back"
+          <Button
+            variant="contained"
             onClick={() => this.setState({ goBack: true })}
-            primary={true}
-            style={styles.button}
-          />
+            // color={'primary'}
+            style={useStyles.button}
+          >Back</Button>
         </MuiThemeProvider>
       );
   }
 }
 
 export default SimpleMap;
+
+const useStyles = {
+  button: {    
+    margin: 20,
+    width: 100    
+  }
+};

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Button from "./Button";
+import Button from "@material-ui/core/Button";
 import AppBar from './Appbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { makeStyles } from '@material-ui/core/styles';
@@ -31,12 +31,14 @@ const useStyles = makeStyles(theme => ({
 
 export default function Display(props) {
   const classes = useStyles();
-  const [goBack, setGoBack] = useState(false)
+  const [goJobs, setGoJobs] = useState(false);
+  const [goHistory, setGoHistory] = useState(false);
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(true)
   const { id } = useParams();
 
   const dropJob = function () {
+    setGoJobs(true)
     axios.put(
       `/jobs/`,
       {
@@ -44,10 +46,10 @@ export default function Display(props) {
           id: id,
           dropJob: true
         }
-      }, {withCredentials: true}
+      }, { withCredentials: true }
     )
       .then(() => {
-        setGoBack(true)
+
       })
       .catch(err => console.log("error", err));
   }
@@ -81,7 +83,7 @@ export default function Display(props) {
           id: id,
           markComplete: true
         }
-      }, {withCredentials: true}
+      }, { withCredentials: true }
     )
       .catch(err => console.log("error", err));
   }
@@ -102,7 +104,7 @@ export default function Display(props) {
 
   useEffect(() => {
     console.log("props", props)
-    axios.get(`/jobs?id=${id}`, {withCredentials: true})
+    axios.get(`/jobs?id=${id}`, { withCredentials: true })
       .then((res) => {
         setResponse(res.data[0])
         if (props.change) {
@@ -111,7 +113,7 @@ export default function Display(props) {
       })
       .catch(err => console.log("error", err));
 
-    axios.get('/auth', {withCredentials: true})
+    axios.get('/auth', { withCredentials: true })
       .then((response) => {
         if (response.data.result !== "jobber") {
           props.history.replace("/")
@@ -123,73 +125,101 @@ export default function Display(props) {
   }, [props.update, props.change])
 
 
-  console.log(props)
-  return loading ? null : (!goBack ?
-    (
-      <MuiThemeProvider>
-        <AppBar title="Job Info #Lit-Final" user={true} />
+  return loading ? null :
+    (goJobs ? <Redirect to="/jobs/" /> :
+      (goHistory ? <Redirect to="/history/" /> :
+        <MuiThemeProvider>
+          <AppBar title="Job Info #Lit-Final" user={true} />
 
-        <Paper className={classes.paper}>
-          <Grid item>
-            <Typography variant="h4">{response.service_type}</Typography>
+          <Paper className={classes.paper}>
+            <Grid item>
+              <Typography variant="h4">{response.service_type}</Typography>
 
-            <Typography>Description: {response.description}</Typography>
-            <Typography>Requested By: {response.name}</Typography>
-            <Typography>Address: {response.street_address}</Typography>
-            <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
-            <Typography>Status: {jobStatus(response)}</Typography>
+              <Typography>Description: {response.description}</Typography>
+              <Typography>Requested By: {response.name}</Typography>
+              <Typography>Address: {response.street_address}</Typography>
+              <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
+              <Typography>Status: {jobStatus(response)}</Typography>
+            </Grid>
+          </Paper>
+          <Grid container
+            direction="column"
+            justify="space-between"
+            style={{ height: "60vh" }}>
+            <Grid
+              container
+              direction="row"
+              justify="space-around">
+              {
+                jobStatus(response) === "Open" ?
+                  <Button
+                    onClick={() => {
+                      acceptJob(id)
+                      props.updateMyJobs()
+                      props.updateAllJobs()
+                    }}
+                    style={styles.button}
+                    variant="contained"
+                  >
+                    Accept
+                </Button>
+                  : null
+              }
+              {
+                jobStatus(response) === "In Progress" ?
+                  <Button
+                    onClick={() => {
+                      dropJob()
+                      props.updateMyJobs()
+                      props.updateAllJobs()
+                    }}
+                    style={styles.button}
+                    variant="contained"
+                  >
+                    Cancel
+                </Button>
+                  : null
+              }
+              {
+                jobStatus(response) === "In Progress" ?
+                  <Button
+                    onClick={() => {
+                      markComplete()
+                      props.updateMyJobs()
+                      props.updateAllJobs()
+                    }}
+                    style={styles.button}
+                    variant="contained"
+                  >
+                    Mark Complete
+                </Button>
+                  : null
+              }
+
+            </Grid>
+            <Grid
+              container
+              direction="column"
+            >
+              <Button
+                onClick={() => setGoJobs(true)}
+                style={styles.button}
+                variant="contained"
+              >
+                Jobs
+              </Button>
+              <Button
+                onClick={() => setGoHistory(true)}
+                style={styles.button}
+                variant="contained"
+              >
+                History
+              </Button>
+            </Grid>
           </Grid>
-        </Paper>
-        <Grid container direction="row" justify="center">
-          {
-            jobStatus(response) === "Open" ?
-              <RaisedButton
-                label="Accept"
-                onClick={() => {
-                  acceptJob(id)
-                  props.updateMyJobs()
-                  props.updateAllJobs()
-                }}
-                primary={true}
-                style={styles.button}
-              /> : null
-          }
-          {
-            jobStatus(response) === "In Progress" ?
-              <RaisedButton
-                label="Cancel"
-                onClick={() => {
-                  dropJob()
-                  props.updateMyJobs()
-                  props.updateAllJobs()
-                }}
-                primary={true}
-                style={styles.button}
-              /> : null
-          }
-          <RaisedButton
-            label="Back"
-            onClick={() => setGoBack(true)}
-            primary={true}
-            style={styles.button}
-          />
-          {
-            jobStatus(response) === "In Progress" ?
-              <RaisedButton
-                label="Mark Complete"
-                onClick={() => {
-                  markComplete()
-                  props.updateMyJobs()
-                  props.updateAllJobs()
-                }}
-                primary={true}
-                style={styles.button}
-              /> : null
-          }
-        </Grid>
-      </MuiThemeProvider>
+        </MuiThemeProvider >
+      )
     )
-    : <Redirect to={props.history.location.pathname} />)
 }
 
 const styles = {
