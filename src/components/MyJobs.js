@@ -20,6 +20,19 @@ const useStyles = makeStyles(theme => ({
     margin: `${theme.spacing(1)}px auto`,
     padding: theme.spacing(2),
   },
+  jobStatus: {
+    margin: 20,
+    fontWeight: "bold",
+    fontSize: "1.5rem",
+    textAlign: "center"
+  },
+  // container: {
+  //   borderStyle: "solid",
+  //   padding: 10,
+  //   marginTop: 15,
+  //   borderRadius: 15,
+  //   backgroundColor: "#3f51b5"
+  // }
 }));
 
 export default function MyJobs(props) {
@@ -103,7 +116,7 @@ export default function MyJobs(props) {
     !goBack ?
       (response.length !== 0 ? (
         <MuiThemeProvider>
-          <AppBar title="My Jobs #Lit-Final" user={true} />
+          <AppBar title="Active Jobs" user={true} />
           <Grid
             className={classes.root}
             container
@@ -113,10 +126,12 @@ export default function MyJobs(props) {
             wrap="nowrap"
             spacing={2}
           >
-            <Typography className={classes.heading}>
+            
+            <Typography className={classes.jobStatus}>
               Open Jobs
             </Typography>
             {openJobs.length ? openJobs : <Typography>None</Typography>}
+                        
             <Typography className={classes.heading}>
               Jobs In Progress
             </Typography>
