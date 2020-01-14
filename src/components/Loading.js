@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Grid from '@material-ui/core/Grid'
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -9,40 +10,50 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 345,
+    width: 300,
+    margin: 'auto'
   },
+  media: {
+    height: '100%',
+    width: '100%'
+  },
+  noJobMessage: {
+    fontSize: "2rem",
+    marginTop: 200,
+    marginBottom: 200,
+    fontWeight: "bold"
+  }
 });
 
 const Loading = () => {
   const classes = useStyles();
   const [load, setLoad] = useState(false)
 
-  setTimeout(() => setLoad(true), 5000)
+  setTimeout(() => setLoad(true), 3000)
 
   return (
 
-    <Card className={classes.card}>
+    <Grid
+      container
+      direction="row"
+      justify="center"
+      alignItems="center"
+      style={{ height: "70vh" }}>
       {load ?
-        <Typography gutterBottom variant="h5" component="h2" align="center">
-          No jobs available... 😓 Please check back later!
-        </Typography> :
-        <CardActionArea>
+        <Typography className={classes.noJobMessage}>No Active Job(s)</Typography> :
+        <div className={classes.card}>
           <CardMedia
+            classname={classes.media}
             component="img"
             alt="Loading"
-            height="230"
             image="/loading.gif"
             title="Loading"
           />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2" align="center">
-              Loading Jobs
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+        </div>
       }
-    </Card>
+    </Grid>
   );
 }
+
 
 export default Loading;

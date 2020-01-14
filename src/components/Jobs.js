@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Open from './Open'
 import AppBar from './Appbar';
-// import Loading from './Loading';
+import Loading from './Loading';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Button from '@material-ui/core/Button';
@@ -101,13 +101,13 @@ export default function Jobs(props) {
         acceptJob={(id) => acceptJob(id)}
         lat={props.lat}
         long={props.long}
-        post={job.post_code} 
+        post={job.post_code}
       />
     )
 
   })
 
-if (goHistory) {
+  if (goHistory) {
     return <Redirect to="/history" />
   } else if (accepted) {
     console.log("TRYING TO REDIRECT TO ", accepted)
@@ -119,7 +119,7 @@ if (goHistory) {
       <MuiThemeProvider>
         <AppBar title="Open Jobs" user={true} />
 
-        {openJobs.length === 0 ? <p>lol</p> : openJobs}
+        {openJobs.length === 0 ? <Loading /> : openJobs}
 
         <Grid
           container
