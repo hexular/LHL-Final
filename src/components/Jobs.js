@@ -68,8 +68,6 @@ export default function Jobs(props) {
         }
       });
 
-      
-
     axios.get('/auth', {withCredentials: true})
       .then((response) => {
         if (response.data.result !== "jobber") {
@@ -101,9 +99,9 @@ export default function Jobs(props) {
         acceptJob={(id) => acceptJob(id)}
         lat={props.lat}
         long={props.long}
-        post={job.post_code} />
+        post={job.post_code} 
+      />
     )
-    
   })
 
 if (goHistory) {
