@@ -23,15 +23,18 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { change: true, connected: false, update: false, long: 43.6441011, lat: -79.4023121 };
+    this.state = { change: true, connected: false, update: false, long: -79.4023121, lat: 43.6441011 };
   }
 
   showPosition = (pos) => {
+    console.log(pos.coords.longitude, pos.coords.latitude)
     this.setState({ long: pos.coords.longitude, lat: pos.coords.latitude })
   }
 
   track = () => {
+    navigator.geolocation ? 
     navigator.geolocation.getCurrentPosition(this.showPosition)
+    : this.setState({ long: this.state.long, lat: this.state.lat });
   }
 
   connect = () => {
@@ -41,6 +44,7 @@ export class App extends Component {
 
   componentDidMount() {
     this.track()
+    console.log(this.state.long, this.state.lat)
     axios.get("/auth", { withCredentials: true })
       .then((res) => {
         console.log(res.data)
