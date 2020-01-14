@@ -46,24 +46,24 @@ export default function UserJob(props) {
           {
             props.jobStatus(props.job) === "Open" ?
               <Button
-                variant="contained" 
-                color="secondary" 
-                className={classes.button}                
+                variant="contained"
+                color="secondary"
+                className={classes.button}
                 onClick={() => {
-                  axios.put(`/myjobs`, [props.job.id], {withCredentials: true})
+                  axios.put(`/myjobs`, [props.job.id], { withCredentials: true })
                   // props.finished()
                   props.updateMyJobs()
                   props.updateAllJobs()
                 }
-              }>
-              DELETE
+                }>
+                DELETE
               </Button> : null
           }
           {
             props.jobStatus(props.job) === "Marked Complete. Awaiting User Confirmation" ?
               <Button
-                variant="contained" 
-                color="primary" 
+                variant="contained"
+                color="primary"
                 onClick={() => {
                   props.markComplete(props.job.id)
                   props.updateMyJobs()
@@ -71,17 +71,17 @@ export default function UserJob(props) {
                 }}
                 className={classes.button}
               >
-              Mark Complete    
+                Mark Complete
               </Button> : null
           }
           {
             props.jobStatus(props.job) === "In Progress" ?
               <Button
-                variant="contained" 
-                color="disabled"                
+                variant="contained"
+                color="disabled"
                 className={classes.button}
               >
-              In Progress    
+                In Progress
               </Button> : null
           }
         </section>
