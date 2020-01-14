@@ -7,7 +7,11 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
-import axios from 'axios';
+import { FaPeopleCarry, FaBroom, FaHammer, FaSnowplow, FaTractor, FaPaintBrush, FaDog, FaTools, FaRegSnowflake } from "react-icons/fa";
+import { MdPerson } from 'react-icons/md';
+import { DiTerminal } from 'react-icons/di';
+import { GiRake, GiBalloonDog, GiSherlockHolmes, GiCatapult, GiHighGrass, GiHealthNormal } from 'react-icons/gi';
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,6 +28,54 @@ const useStyles = makeStyles(theme => ({
 export default function Open({ jobId, serviceType, userName, streetAddress, hourlyRate, timeEstimate, description, acceptJob, distance, time, updateMyJobs, updateAllJobs }) {
 
   const classes = useStyles()
+  let content;
+  switch(serviceType) {
+    case 'Moving':
+      content = <FaPeopleCarry />
+      break;
+    case 'Cleaning':
+      content = <FaBroom />
+      break;
+    case 'Snow Plow':
+      content = <FaRegSnowflake />
+      break;
+    case 'Farm Work':
+        content = <FaTractor />
+        break;
+    case 'Investigation':
+        content = <GiSherlockHolmes />
+        break;
+    case 'Yard Work':
+        content = <GiRake />
+        break;
+    case 'Clowning':
+        content = <GiBalloonDog />
+        break;
+    case 'Siege':
+        content = <GiCatapult />
+        break;
+    case 'Painting':
+        content = <FaPaintBrush />
+        break;
+    case 'Pet Sitting':
+        content = <FaDog />
+        break;
+    case 'Construction':
+        content = <FaTools />
+        break;
+    case 'Lawn Mow':
+        content = <GiHighGrass />
+        break;
+    case 'Health':
+        content = <GiHealthNormal />
+        break;
+    case 'Code':
+        content = <DiTerminal />
+        break;
+    default:
+      content = <FaHammer />
+      break;
+  }
 
   return (
     <ExpansionPanel>
@@ -40,7 +92,7 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
         >
           <Grid item xs={4}>
             <Typography className={classes.heading}>
-              {serviceType}
+              {content}  {serviceType}
             </Typography>
           </Grid>
 
