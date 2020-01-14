@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import keys from '../var';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -122,6 +123,7 @@ export default function Display(props) {
   }, [props.update, props.change])
 
 
+  console.log(props)
   return loading ? null : (!goBack ?
     (
       <MuiThemeProvider>
@@ -187,7 +189,7 @@ export default function Display(props) {
         </Grid>
       </MuiThemeProvider>
     )
-    : <Redirect to="/jobs" />)
+    : <Redirect to={props.history.location.pathname} />)
 }
 
 const styles = {
