@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import './Marker.css'
 import { FaPeopleCarry, FaBroom, FaHammer, FaSnowplow } from "react-icons/fa";
+import { MdPerson } from 'react-icons/md';
 
 
   const K_WIDTH = 25;
@@ -12,10 +13,6 @@ class Marker extends Component {
   constructor(props) {
     super(props);
     this.state = { hover: false };
-  }
-
-  toggleHover() {
-    this.setState({hover: !this.state.hover})
   }
 
   // regular = {
@@ -52,51 +49,51 @@ class Marker extends Component {
   antiRotate = classnames('antiRotate', {
     "icon-style": this.props.text
   })
+  rotate = classnames('rotate', {
+    "icon-style": this.props.text
+  })
+  me = classnames('me', {
+    "me-style": this.props.text
+  })
 
   render() {
-    let linkStyle;
+    let overwrite;
     let content;
-   if (!this.state.hover) {
+   
     // linkStyle = this.regular
     switch(this.props.text) {
       case 'Lawn Mow':
-        content = <FaPeopleCarry className={this.antiRotate}/>
+        content = <FaPeopleCarry />
         break;
       case 'Foot Rub':
-        content = <FaBroom className={this.antiRotate}/>
+        content = <FaBroom />
         break;
       case 'Snow Plow':
-        content = <FaHammer className={this.antiRotate}/>
+        content = <FaHammer />
+        break;
+      case 'me':
+        content = <MdPerson className={this.me} />
+        overwrite = true;
         break;
       default:
-        content = <FaSnowplow className={this.antiRotate}/>
+        content = <FaSnowplow />
         break;
     }
     
-   } else {
-    //  linkStyle = this.onHover
-     content = 
-     <div className={this.antiRotate}>
-       {this.props.text}
-       <br/>
-       {this.props.time} hr{this.props.time > 1 ? 's' : ''}
-       <br/>
-       ${this.props.pay}/hr
-
-     </div>
-   }
-	return(
+  return overwrite ? 
+  (<div
+    onClick={this.props.onClick}
+  >
+    {content}
+  </div>
+  ) 
+  :
+  (
     <div 
-    // className={this.marker}
       className={this.markerClass}
-      style={linkStyle} 
-      onMouseEnter={() => this.toggleHover()} 
-      onMouseLeave={() => this.toggleHover()}
       onClick={this.props.onClick}
     >
-
       {content}
-      
     </div>
 	)
   }
