@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from './Appbar';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import Grid from '@material-ui/core/Grid';
+import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -15,26 +17,26 @@ export class JobDetails extends Component {
   }
 
   componentDidMount() {
-    axios.get('/auth', {withCredentials: true})
-    .then((response) => {
-      console.log(response)
-      if (response.data.result !== "user") {
-        console.log("thissss", this)
-        this.props.browser.replace('/')
-        this.props.browser.go();
-      } else {
-        axios.get("/skills", {withCredentials: true})
+    axios.get('/auth', { withCredentials: true })
       .then((response) => {
-        console.log(response);
-        this.setState({ skills: response.data })
-        this.setState({
-          loading: false
-        })
-      })
-      .catch(e => console.log(e))
-      }
-    });
-   
+        console.log(response)
+        if (response.data.result !== "user") {
+          console.log("thissss", this)
+          this.props.browser.replace('/')
+          this.props.browser.go();
+        } else {
+          axios.get("/skills", { withCredentials: true })
+            .then((response) => {
+              console.log(response);
+              this.setState({ skills: response.data })
+              this.setState({
+                loading: false
+              })
+            })
+            .catch(e => console.log(e))
+        }
+      });
+
   }
 
   continue = e => {
@@ -84,72 +86,89 @@ export class JobDetails extends Component {
   render() {
     const { values, handleChange, browser } = this.props;
     //console.log("this yo", this)
-    
+
     return this.state.loading ? null : (
       <MuiThemeProvider>
         <React.Fragment>
           <AppBar title="Enter Job Details" user={true} />
           <br />
-          <InputLabel>Service Type</InputLabel>
-          <Select
-            defaultValue={values.serviceType}
-            onChange={handleChange('serviceType')}
-            style={{ width: 256 }}
-          >
-            {this.generateSkillList()}
-          </Select>
-          <br />
-          <TextField
-            hintText="Enter a Description"
-            floatingLabelText="Description"
-            onChange={handleChange('description')}
-            defaultValue={values.description}
-          />
-          <br />
-          <TextField
-            type="number"
-            min="0"
-            hintText="Enter Pay Rate"
-            floatingLabelText="Pay Rate (Per Hour)"
-            onChange={handleChange('payRate')}
-            defaultValue={values.payRate}
-          />
-          <br />
-          <TextField
-            type="number"
-            min="0"
-            hintText="Enter Required Time"
-            floatingLabelText="Required Time (In Hours)"
-            onChange={handleChange('requiredTime')}
-            defaultValue={values.requiredTime}
-          />
-          <br />
-          <TextField
-            hintText="Enter Address"
-            floatingLabelText="Address"
-            onChange={handleChange('address')}
-            defaultValue={values.address}
-          />
-          <br />
-          <TextField
-            hintText="Enter Postal Code"
-            floatingLabelText="Postal Code (A1B 2D3)"
-            onChange={handleChange('postalCode')}
-            defaultValue={values.postalCode}
-          />
-          <br />
-          <RaisedButton
-            label="Post Job"
-            primary={true}
-            style={styles.button}
-            onClick={this.continue}
-          />
-          <RaisedButton
-            label="Back"
-            primary={false}
-            style={styles.button}
-            onClick={() => browser.goBack()}
-          />
+          <Container justify="center">
+            <InputLabel>Service Type</InputLabel>
+            <Select
+              defaultValue={values.serviceType}
+              onChange={handleChange('serviceType')}
+              style={{ width: 256 }}
+            >
+              {this.generateSkillList()}
+            </Select>
+            <br />
+            <TextField
+              hintText="Enter a Description"
+              floatingLabelText="Description"
+              onChange={handleChange('description')}
+              defaultValue={values.description}
+            />
+            <br />
+            <TextField
+              type="number"
+              min="0"
+              hintText="Enter Pay Rate"
+              floatingLabelText="Pay Rate (Per Hour)"
+              onChange={handleChange('payRate')}
+              defaultValue={values.payRate}
+            />
+            <br />
+            <TextField
+              type="number"
+              min="0"
+              hintText="Enter Required Time"
+              floatingLabelText="Required Time (In Hours)"
+              onChange={handleChange('requiredTime')}
+              defaultValue={values.requiredTime}
+            />
+            <br />
+            <TextField
+              hintText="Enter Address"
+              floatingLabelText="Address"
+              onChange={handleChange('address')}
+              defaultValue={values.address}
+            />
+            <br />
+            <TextField
+              hintText="Enter Postal Code"
+              floatingLabelText="Postal Code (A1B 2D3)"
+              onChange={handleChange('postalCode')}
+              defaultValue={values.postalCode}
+            />
+            <br />
+            <Grid
+              container
+              direction="row"
+              justify="space-around"
+            >
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                style={styles.button}
+                onClick={this.continue}
+              >
+                Post Job
+              </Button>
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                size="large"
+                style={styles.button}
+                onClick={() => browser.goBack()}
+              >
+                Back
+              </Button>
+            </Grid>
+
+          </Container>
+
         </React.Fragment>
       </MuiThemeProvider>
     )
@@ -158,7 +177,7 @@ export class JobDetails extends Component {
 
 const styles = {
   button: {
-    margin: 15
+    margin: 15,
   }
 }
 

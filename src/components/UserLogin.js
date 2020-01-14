@@ -64,7 +64,7 @@ export default function UserLogin(props) {
       email: email.trim().toLowerCase(),
       password: password
     }
-    console.log("DEPLOY PLZZZZZ")
+
     axios.post('/auth/login', loginInfo, {withCredentials: true})
       .then(function (response) {
         if (response.data.result) {
@@ -83,7 +83,7 @@ export default function UserLogin(props) {
       submitted ? <Redirect to="/user" /> :
         <MuiThemeProvider>
           <React.Fragment>
-            <AppBar position="static" user={false}>
+            <AppBar position="static" user={false} title="Enter Login Details">
               <Toolbar variant="dense">
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                   <MenuIcon />
@@ -100,7 +100,7 @@ export default function UserLogin(props) {
                   <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                  Sign in
+                  User Sign in
             </Typography>
                 <form className={classes.form} noValidate>
                   <TextField

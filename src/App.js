@@ -27,7 +27,6 @@ export class App extends Component {
   }
 
   showPosition = (pos) => {
-    console.log(pos.coords.longitude, pos.coords.latitude)
     this.setState({ long: pos.coords.longitude, lat: pos.coords.latitude })
   }
 
@@ -38,11 +37,13 @@ export class App extends Component {
   }
 
   connect = () => {
+
     this.ws = new WebSocket("ws://localhost:8080")
     this.setState({ connected: true })
   }
 
   componentDidMount() {
+
     this.track()
     console.log(this.state.long, this.state.lat)
     axios.get("/auth", { withCredentials: true })
