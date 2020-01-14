@@ -5,33 +5,14 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Redirect } from 'react-router';
 import axios from 'axios';
-
-// const geocoder = new google.maps.Geocoder();
-// import Open from './Job/Open'
-// import { geolocated } from "react-geolocated";
-
-// const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
-// var lat = '';
-// var lng = '';
-// var address = 'L4E3T6';
-// geocoder.geocode( { 'address': address}, function(results, status) {
-//   if (status == google.maps.GeocoderStatus.OK) {
-//      lat = results[0].geometry.location.lat();
-//      lng = results[0].geometry.location.lng();
-//   } else {
-//     alert("Geocode was not successful for the following reason: " + status);
-//   }
-// });
-// alert('Latitude: ' + lat + ' Logitude: ' + lng);
+import Marker from './Marker';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class SimpleMap extends Component {
   
-  // response = []
-
   constructor(props) {
     super(props);
-    this.state = { response: [], goBack: false, accepted: false, loading: false };
+    this.state = { response: [], goBack: false, accepted: false, loading: false, job: null };
   }
 
   acceptJob = function (jobId) {
@@ -65,9 +46,9 @@ class SimpleMap extends Component {
 
   componentDidMount() {
     const loadJobs = () => {
-      axios.get("/jobs")
+      axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`)
         .then((res) => {
-          console.log(res)
+          console.log('in component did mount res', res)
           this.setState({response: res.data})
         });
     }
@@ -76,21 +57,28 @@ class SimpleMap extends Component {
 
   render = () => {
 
-    console.log(this.state.response)
+    
+
+    console.log('RESPONSE HERE WOOOOHOOO', this.state.response)
 
      const openJobs = this.state.response.map(job => {
       return (
-        <div
+        <Marker
+          text={job.service_type}
+          pay={job.hourly_rate}
+          time={job.time_estimate}
+          desc={job.description}
           lat={job.lat}
           lng={job.long}
-          text={job.service_type}
+          onClick={() => 
+            this.setState({job: job.id}) &&
+            this.props.history.push("/map")
+          }
         > 
-          {job.service_type}
-          <p>lololol</p>
-        </div>
+          
+        </Marker>
       )
     });
-
 
     const styles = {
       button: {
@@ -100,14 +88,18 @@ class SimpleMap extends Component {
   
     console.log(this.props.long)
     console.log(this.props.lat)
-    return this.state.goBack ? 
-      <Redirect to={'/jobs'} /> :
+    if (this.state.job) return <Redirect to={{
+      pathname: `/jobs/${this.state.job}`, 
+      map: true
+    }}/>
+    else return this.state.goBack ? 
+      <Redirect to={'/jobs'} /> : 
     (
       // Important! Always set the container height explicitly
       <MuiThemeProvider>
       
         <AppBar title="Main Portal #Lit-Final" user={true}/>
-      <div style={{ height: '70vh', width: '80%' }}>
+      <div style={{ height: '70vh', width: '100%' }}>
         <GoogleMapReact
           // add key here for deployment
           defaultCenter={{lat: this.props.lat, lng: this.props.long}}
