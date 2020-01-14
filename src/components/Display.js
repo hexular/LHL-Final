@@ -51,6 +51,27 @@ export default function Display(props) {
       .catch(err => console.log("error", err));
   }
 
+  const acceptJob = function (jobId) {
+    console.log(jobId)
+    axios.put(
+      `/jobs/`,
+      {
+        params: {
+          id: jobId,
+          dropJob: false,
+        }
+      }
+    )
+      .then(
+        (res) => {
+          props.updateMyJobs();
+          props.updateAllJobs();
+
+        }
+      )
+      .catch(err => console.log(err))
+  }
+
   const markComplete = function () {
     axios.put(
       `/jobs/`,
@@ -118,6 +139,19 @@ export default function Display(props) {
           </Grid>
         </Paper>
         <Grid container direction="row" justify="center">
+          {
+            jobStatus(response) === "Open" ?
+              <RaisedButton
+                label="Accept"
+                onClick={() => {
+                  acceptJob(id)
+                  props.updateMyJobs()
+                  props.updateAllJobs()
+                }}
+                primary={true}
+                style={styles.button}
+              /> : null
+          }
           {
             jobStatus(response) === "In Progress" ?
               <RaisedButton
