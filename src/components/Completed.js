@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Grid from '@material-ui/core/Grid';
+import { Redirect } from 'react-router';
+import axios from 'axios';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,11 +22,24 @@ const useStyles = makeStyles(theme => ({
 
 
 
-export default function Completed({ serviceType, userName, streetAddress, hourlyRate, timeEstimate, description, status }) {
+export default function Completed({ jobId, serviceType, userName, streetAddress, hourlyRate, timeEstimate, description, status, history }) {
+  const [viewDetails, setViewDetails] = useState(false);
+  const [isJobber, setIsJobber] = useState(true);
 
   const classes = useStyles()
+  console.log("completed jobid", jobId)
 
-  return (
+  useEffect(() => {
+    axios.get('/auth', { withCredentials: true })
+      .then((response) => {
+        if (response.data.result !== "jobber") {
+          setIsJobber(false)
+        };
+      });
+  }, []);
+
+  return (viewDetails ?
+    <Redirect to={`/jobs/${jobId}`} /> :
     <ExpansionPanel>
       <ExpansionPanelSummary
         expandIcon={<ExpandMoreIcon />}
@@ -59,9 +75,23 @@ export default function Completed({ serviceType, userName, streetAddress, hourly
           <Typography>Requested By: {userName}</Typography>
           <Typography>Address: {streetAddress}</Typography>
           <Typography>Payout: ${hourlyRate * timeEstimate}</Typography>
+          {isJobber ?
+            <Button
+              type="button"
+              fullWidth
+              variant="contained"
+              color="secondary"
+              className={classes.submit}
+              onClick={() => {
+                setViewDetails(true)
+              }
+              }>
+              View Job Details
+          </Button>
+            : null
+          }
         </Grid>
       </ExpansionPanelDetails>
     </ExpansionPanel >
   )
 }
-

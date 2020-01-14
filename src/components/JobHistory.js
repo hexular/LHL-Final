@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Completed from './Completed'
 import AppBar from './Appbar';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
@@ -34,7 +34,7 @@ const styles = {
   }
 }
 
-const JobHistory = () => {
+const JobHistory = (props) => {
   const classes = useStyles();
   const [response, setResponse] = useState([])
   const [goBack, setGoBack] = useState(false)
@@ -63,7 +63,7 @@ const JobHistory = () => {
     return (
       <Completed
         key={job.id}
-        obId={job.id}
+        jobId={job.id}
         serviceType={job.service_type}
         userName={job.name}
         streetAddress={job.street_address}
@@ -71,6 +71,7 @@ const JobHistory = () => {
         timeEstimate={job.time_estimate}
         status={jobStatus(job)}
         description={job.description}
+        history={props.history}
       />
     )
   })
@@ -80,12 +81,13 @@ const JobHistory = () => {
       <AppBar title="Job Info #Lit-Final" user={true} />
       <h1>History</h1>
       {completedJobs}
-      <RaisedButton
-        label="Back"
+      <Button
         onClick={() => setGoBack(true)}
-        primary={true}
         style={styles.button}
-      />
+        variant="contained"
+      >
+        Back
+      </Button>
     </MuiThemeProvider> : <Redirect to="/" />
   );
 }
