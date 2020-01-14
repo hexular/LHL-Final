@@ -43,16 +43,7 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
               {serviceType}
             </Typography>
           </Grid>
-          <Grid item xs={4}>
-            <Typography className={classes.heading}>
-              Distance: {distance}
-            </Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography className={classes.heading}>
-              Travel Time: {time}
-            </Typography>
-          </Grid>
+          
         </Grid>
       </ExpansionPanelSummary >
       <ExpansionPanelDetails>

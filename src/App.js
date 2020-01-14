@@ -23,7 +23,7 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { change: true, connected: false, update: false, long: 0, lat: 0 };
+    this.state = { change: true, connected: false, update: false, long: 43.6441011, lat: -79.4023121 };
   }
 
   showPosition = (pos) => {
@@ -40,7 +40,7 @@ export class App extends Component {
   }
 
   componentDidMount() {
-
+    this.track()
     axios.get("/auth", { withCredentials: true })
       .then((res) => {
         console.log(res.data)
@@ -55,6 +55,7 @@ export class App extends Component {
       if (message.type === 'update') this.setState({ update: true });
       // console.log(message)
     }
+
   }
 
   finished = () => {
@@ -74,7 +75,7 @@ export class App extends Component {
       <BrowserRouter history={history} >
         <Route path="/" component={Home} exact />
         <Route path="/map" component={() => <Map
-          track={this.track()}
+          // track={this.track()}
           long={this.state.long}
           lat={this.state.lat}
           updateAllJobs={this.updateAllJobs}
@@ -84,11 +85,21 @@ export class App extends Component {
         />
         <Route path="/userlogin" component={UserLogin} />
         <Route path="/usersignup" component={UserSignup} />
-        <Route path="/jobberlogin" component={JobberLogin} />
+        <Route path="/jobberlogin" 
+          component={() => <JobberLogin 
+              // track={this.track()}
+              lat={this.state.lat}
+              long={this.state.long}
+              history={history}
+            />} 
+          />
         <Route path="/jobbersignup" component={JobberSignup} />
         <Route path="/user" component={User} />
         <Route path="/jobs"
           component={() => <Jobs
+            finished={this.finished}
+            lat={this.state.lat}
+            long={this.state.long}
             updateAllJobs={this.updateAllJobs}
             updateMyJobs={this.updateMyJobs}
             update={this.state.update}

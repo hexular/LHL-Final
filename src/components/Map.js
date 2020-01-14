@@ -90,7 +90,9 @@ class SimpleMap extends Component {
     console.log(this.props.lat)
     if (this.state.job) return <Redirect to={{
       pathname: `/jobs/${this.state.job}`, 
-      map: true
+      map: true,
+      lat: this.props.lat,
+      long: this.props.long
     }}/>
     else return this.state.goBack ? 
       <Redirect to={'/jobs'} /> : 

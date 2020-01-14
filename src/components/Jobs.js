@@ -7,7 +7,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
-import { getGeoCoordinates } from '../helpers/getLocation'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -37,21 +36,6 @@ export default function Jobs(props) {
   const [map, setMap] = useState(false);
   const [loading, setLoading] = useState(true)
 
-  const fetchJobWithCoords = async function () {
-    try {
-      const { latitude: lat, longitude: lng } = await getGeoCoordinates({ latitude: 23.644272, longitude: -59.402242 });
-      axios.get(`/jobs?lat=${lat}&lng=${lng}`)
-        .then((res) => {
-          setResponse(res.data)
-          if (props.change) {
-            props.finished()
-          }
-        });
-    } catch (err) {
-      console.log("Failed to retrieve location data. Distance mapping unavailable. Error: ", err)
-    }
-  }
-
   const acceptJob = function (jobId) {
     console.log(jobId)
     axios.put(
@@ -76,7 +60,7 @@ export default function Jobs(props) {
 
   useEffect(() => {
     console.log("~~~~~~~~~ACCEPTED: ", accepted)
-    axios.get("/jobs", {withCredentials: true})
+    axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, {withCredentials: true})
       .then((res) => {
         setResponse(res.data)
         if (props.change) {
@@ -84,7 +68,7 @@ export default function Jobs(props) {
         }
       });
 
-    fetchJobWithCoords();
+      
 
     axios.get('/auth', {withCredentials: true})
       .then((response) => {
@@ -100,6 +84,8 @@ export default function Jobs(props) {
   const jobs = response
 
   const openJobs = jobs.map(job => {
+    console.log('from map', job)
+    
     return (
       <Open
         key={job.id}
@@ -114,8 +100,12 @@ export default function Jobs(props) {
         time={job.time}
         updateAllJobs={props.updateAllJobs}
         updateMyJobs={props.updateMyJobs}
-        acceptJob={(id) => acceptJob(id)} />
+        acceptJob={(id) => acceptJob(id)}
+        lat={props.lat}
+        long={props.long}
+        post={job.post_code} />
     )
+    
   })
 
   if (loading) {
