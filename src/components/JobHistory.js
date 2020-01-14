@@ -86,7 +86,7 @@ const JobHistory = () => {
         primary={true}
         style={styles.button}
       />
-    </MuiThemeProvider> : <Redirect to="/jobs" />
+    </MuiThemeProvider> : <Redirect to="/" />
   );
 }
 
