@@ -70,7 +70,10 @@ class SimpleMap extends Component {
           desc={job.description}
           lat={job.lat}
           lng={job.long}
-          onClick={() => this.setState({job: job.id})}
+          onClick={() => 
+            this.setState({job: job.id}) &&
+            this.props.history.push("/map")
+          }
         > 
           
         </Marker>
@@ -85,7 +88,10 @@ class SimpleMap extends Component {
   
     console.log(this.props.long)
     console.log(this.props.lat)
-    if (this.state.job) return <Redirect to={`/jobs/${this.state.job}`} />
+    if (this.state.job) return <Redirect to={{
+      pathname: `/jobs/${this.state.job}`, 
+      map: true
+    }}/>
     else return this.state.goBack ? 
       <Redirect to={'/jobs'} /> : 
     (

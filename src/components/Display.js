@@ -97,6 +97,7 @@ export default function Display(props) {
   }, [props.update, props.change])
 
 
+  console.log(props)
   return loading ? null : (!goBack ?
     (
       <MuiThemeProvider>
@@ -160,7 +161,7 @@ export default function Display(props) {
         </React.Fragment>
       </MuiThemeProvider>
     )
-    : <Redirect to="/jobs" />)
+    : <Redirect to={props.history.location.pathname} />)
 }
 
 const styles = {
