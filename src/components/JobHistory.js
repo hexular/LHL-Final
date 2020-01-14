@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Completed from './Completed'
 import AppBar from './Appbar';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
@@ -81,12 +81,13 @@ const JobHistory = (props) => {
       <AppBar title="Job Info #Lit-Final" user={true} />
       <h1>History</h1>
       {completedJobs}
-      <RaisedButton
-        label="Back"
+      <Button
         onClick={() => setGoBack(true)}
-        primary={true}
         style={styles.button}
-      />
+        variant="contained"
+      >
+        Back
+      </Button>
     </MuiThemeProvider> : <Redirect to="/" />
   );
 }

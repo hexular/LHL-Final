@@ -166,9 +166,7 @@ export class JobDetails extends Component {
                 Back
               </Button>
             </Grid>
-
           </Container>
-
         </React.Fragment>
       </MuiThemeProvider>
     )

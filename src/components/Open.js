@@ -43,7 +43,7 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
               {serviceType}
             </Typography>
           </Grid>
-          
+
         </Grid>
       </ExpansionPanelSummary >
       <ExpansionPanelDetails>
@@ -61,7 +61,7 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
             type="button"
             fullWidth
             variant="contained"
-            color="primary"
+            color="secondary"
             className={classes.submit}
             onClick={() => {
               acceptJob(jobId)
