@@ -69,13 +69,13 @@ export default function JobberLogin(props) {
         if (response.data.result) {
 
           setSubmitted(true)
-          axios.put('/auth', [props.lat, props.long, loginInfo.email], {withCredentials: true})
+          axios.put('/auth', [props.lat, props.long, loginInfo.email], { withCredentials: true })
         } else {
           alert("account does not exist or invalid email/pw");
         }
       })
       .catch(err =>
-        console.log("Error: ", err)
+        console.log("Error posting log-in: ", err)
       );
   }
 
@@ -84,7 +84,7 @@ export default function JobberLogin(props) {
       submitted ? <Redirect to="/jobber" /> :
         <MuiThemeProvider>
           <React.Fragment>
-            <AppBar position="static" user={false} title="Enter Login Details">
+            <AppBar position="static" user={false} title="Jobber Login">
               <Toolbar variant="dense">
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                   <MenuIcon />

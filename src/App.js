@@ -47,29 +47,45 @@ export class App extends Component {
       this.ws.send(JSON.stringify({ type: 'newJob', message: 'hello' }))
     }
     this.ws.onmessage = event => {
+      console.log('message recieved', event.data)
       const message = JSON.parse(event.data)
-      if (message.type === 'update') this.setState({ update: true });
+      if (message.type === 'update') this.setState({ update: !this.state.update });
       // console.log(message)
     }
-
     this.ws.onclose = () => {
       console.log("socket closed wtf?");
       this.connect();
     }
+
   }
-
   componentDidMount() {
-
     this.track()
-    console.log(this.state.long, this.state.lat)
     axios.get("/auth", { withCredentials: true })
       .then((res) => {
-        console.log(res.data)
+
       });
+    this.connect();
+    }
+  // componentDidMount() {
 
-    this.connect();    
+  //   this.track()
+  //   console.log(this.state.long, this.state.lat)
+  //   axios.get("/auth", { withCredentials: true })
+  //     .then((res) => {
+  //       console.log(res.data)
+  //     });
 
-  }
+  //   this.connect();
+  //   this.ws.onopen = () => {
+  //     this.ws.send(JSON.stringify({ type: 'newJob', message: 'hello' }))
+  //   }
+  //   this.ws.onmessage = event => {
+  //     const message = JSON.parse(event.data)
+  //     if (message.type === 'update') this.setState({ update: true });
+  //     // console.log(message)
+  //   }
+
+  // }
 
   finished = () => {
     this.setState({ change: false })
@@ -88,7 +104,6 @@ export class App extends Component {
       <BrowserRouter history={history} >
         <Route path="/" component={Home} exact />
         <Route path="/map" component={() => <Map
-          // track={this.track()}
           long={this.state.long}
           lat={this.state.lat}
           updateAllJobs={this.updateAllJobs}
@@ -100,17 +115,17 @@ export class App extends Component {
         <Route path="/usersignup" component={UserSignup} />
         <Route path="/jobberlogin"
           component={() => <JobberLogin
-            // track={this.track()}
             lat={this.state.lat}
             long={this.state.long}
             history={history}
           />}
         />
         <Route path="/jobbersignup" component={JobberSignup} />
-        <Route path="/user" component={User} history={history}/>
+        <Route path="/user" component={User} history={history} />
         <Route path="/jobber" component={Jobber} />
         <Route path="/jobs"
           component={() => <Jobs
+            change={this.state.change}
             finished={this.finished}
             lat={this.state.lat}
             long={this.state.long}

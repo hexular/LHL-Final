@@ -11,15 +11,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-// const getCoords = async (postcode, value) => {
-//   const res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${postcode}&key=${keys.GMAPS_KEY}`)
-//   const jsonRes = await res.data.results[0]
-//   // console.log('getcoords', jsonRes.geometry.location)
+import keys from '../var.js';
 
-//   jsonRes.length === 0 ? 
-//   value.coords = {"lat": 43.6440936, "lng": -79.39494759999999} 
-//   : value.coords = jsonRes.geometry.location;
-// }
 
 toast.configure({
   autoClose: 2000
@@ -28,8 +21,6 @@ toast.configure({
 export class ConfirmJobDetails extends Component {
   continue = e => {
     e.preventDefault();
-    //add process logic
-    console.log(this)
     this.props.nextStep();
   }
 
@@ -39,32 +30,30 @@ export class ConfirmJobDetails extends Component {
   }
 
   componentDidMount() {
-    
+
   }
 
   render() {
-    
+
     const { values } = this.props;
     const jobDetail = this.props;
     async function handleToken(token) {
-      console.log({ token });
-      console.log(values);
       const response = await axios.post("/checkout", {
         token,
         values
-      }, {withCredentials: true});
+      }, { withCredentials: true });
       const { status } = response.data;
-      console.log("Response:", response.data);
       if (status === "success") {
 
-        axios.post('/myjobs', values, {withCredentials: true})
+        axios.post('/myjobs', values, { withCredentials: true })
 
         toast.success("SUCCESS! New Job Added")
         //alert("Success");
         console.log(jobDetail);
         console.log("Response:", response.data);
+
         jobDetail.nextStep();
-        
+
       } else {
         alert("Something went wrong");
       }

@@ -5,9 +5,8 @@ import AppBar from './Appbar';
 import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
 import Marker from './Marker';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Grid } from '@material-ui/core';
 
 
 
@@ -15,11 +14,10 @@ class SimpleMap extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { response: [], goBack: false, accepted: false, loading: false, job: null, loading: true };
+    this.state = { response: [], goBack: false, accepted: false, job: null, loading: true };
   }
 
   acceptJob = function (jobId) {
-    console.log(jobId)
     axios.put(
       `/jobs/`,
       {
@@ -31,12 +29,11 @@ class SimpleMap extends Component {
     )
       .then(
         (res) => {
-          console.log("HERE", jobId)
           this.setState({ accepted: jobId });
           this.props.updateAllJobs();
         }
       )
-      .catch(err => console.log(err))
+      .catch(err => console.log("acceptJob error: ", err))
   }
 
   static defaultProps = {
@@ -50,15 +47,13 @@ class SimpleMap extends Component {
   componentDidMount() {
     axios.get('/auth', { withCredentials: true })
       .then((response) => {
-        console.log(response)
         if (response.data.result !== "jobber") {
           this.props.history.replace("/")
           this.props.history.go();
         } else {
           const loadJobs = () => {
-            axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`, {withCredentials: true})
+            axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`, { withCredentials: true })
               .then((res) => {
-                console.log('in component did mount res', res)
                 this.setState({ response: res.data })
               });
           }
@@ -75,8 +70,6 @@ class SimpleMap extends Component {
     if (this.state.loading) {
       return null
     }
-
-    console.log('RESPONSE HERE WOOOOHOOO', this.state.response)
 
     const openJobs = this.state.response.map(job => {
       return (
@@ -97,14 +90,6 @@ class SimpleMap extends Component {
       )
     });
 
-    const styles = {
-      button: {
-        margin: 15
-      }
-    }
-
-    console.log(this.props.long)
-    console.log(this.props.lat)
     if (this.state.job) return <Redirect to={{
       pathname: `/jobs/${this.state.job}`,
       map: true,
@@ -116,8 +101,7 @@ class SimpleMap extends Component {
       (
         // Important! Always set the container height explicitly
         <MuiThemeProvider>
-
-          <AppBar title="Job Map" user={true} jobber={true} />
+          <AppBar title="Map View" user={true} jobber={true} />
           <div style={{ height: '70vh', width: '100%' }}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: '' }}
@@ -133,12 +117,18 @@ class SimpleMap extends Component {
               ></Marker>
             </GoogleMapReact>
           </div>
-          <Button
-            variant="contained"
-            onClick={() => this.setState({ goBack: true })}
-            // color={'primary'}
-            style={useStyles.button}
-          >Home</Button>
+          <Grid
+            container
+            direction="row"
+            justify="space-around"
+          >
+            <Button
+              variant="contained"
+              onClick={() => this.setState({ goBack: true })}
+              color='primary'
+              style={useStyles.button}
+            >Home</Button>
+          </Grid>
         </MuiThemeProvider>
       );
   }
@@ -148,7 +138,6 @@ export default SimpleMap;
 
 const useStyles = {
   button: {
-    margin: 20,
-    width: 100
+    margin: 15
   }
 };

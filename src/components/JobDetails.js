@@ -19,28 +19,24 @@ export class JobDetails extends Component {
   componentDidMount() {
     axios.get('/auth', { withCredentials: true })
       .then((response) => {
-        console.log(response)
         if (response.data.result !== "user") {
-          console.log("thissss", this)
           this.props.browser.replace('/')
           this.props.browser.go();
         } else {
           axios.get("/skills", { withCredentials: true })
             .then((response) => {
-              console.log(response);
               this.setState({ skills: response.data })
               this.setState({
                 loading: false
               })
             })
-            .catch(e => console.log(e))
+            .catch(e => console.log("Error getting skills: ", e))
         }
       });
 
   }
 
   continue = e => {
-    console.log(this);
     if (this.props.values.serviceType === "") {
       alert("Service Type Cannot Be Blank");
       return;
@@ -85,19 +81,18 @@ export class JobDetails extends Component {
 
   render() {
     const { values, handleChange, browser } = this.props;
-    //console.log("this yo", this)
 
     return this.state.loading ? null : (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Enter Job Details" user={true} client={true}/>
+          <AppBar title="Post New Job" user={true} client={true} />
           <br />
-          <Container justify="center">            
+          <Container justify="center">
             <Grid
               container
               direction="column"
               alignContent="center"
-              style={{marginTop: 50}}
+              style={{ marginTop: 50 }}
             >
               <InputLabel>Service Type</InputLabel>
               <Select
@@ -107,14 +102,14 @@ export class JobDetails extends Component {
               >
                 {this.generateSkillList()}
               </Select>
-              
+
               <TextField
                 hintText="Enter a Description"
                 floatingLabelText="Description"
                 onChange={handleChange('description')}
                 defaultValue={values.description}
               />
-              
+
               <TextField
                 type="number"
                 min="0"
@@ -123,7 +118,7 @@ export class JobDetails extends Component {
                 onChange={handleChange('payRate')}
                 defaultValue={values.payRate}
               />
-              
+
               <TextField
                 type="number"
                 min="0"
@@ -132,14 +127,14 @@ export class JobDetails extends Component {
                 onChange={handleChange('requiredTime')}
                 defaultValue={values.requiredTime}
               />
-              
+
               <TextField
                 hintText="Enter Address"
                 floatingLabelText="Address"
                 onChange={handleChange('address')}
                 defaultValue={values.address}
               />
-              
+
               <TextField
                 hintText="Enter Postal Code"
                 floatingLabelText="Postal Code (A1B 2D3)"
@@ -162,9 +157,9 @@ export class JobDetails extends Component {
                   style={styles.button}
                   onClick={() => browser.goBack()}
                 >
-                  Back
+                  Cancel
                 </Button>
-              </section>              
+              </section>
             </Grid>
           </Container>
         </React.Fragment>

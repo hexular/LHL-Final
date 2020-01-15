@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from './Appbar';
 import UserJob from './UserJob';
-import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import Grid from '@material-ui/core/Grid';
@@ -44,10 +43,11 @@ export default function MyJobs(props) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    console.log("thisss", props)
     axios.get("/myjobs", { withCredentials: true })
       .then(res => {
-        setResponse(res.data)
+        res.data.length === 0 ? 
+        setResponse(['no jobs']) :
+        setResponse(res.data);
         if (props.change) {
           props.finished()
         }
@@ -74,7 +74,7 @@ export default function MyJobs(props) {
         }
       }, { withCredentials: true }
     )
-      .catch(err => console.log("error", err));
+      .catch(err => console.log("Error marking job complete: ", err));
   }
 
   const jobStatus = function (job) {
@@ -109,14 +109,13 @@ export default function MyJobs(props) {
   const openJobs = jobsFilter(response, "Open");
   const progressJobs = jobsFilter(response, "In Progress");
   const userConfirmJobs = jobsFilter(response, "Marked Complete. Awaiting User Confirmation");
-  // const completeJobs = jobsFilter(response, "Completed");
 
   return loading ? null : (newJob ?
     <Redirect to="/newjobpost" /> :
     !goBack ?
       (response.length !== 0 ? (
         <MuiThemeProvider>
-          <AppBar title="Active Job Board" user={true} client={true} history={props.history}/>
+          <AppBar title="My Active Jobs" user={true} client={true} history={props.history} />
           <Grid
             className={classes.root}
             container
@@ -134,11 +133,6 @@ export default function MyJobs(props) {
             {(openJobs.length || progressJobs.length || userConfirmJobs.length) ? null :
               <Typography className={classes.noJobMessage}>No Active Job(s)</Typography>}
             <Grid container direction="row" justify="center" alignItems="center">
-              <Button
-                onClick={() => setGoBack(true)}
-                className={classes.button}
-                variant="contained"
-              >BACK</Button>
 
               <Button
                 onClick={() => setNewJob(true)}
@@ -146,15 +140,14 @@ export default function MyJobs(props) {
                 variant="contained"
                 color="primary"
               >NEW JOB</Button>
+              <Button
+                onClick={() => setGoBack(true)}
+                className={classes.button}
+                variant="contained"
+              >BACK</Button>
             </Grid>
           </Grid>
         </MuiThemeProvider>
       ) :
         null) : <Redirect to="/" />)
-}
-
-const styles = {
-  button: {
-    margin: 15
-  }
 }

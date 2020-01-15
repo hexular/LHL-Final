@@ -16,8 +16,6 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 
-// axios.defaults.withCredentials = true
-
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -45,17 +43,17 @@ export default function UserLogin(props) {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {    
-    axios.get('/auth', {withCredentials: true})
-    .then((response) => {
-      if (response.data.result === "user") {
-        props.history.replace("/user")
-      } else if (response.data.result === "jobber") {
-        props.history.replace("/jobs")
-      } else {
-        setLoading(false)
-      }
-    });
+  useEffect(() => {
+    axios.get('/auth', { withCredentials: true })
+      .then((response) => {
+        if (response.data.result === "user") {
+          props.history.replace("/user")
+        } else if (response.data.result === "jobber") {
+          props.history.replace("/jobs")
+        } else {
+          setLoading(false)
+        }
+      });
 
   }, [])
 
@@ -65,7 +63,7 @@ export default function UserLogin(props) {
       password: password
     }
 
-    axios.post('/auth/login', loginInfo, {withCredentials: true})
+    axios.post('/auth/login', loginInfo, { withCredentials: true })
       .then(function (response) {
         if (response.data.result) {
           setSubmitted(true)
@@ -74,7 +72,7 @@ export default function UserLogin(props) {
         }
       })
       .catch(err =>
-        console.log("Error: ", err)
+        console.log("Error authenticating user: ", err)
       );
   }
 
@@ -83,7 +81,7 @@ export default function UserLogin(props) {
       submitted ? <Redirect to="/user" /> :
         <MuiThemeProvider>
           <React.Fragment>
-            <AppBar position="static" user={false} title="Enter Login Details">
+            <AppBar position="static" user={false} title="User Login">
               <Toolbar variant="dense">
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                   <MenuIcon />

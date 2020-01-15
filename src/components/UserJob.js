@@ -29,6 +29,12 @@ const useStyles = makeStyles(theme => ({
   serviceType: {
     textAlign: "center",
     marginTop: 0
+  },
+  progress: {
+    width: "100%",
+    padding: "auto",
+    backgroundColor: '#28a745',
+    color: 'white'
   }
 }));
 
@@ -38,7 +44,6 @@ export default function UserJob(props) {
   return (
     <Paper className={classes.paper} key={props.job.id}>
       <Grid item key={props.job.id}>
-        {console.log("progress", props.jobStatus(props.job))}
         <h2 className={classes.serviceType}>{props.job.service_type}</h2>
         <section className={classes.container}>
           <p>Description: {props.job.description}</p>
@@ -53,7 +58,6 @@ export default function UserJob(props) {
                 className={classes.button}
                 onClick={() => {
                   axios.put(`/myjobs`, [props.job.id], { withCredentials: true })
-                  // props.finished()
                   props.updateMyJobs()
                   props.updateAllJobs()
                 }
@@ -80,8 +84,8 @@ export default function UserJob(props) {
             props.jobStatus(props.job) === "In Progress" ?
               <Button
                 variant="contained"
-                color="disabled"
-                className={classes.button}
+
+                className={classes.progress}
               >
                 In Progress
               </Button> : null
