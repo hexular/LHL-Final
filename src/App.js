@@ -64,6 +64,7 @@ export class App extends Component {
 
     this.ws.onclose = () => {
       console.log("socket closed wtf?");
+      this.connect();
     }
 
   }
