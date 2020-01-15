@@ -206,20 +206,11 @@ export default function Display(props) {
                     >
                       Drop Job
                 </Button>
-<<<<<<< HEAD
                   </section>
                   : null
               }
               {
                 jobStatus(response) === "Completed" ?
-=======
-                </section>
-                    : null
-                }
-                
-                {
-                  jobStatus(response) === "Completed" ?
->>>>>>> styling-main
                   <section style={styles.buttonsContainer}>
                     <Button
                       onClick={() => setGoHome(true)}
@@ -229,31 +220,9 @@ export default function Display(props) {
                     >
                       Home
                   </Button>
-<<<<<<< HEAD
                   </section>
                   : null
               }
-=======
-                </section>
-                    : null
-                }
-                {
-                  jobStatus(response) === "Marked Complete. Awaiting User Confirmation" ?
-                  <section style={styles.buttonsContainer}>
-                  <Button
-                      onClick={() => setGoHome(true)}
-                      style={styles.button}
-                      variant="contained"
-                      color="primary"
-                    >
-                      Home
-                  </Button>
-                </section>
-                    : null
-                }
-              </Grid>
-             
->>>>>>> styling-main
             </Grid>
 
           </Grid>

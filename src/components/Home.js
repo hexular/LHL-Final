@@ -34,16 +34,11 @@ export class Home extends Component {
           <AppBar title="Welcome" history={this.props.history} />
           <React.Fragment>
             <section >
-<<<<<<< HEAD
-              <p style={styles.title}>  JOBIFY</p>
-              <p style={styles.icon}>  <TiBriefcase /></p>
-=======
               {/* <AppBar title="Main Portal #Lit-Final" style={styles.appbar}/> */}
               <p style={styles.title}>  Jobify</p>
               <p style={styles.icon}>  <TiBriefcase/></p>
 
               {/* <img src="https://www.simplyhired.ca/static/home/img/discover-local-jobs.png" style={styles.image} /> */}
->>>>>>> styling-main
               <React.Fragment>
                 <section style={styles.buttonsSection}>
                   <Button

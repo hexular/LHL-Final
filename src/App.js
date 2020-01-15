@@ -62,15 +62,6 @@ export class App extends Component {
 
       });
     this.connect();
-<<<<<<< HEAD
-=======
-    this.ws.onopen = () => {
-      this.ws.send(JSON.stringify({ type: 'newJob', message: 'hello' }))
-    }
-    this.ws.onmessage = event => {
-      const message = JSON.parse(event.data)
-      if (message.type === 'update') this.setState({ update: true });
->>>>>>> 1c309d784dcbbf9d29b41929907179eb6ad8b188
     }
   // componentDidMount() {
 

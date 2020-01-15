@@ -35,12 +35,8 @@ export default function Jobs(props) {
   }
 
   useEffect(() => {
-<<<<<<< HEAD
     console.log('inside useeffct jobs')
     const loadJobs = () => {axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, { withCredentials: true })
-=======
-    axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, { withCredentials: true })
->>>>>>> 1c309d784dcbbf9d29b41929907179eb6ad8b188
       .then((res) => {
         console.log(res.data)
         setResponse(res.data)
@@ -67,10 +63,6 @@ export default function Jobs(props) {
   const jobs = response
 
   const openJobs = jobs.map(job => {
-<<<<<<< HEAD
-=======
-
->>>>>>> 1c309d784dcbbf9d29b41929907179eb6ad8b188
     return (
       <Open
         key={job.id}
