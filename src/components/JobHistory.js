@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import Grid from '@material-ui/core/Grid';
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,6 +32,10 @@ const useStyles = makeStyles(theme => ({
 const styles = {
   button: {
     margin: 15
+  },
+  title: {
+    display: "flex",
+    justifyContent: "center"
   }
 }
 
@@ -97,7 +102,7 @@ const JobHistory = (props) => {
   return loading ? null : (!goBack ?
     <MuiThemeProvider>
       <AppBar title="Job History" user={true} jobber={isJobber} client={!isJobber} />
-      <h1>History</h1>
+      <h1 style={styles.title}>History</h1>
       {completedJobs}
       <Button
         onClick={() => setGoBack(true)}
