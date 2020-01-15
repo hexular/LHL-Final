@@ -35,10 +35,8 @@ export default function Jobs(props) {
   }
 
   useEffect(() => {
-    const loadJobs = () => {
-      axios.get(`/jobs`, { withCredentials: true })
+    const loadJobs = () => {axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, { withCredentials: true })
       .then((res) => {
-        console.log(res.data)
         setResponse(res.data)
       })
       .catch(error => console.log(error))

@@ -8,6 +8,12 @@ import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { TiHome, TiPlus, TiMessages, TiMap, TiFolder, TiArrowBack } from "react-icons/ti";
 import { FaClipboardList, FaUserPlus, FaUserCheck, FaUserLock } from "react-icons/fa";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure({
+  autoClose: 2000
+})
 
 export default function Appbar(props) {
   const [drawer, openDrawer] = useState(false);
@@ -16,7 +22,7 @@ export default function Appbar(props) {
   const logout = () => {
     axios.post('/auth/logout', null, {withCredentials: true})
       .then((response) => {
-        alert(response.data.message);
+        toast.success(response.data.message);
         setHomePage(true);
       })
   }  

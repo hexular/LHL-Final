@@ -15,6 +15,12 @@ import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure({
+  autoClose: 2000
+})
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -81,15 +87,15 @@ export default function UserSignup(props) {
       axios.post('/auth/signup', newUserInfo, { withCredentials: true })
         .then(function (response) {
           if (response.data.result) {
-            alert("Registration successful, please login");
+            toast.success("Registration successful, please login");
             setSubmitted(true)
           } else {
-            alert("something went wrong, try again");
+            toast.error("Something went wrong, try again");
           }
         });
     }
     else {
-      alert("one or more field is invalid. try again");
+      toast.warning("One or more field is invalid. try again");
     }
   }
 
