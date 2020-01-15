@@ -39,7 +39,7 @@ export class App extends Component {
 
   connect = () => {
 
-    this.ws = new WebSocket("ws://localhost:8080")
+    this.ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL ? process.env.REACT_APP_WEBSOCKET_URL : "ws://localhost:8080")
     this.setState({ connected: true })
   }
 
