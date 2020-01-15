@@ -21,6 +21,10 @@ const useStyles = makeStyles(theme => ({
     fontSize: theme.typography.pxToRem(15),
     fontWeight: theme.typography.fontWeightRegular,
   },
+  submit: {
+    backgroundColor: '#28a745',
+    color: 'white'
+  }
 }));
 
 
@@ -116,7 +120,7 @@ export default function Open({ jobId, serviceType, userName, streetAddress, hour
             type="button"
             fullWidth
             variant="contained"
-            color="secondary"
+            color="primary"
             className={classes.submit}
             onClick={() => {
               acceptJob(jobId)

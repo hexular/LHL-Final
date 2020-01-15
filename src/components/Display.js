@@ -154,6 +154,15 @@ export default function Display(props) {
                 justify="space-around">
                 {
                   jobStatus(response) === "Open" ?
+                  <section style={styles.buttonsContainer}>
+                  <Button
+                      onClick={() => setGoHome(true)}
+                      style={styles.button}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Home
+                  </Button>
                     <Button
                       onClick={() => {
                         acceptJob(id)
@@ -165,11 +174,33 @@ export default function Display(props) {
                     >
                       Accept
                 </Button>
+                </section>
                     : null
                 }
                 {
                   jobStatus(response) === "In Progress" ?
+                  <section style={styles.buttonsContainer}>
                     <Button
+                      onClick={() => setGoHome(true)}
+                      style={styles.button}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Home
+                  </Button>
+                    
+                <Button
+                      onClick={() => {
+                        markComplete()
+                        props.updateMyJobs()
+                        props.updateAllJobs()
+                      }}
+                      style={styles.complete}
+                      variant="contained"
+                    >
+                      Mark Complete
+                </Button>
+                <Button
                       onClick={() => {
                         dropJob()
                         props.updateMyJobs()
@@ -177,54 +208,29 @@ export default function Display(props) {
                       }}
                       style={styles.button}
                       variant="contained"
+                      color="secondary"
                     >
-                      Cancel
+                      Drop Job
                 </Button>
+                </section>
                     : null
                 }
                 {
-                  jobStatus(response) === "In Progress" ?
-                    <Button
-                      onClick={() => {
-                        markComplete()
-                        props.updateMyJobs()
-                        props.updateAllJobs()
-                      }}
+                  jobStatus(response) === "Completed" ?
+                  <section style={styles.buttonsContainer}>
+                  <Button
+                      onClick={() => setGoHome(true)}
                       style={styles.button}
                       variant="contained"
+                      color="primary"
                     >
-                      Mark Complete
-                </Button>
+                      Home
+                  </Button>
+                </section>
                     : null
                 }
-
               </Grid>
-              <Grid
-                container
-                direction="column"
-              >
-                <Button
-                  onClick={() => setGoJobs(true)}
-                  style={styles.button}
-                  variant="contained"
-                >
-                  Jobs
-              </Button>
-                <Button
-                  onClick={() => setGoHistory(true)}
-                  style={styles.button}
-                  variant="contained"
-                >
-                  History
-              </Button>
-                <Button
-                  onClick={() => setGoHome(true)}
-                  style={styles.button}
-                  variant="contained"
-                >
-                  Home
-              </Button>
-              </Grid>
+             
             </Grid>
           </MuiThemeProvider >
         )
@@ -235,5 +241,14 @@ export default function Display(props) {
 const styles = {
   button: {
     margin: 15
+  }, 
+  complete :{
+    margin: 15,
+    backgroundColor: '#28a745',
+    color: 'white'
+  },
+  buttonsContainer: {
+    display: "flex",
+    justifyContent: "space-around"
   }
 }

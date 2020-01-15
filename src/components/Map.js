@@ -5,9 +5,8 @@ import AppBar from './Appbar';
 import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
 import Marker from './Marker';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Grid } from '@material-ui/core';
 
 
 
@@ -132,12 +131,18 @@ class SimpleMap extends Component {
               ></Marker>
             </GoogleMapReact>
           </div>
-          <Button
-            variant="contained"
-            onClick={() => this.setState({ goBack: true })}
-            color='secondary'
-            style={useStyles.button}
-          >Home</Button>
+          <Grid
+            container
+            direction="row"
+            justify="space-around"
+          >
+            <Button
+              variant="contained"
+              onClick={() => this.setState({ goBack: true })}
+              color='primary'
+              style={useStyles.button}
+            >Home</Button>
+          </Grid>
         </MuiThemeProvider>
       );
   }
@@ -147,7 +152,6 @@ export default SimpleMap;
 
 const useStyles = {
   button: {
-    margin: 20,
-    width: 100
+    margin: 15
   }
 };
