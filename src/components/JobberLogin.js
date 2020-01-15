@@ -84,7 +84,7 @@ export default function JobberLogin(props) {
       submitted ? <Redirect to="/jobber" /> :
         <MuiThemeProvider>
           <React.Fragment>
-            <AppBar position="static" user={false} title="Enter Login Details">
+            <AppBar position="static" user={false} title="Jobber Login">
               <Toolbar variant="dense">
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                   <MenuIcon />

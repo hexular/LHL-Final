@@ -117,7 +117,7 @@ class SimpleMap extends Component {
         // Important! Always set the container height explicitly
         <MuiThemeProvider>
 
-          <AppBar title="Main Portal #Lit-Final" user={true} jobber={true}/>
+          <AppBar title="Map View" user={true} jobber={true}/>
           <div style={{ height: '70vh', width: '100%' }}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: 'AIzaSyA0FZO0N4sb2MrGhmSgv8WD872-D9-lmnE' }}
@@ -136,7 +136,7 @@ class SimpleMap extends Component {
           <Button
             variant="contained"
             onClick={() => this.setState({ goBack: true })}
-            // color={'primary'}
+            color='secondary'
             style={useStyles.button}
           >Home</Button>
         </MuiThemeProvider>

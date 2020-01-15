@@ -83,7 +83,7 @@ export default function UserLogin(props) {
       submitted ? <Redirect to="/user" /> :
         <MuiThemeProvider>
           <React.Fragment>
-            <AppBar position="static" user={false} title="Enter Login Details">
+            <AppBar position="static" user={false} title="User Login">
               <Toolbar variant="dense">
                 <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                   <MenuIcon />

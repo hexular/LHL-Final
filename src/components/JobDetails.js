@@ -90,7 +90,7 @@ export class JobDetails extends Component {
     return this.state.loading ? null : (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Enter Job Details" user={true} client={true}/>
+          <AppBar title="Post New Job" user={true} client={true}/>
           <br />
           <Container justify="center">            
             <Grid
@@ -150,7 +150,7 @@ export class JobDetails extends Component {
                 <Button
                   type="button"
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   style={styles.button}
                   onClick={this.continue}
                 >
@@ -162,7 +162,7 @@ export class JobDetails extends Component {
                   style={styles.button}
                   onClick={() => browser.goBack()}
                 >
-                  Back
+                  Cancel
                 </Button>
               </section>              
             </Grid>
