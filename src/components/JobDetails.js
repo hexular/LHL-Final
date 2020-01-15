@@ -9,6 +9,12 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure({
+  autoClose: 2000
+})
 
 export class JobDetails extends Component {
   constructor(props) {
@@ -38,31 +44,31 @@ export class JobDetails extends Component {
 
   continue = e => {
     if (this.props.values.serviceType === "") {
-      alert("Service Type Cannot Be Blank");
+      toast.warning("Service Type Cannot Be Blank");
       return;
     }
     if (this.props.values.payRate === "") {
-      alert("Pay Rate Cannot Be Blank");
+      toast.warning("Pay Rate Cannot Be Blank");
       return;
     }
     if (this.props.values.description === "") {
-      alert("Description Cannot Be Blank");
+      toast.warning("Description Cannot Be Blank");
       return;
     }
     if (this.props.values.requiredTime === "") {
-      alert("Required Time Cannot Be Blank");
+      toast.warning("Required Time Cannot Be Blank");
       return;
     }
     if (this.props.values.address === "") {
-      alert("Address Cannot Be Blank");
+      toast.warning("Address Cannot Be Blank");
       return;
     }
     if (this.props.values.postalCode === "") {
-      alert("Postal Code Cannot Be Blank");
+      toast.warning("Postal Code Cannot Be Blank");
       return;
     }
     if (!/[A-Za-z][0-9][A-Za-z][0-9][A-Za-z][0-9]/.test(this.props.values.postalCode.split(" ").join(""))) {
-      alert("Invalid Postal Code");
+      toast.warning("Invalid Postal Code");
       return;
     }
     e.preventDefault();

@@ -7,12 +7,9 @@ import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
+import keys from '../var.js';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-
-import keys from '../var.js';
-
 
 toast.configure({
   autoClose: 2000
@@ -44,18 +41,11 @@ export class ConfirmJobDetails extends Component {
       }, { withCredentials: true });
       const { status } = response.data;
       if (status === "success") {
-
         axios.post('/myjobs', values, { withCredentials: true })
-
         toast.success("SUCCESS! New Job Added")
-        //alert("Success");
-        console.log(jobDetail);
-        console.log("Response:", response.data);
-
         jobDetail.nextStep();
-
       } else {
-        alert("Something went wrong");
+        toast.error("Something went wrong");
       }
     }
     return (
