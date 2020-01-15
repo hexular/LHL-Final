@@ -96,7 +96,7 @@ export default function UserSignup(props) {
 
   return loading ? null 
   : (
-    submitted ? <Redirect to="/jobberlogin" /> :
+    submitted ? <Redirect to="/userlogin" /> :
       <MuiThemeProvider>
         <React.Fragment>
           <AppBar position="static" user={false} title="Enter Details">

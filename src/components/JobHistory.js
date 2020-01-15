@@ -38,6 +38,7 @@ const JobHistory = (props) => {
   const classes = useStyles();
   const [response, setResponse] = useState([])
   const [goBack, setGoBack] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const jobStatus = function (job) {
     if (job.jobber_id === null) {
@@ -52,11 +53,23 @@ const JobHistory = (props) => {
   }
 
   useEffect(() => {
-    axios.get("/history")
-      .then((res) => {
-        setResponse(res.data)
-        console.log("JOB", res.data)
-      });
+      
+    axios.get('/auth', { withCredentials: true })
+    .then((response) => {
+      if (response.data.result === "none") {
+        console.log(props)
+        props.history.replace('/')
+        props.history.go()
+        //setLoading(false)      
+      } else {
+        axios.get("/history", { withCredentials: true })
+        .then((res) => {
+          setResponse(res.data)
+          console.log("JOB", res.data)
+        });
+        setLoading(false)
+      }
+    });
   }, [])
 
   const completedJobs = response.map(job => {
@@ -76,7 +89,7 @@ const JobHistory = (props) => {
     )
   })
 
-  return (!goBack ?
+  return loading ? null : (!goBack ?
     <MuiThemeProvider>
       <AppBar title="Job Info #Lit-Final" user={true} />
       <h1>History</h1>
