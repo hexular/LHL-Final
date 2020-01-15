@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
+import AppBar from './Appbar';
 import Button from '@material-ui/core/Button';
+import { TiBriefcase } from "react-icons/ti";
 
 export class Home extends Component {
   constructor(props) {
@@ -31,24 +33,27 @@ export class Home extends Component {
     return this.state.loading ? null
       : (
         <MuiThemeProvider>
+          <AppBar title="Welcome"  history={this.props.history}/>
           <React.Fragment>
-            <section style={styles.mainContainer}>
+            <section >
               {/* <AppBar title="Main Portal #Lit-Final" style={styles.appbar}/> */}
-              <p style={styles.title}>JOBIFY</p>
-              <img src="https://www.simplyhired.ca/static/home/img/discover-local-jobs.png" style={styles.image} />
+              <p style={styles.title}>  JOBIFY</p>
+              <p style={styles.icon}>  <TiBriefcase/></p>
+
+              {/* <img src="https://www.simplyhired.ca/static/home/img/discover-local-jobs.png" style={styles.image} /> */}
               <React.Fragment>
                 <section style={styles.buttonsSection}>
                   <Button
                     type="button"
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     style={styles.button}
                     onClick={() => this.props.history.push("/userlogin")}
-                  >CUSTOMER LOGIN</Button>
+                  >USER LOGIN</Button>
                   <Button
                     type="button"
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     style={styles.button}
                     onClick={() => this.props.history.push("/jobberlogin")}
                   >JOBBER LOGIN</Button>
@@ -64,15 +69,19 @@ export class Home extends Component {
 const styles = {
   button: {
     width: 180,
-    fontSize: "auto",
+    fontSize: "1em",
     fontWeight: "bold",
     height: 70,
     borderRadius: "20px",
-    opacity: 0.5
+    marginTop: "2em",
+    marginBottom: "2em"
   },
   buttonsSection: {
+    marginTop:"1em",
     display: "flex",
-    justifyContent: "space-around"
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center"
   },
   image: {
     width: "100vw",
@@ -92,10 +101,16 @@ const styles = {
   },
   title: {
     margin: "auto",
-    paddingTop: "1em",
+    paddingTop: "0.75em",
+    textAlign: "center",
+    fontSize: "5em",
+    fontWeight: "bold"
+  },
+  icon: {
+    margin: "auto",
+    
     textAlign: "center",
     fontSize: "100px",
-    color: "white",
     fontWeight: "bold"
   }
 }

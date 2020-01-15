@@ -29,6 +29,12 @@ const useStyles = makeStyles(theme => ({
   serviceType: {
     textAlign: "center",
     marginTop: 0
+  },
+  progress: {
+    width: "100%",
+    padding: "auto",
+    backgroundColor: '#28a745',
+    color: 'white'
   }
 }));
 
@@ -80,8 +86,8 @@ export default function UserJob(props) {
             props.jobStatus(props.job) === "In Progress" ?
               <Button
                 variant="contained"
-                color="disabled"
-                className={classes.button}
+                
+                className={classes.progress}
               >
                 In Progress
               </Button> : null

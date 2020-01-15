@@ -101,13 +101,15 @@ const JobHistory = (props) => {
 
   return loading ? null : (!goBack ?
     <MuiThemeProvider>
-      <AppBar title="Job History" user={true} jobber={isJobber} client={!isJobber} />
-      <h1 style={styles.title}>History</h1>
+      <AppBar title="My Jobs" user={true} jobber={isJobber} client={!isJobber}/>
+
       {completedJobs}
+      <br/>
       <Button
         onClick={() => setGoBack(true)}
         style={styles.button}
         variant="contained"
+        color="secondary"
       >
         Home
       </Button>

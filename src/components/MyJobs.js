@@ -116,7 +116,7 @@ export default function MyJobs(props) {
     !goBack ?
       (response.length !== 0 ? (
         <MuiThemeProvider>
-          <AppBar title="Active Job Board" user={true} client={true} history={props.history}/>
+          <AppBar title="My Active Jobs" user={true} client={true} history={props.history}/>
           <Grid
             className={classes.root}
             container
@@ -134,27 +134,21 @@ export default function MyJobs(props) {
             {(openJobs.length || progressJobs.length || userConfirmJobs.length) ? null :
               <Typography className={classes.noJobMessage}>No Active Job(s)</Typography>}
             <Grid container direction="row" justify="center" alignItems="center">
-              <Button
-                onClick={() => setGoBack(true)}
-                className={classes.button}
-                variant="contained"
-              >BACK</Button>
 
               <Button
                 onClick={() => setNewJob(true)}
                 className={classes.button}
                 variant="contained"
-                color="primary"
+                color="secondary"
               >NEW JOB</Button>
+              <Button
+                onClick={() => setGoBack(true)}
+                className={classes.button}
+                variant="contained"
+              >BACK</Button>
             </Grid>
           </Grid>
         </MuiThemeProvider>
       ) :
         null) : <Redirect to="/" />)
-}
-
-const styles = {
-  button: {
-    margin: 15
-  }
 }

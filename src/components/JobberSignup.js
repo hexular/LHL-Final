@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(3),
+    marginBottom: "2em"
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
@@ -101,7 +102,7 @@ export default function JobberSignup(props) {
     submitted ? <Redirect to="/jobberlogin" /> :
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar position="static" user={false} title="Enter Details">
+          <AppBar position="static" user={false} title="Sign Up as a Jobber">
             <Toolbar variant="dense">
               <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                 <MenuIcon />

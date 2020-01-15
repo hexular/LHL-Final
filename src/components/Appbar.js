@@ -7,7 +7,7 @@ import axios from 'axios';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
 import { TiHome, TiPlus, TiMessages, TiMap, TiFolder, TiArrowBack } from "react-icons/ti";
-import { FaClipboardList } from "react-icons/fa";
+import { FaClipboardList, FaUserPlus, FaUserCheck, FaUserLock } from "react-icons/fa";
 
 export default function Appbar(props) {
   const [drawer, openDrawer] = useState(false);
@@ -25,9 +25,9 @@ export default function Appbar(props) {
     <MuiThemeProvider>
       <React.Fragment>
         <AppBar 
-          title={props.title || "Test"}
+          title={props.title || "Jobify"}
           onLeftIconButtonClick={() => openDrawer(!drawer)}
-          style={{background: "#3f51b5", textAlign: "center", position: 'fixed', zIndex: 1000}}
+          style={{background: "#3f51b5", textAlign: "left", position: 'fixed', zIndex: 1000}}
         />
         <AppBar style={{zIndex: -1}}/>
         <Drawer
@@ -55,7 +55,14 @@ export default function Appbar(props) {
              
             </div>
           ) : 
-            <MenuItem onClick={() => setHomePage(true)}>Home</MenuItem>}          
+          <div>
+            {/* <MenuItem onClick={() => setHomePage(true)}><TiHome/> Home</MenuItem> */}
+            <Link style={{textDecoration: 'none'}} to={"/"}><MenuItem> <TiHome/> Home</MenuItem> </Link> 
+            <Link style={{textDecoration: 'none'}} to={"/usersignup"}><MenuItem> <FaUserPlus/> User Sign Up</MenuItem></Link>         
+            <Link style={{textDecoration: 'none'}} to={"/userlogin"}><MenuItem> <FaUserCheck/> User Login</MenuItem></Link>         
+            <Link style={{textDecoration: 'none'}} to={"/jobbersignup"}><MenuItem> <FaUserPlus/> Jobber Sign Up</MenuItem></Link>         
+            <Link style={{textDecoration: 'none'}} to={"/jobberlogin"}><MenuItem> <FaUserLock/> Jobber Login</MenuItem></Link>         
+          </div>}
         </Drawer>
       </React.Fragment>
     </MuiThemeProvider>    

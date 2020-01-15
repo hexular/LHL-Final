@@ -75,6 +75,7 @@ export default function Completed({ jobId, serviceType, userName, streetAddress,
           <Typography>Requested By: {userName}</Typography>
           <Typography>Address: {streetAddress}</Typography>
           <Typography>Payout: ${hourlyRate * timeEstimate}</Typography>
+          <br/>
           {isJobber ?
             <Button
               type="button"
