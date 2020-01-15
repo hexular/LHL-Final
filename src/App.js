@@ -45,13 +45,10 @@ export class App extends Component {
       this.ws.send(JSON.stringify({ type: 'newJob', message: 'hello' }))
     }
     this.ws.onmessage = event => {
-      console.log('message recieved', event.data)
       const message = JSON.parse(event.data)
       if (message.type === 'update') this.setState({ update: !this.state.update });
-      // console.log(message)
     }
     this.ws.onclose = () => {
-      console.log("socket closed wtf?");
       this.connect();
     }
   }
@@ -63,26 +60,6 @@ export class App extends Component {
       });
     this.connect();
     }
-  // componentDidMount() {
-
-  //   this.track()
-  //   console.log(this.state.long, this.state.lat)
-  //   axios.get("/auth", { withCredentials: true })
-  //     .then((res) => {
-  //       console.log(res.data)
-  //     });
-
-  //   this.connect();
-  //   this.ws.onopen = () => {
-  //     this.ws.send(JSON.stringify({ type: 'newJob', message: 'hello' }))
-  //   }
-  //   this.ws.onmessage = event => {
-  //     const message = JSON.parse(event.data)
-  //     if (message.type === 'update') this.setState({ update: true });
-  //     // console.log(message)
-  //   }
-
-  // }
 
   finished = () => {
     this.setState({ change: false })
