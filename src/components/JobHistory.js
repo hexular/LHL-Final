@@ -38,6 +38,7 @@ const JobHistory = (props) => {
   const classes = useStyles();
   const [response, setResponse] = useState([])
   const [goBack, setGoBack] = useState(false)
+  const [isJobber, setIsJobber] = useState(true);
 
   const jobStatus = function (job) {
     if (job.jobber_id === null) {
@@ -56,6 +57,13 @@ const JobHistory = (props) => {
       .then((res) => {
         setResponse(res.data)
         console.log("JOB", res.data)
+      });
+
+    axios.get('/auth', { withCredentials: true })
+      .then((response) => {
+        if (response.data.result !== "jobber") {
+          setIsJobber(false)
+        };
       });
   }, [])
 
@@ -78,7 +86,7 @@ const JobHistory = (props) => {
 
   return (!goBack ?
     <MuiThemeProvider>
-      <AppBar title="Job Info #Lit-Final" user={true} />
+      <AppBar title="Job Info #Lit-Final" user={true} jobber={isJobber} client={!isJobber}/>
       <h1>History</h1>
       {completedJobs}
       <Button

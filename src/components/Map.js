@@ -103,7 +103,7 @@ class SimpleMap extends Component {
         // Important! Always set the container height explicitly
         <MuiThemeProvider>
 
-          <AppBar title="Main Portal #Lit-Final" user={true} />
+          <AppBar title="Main Portal #Lit-Final" user={true} jobber={true}/>
           <div style={{ height: '70vh', width: '100%' }}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: 'AIzaSyA0FZO0N4sb2MrGhmSgv8WD872-D9-lmnE' }}

@@ -36,7 +36,7 @@ export class Jobber extends Component {
     return this.state.loading ? null
       : (
         <MuiThemeProvider>
-          <AppBar title="Job Info #Lit-Final" user={true} />
+          <AppBar title="Job Info #Lit-Final" user={true} jobber={true}/>
           <React.Fragment>
             <Grid
               container

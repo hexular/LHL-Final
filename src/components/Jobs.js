@@ -119,7 +119,7 @@ export default function Jobs(props) {
   } else {
     return (
       <MuiThemeProvider>
-        <AppBar title="Open Jobs" user={true} />
+        <AppBar title="Open Jobs" user={true} jobber={true} history={props.history}/>
 
         {openJobs.length === 0 ? <Loading /> : openJobs}
 
