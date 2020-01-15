@@ -35,7 +35,7 @@ export default function Jobs(props) {
   const [goHistory, setGoHistory] = useState(false)
   const [accepted, setAccepted] = useState(false);
   const [map, setMap] = useState(false);
-  // const [loading, setLoading] = useState(true)
+  const [back, setBack] = useState(false);
 
   const acceptJob = function (jobId) {
     console.log(jobId)
@@ -114,6 +114,8 @@ export default function Jobs(props) {
     return <Redirect to={`/jobs/${accepted}`} />
   } else if (map) {
     return <Redirect to={'/map'} />
+  } else if (back) {
+    return <Redirect to={'/jobber'} />
   } else {
     return (
       <MuiThemeProvider>
@@ -127,6 +129,14 @@ export default function Jobs(props) {
           justify="space-around"
         >
           <Button
+            onClick={() => setBack(true)}
+            style={styles.button}
+            variant="contained"
+            color="secondary"
+          >
+            Back
+          </Button>
+          {/* <Button
             onClick={() => setGoHistory(true)}
             style={styles.button}
             variant="contained"
@@ -141,7 +151,7 @@ export default function Jobs(props) {
             color="secondary"
           >
             Map View
-          </Button>
+          </Button> */}
         </Grid>
       </MuiThemeProvider>
     )
