@@ -199,6 +199,11 @@ export default function Display(props) {
                         dropJob()
                         props.updateMyJobs()
                         props.updateAllJobs()
+                        setTimeout(() => {
+                          props.updateMyJobs()
+                          props.updateAllJobs()
+
+                        }, 1000)
                       }}
                       style={styles.button}
                       variant="contained"
@@ -210,7 +215,7 @@ export default function Display(props) {
                   : null
               }
               {
-                jobStatus(response) === "Completed" ?
+                jobStatus(response) === "Completed" || jobStatus(response) === "Marked Complete. Awaiting User Confirmation"?
                   <section style={styles.buttonsContainer}>
                     <Button
                       onClick={() => setGoHome(true)}
