@@ -94,12 +94,6 @@ export class ConfirmJobDetails extends Component {
               secondaryText={`$${values.requiredTime * values.payRate}`}
             />
           </List>
-          <RaisedButton
-            label="Checkout"
-            primary={true}
-            style={styles.button}
-            onClick={this.continue}
-          />
           <StripeCheckout
             stripeKey={keys.STRIPE_KEY}
             token={handleToken}

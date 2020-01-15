@@ -5,9 +5,9 @@ import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import HistoryIcon from '@material-ui/icons/History';
+import FolderIcon from '@material-ui/icons/Folder';
 import axios from 'axios';
 
 
@@ -37,7 +37,7 @@ export class User extends Component {
     return this.state.loading ? null
       : (
         <MuiThemeProvider>
-          <AppBar title="Home" user={true} client={true} history={this.props.history} />
+          <AppBar title="User Home" user={true} client={true} history={this.props.history} />
           <React.Fragment>
             <Grid
               container
@@ -69,7 +69,7 @@ export class User extends Component {
                     alignItems="center"
                     style={styles.subGrid}
                   >
-                    <AddToHomeScreenIcon style={styles.icon} />
+                    <PostAddIcon style={styles.icon} />
                     <Typography
                       variant='h5'
                       align="center"
@@ -103,7 +103,7 @@ export class User extends Component {
                       variant='h5'
                       align="center"
                     >
-                      View Active Jobs
+                      Active Jobs
                     </Typography>
                   </Grid>
                 </Paper>
@@ -126,7 +126,7 @@ export class User extends Component {
                     alignItems="center"
                     style={styles.subGrid}
                   >
-                    <HistoryIcon style={styles.icon} />
+                    <FolderIcon style={styles.icon} />
                     <Typography
                       variant='h5'
                       align="center"

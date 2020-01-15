@@ -2,7 +2,8 @@
   text-align: center;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Maven+Pro:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Maven+Pro:700|Nunito:700&display=swap');
+
 
 .App-logo {
   height: 40vmin;

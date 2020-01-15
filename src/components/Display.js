@@ -215,8 +215,23 @@ export default function Display(props) {
                 </section>
                     : null
                 }
+                
                 {
                   jobStatus(response) === "Completed" ?
+                  <section style={styles.buttonsContainer}>
+                  <Button
+                      onClick={() => setGoHome(true)}
+                      style={styles.button}
+                      variant="contained"
+                      color="primary"
+                    >
+                      Home
+                  </Button>
+                </section>
+                    : null
+                }
+                {
+                  jobStatus(response) === "Marked Complete. Awaiting User Confirmation" ?
                   <section style={styles.buttonsContainer}>
                   <Button
                       onClick={() => setGoHome(true)}
