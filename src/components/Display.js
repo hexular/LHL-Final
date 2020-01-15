@@ -3,14 +3,12 @@ import Button from "@material-ui/core/Button";
 import AppBar from './Appbar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { makeStyles } from '@material-ui/core/styles';
-import RaisedButton from 'material-ui/RaisedButton';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import keys from '../var';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,7 +30,6 @@ const useStyles = makeStyles(theme => ({
 export default function Display(props) {
   const classes = useStyles();
   const [goJobs, setGoJobs] = useState(false);
-  const [goHistory, setGoHistory] = useState(false);
   const [goHome, setGoHome] = useState(false);
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(true)
@@ -52,11 +49,10 @@ export default function Display(props) {
       .then(() => {
 
       })
-      .catch(err => console.log("error", err));
+      .catch(err => console.log("dropJob error: ", err));
   }
 
   const acceptJob = function (jobId) {
-    console.log(jobId)
     axios.put(
       `/jobs/`,
       {
@@ -64,7 +60,7 @@ export default function Display(props) {
           id: jobId,
           dropJob: false,
         }
-      }, {withCredentials: true}
+      }, { withCredentials: true }
     )
       .then(
         (res) => {
@@ -73,7 +69,7 @@ export default function Display(props) {
 
         }
       )
-      .catch(err => console.log(err))
+      .catch(err => console.log("acceptJob error: ", err))
   }
 
   const markComplete = function () {
@@ -86,7 +82,7 @@ export default function Display(props) {
         }
       }, { withCredentials: true }
     )
-      .catch(err => console.log("error", err));
+      .catch(err => console.log("markComplete error: ", err));
   }
 
   const jobStatus = function (job) {
@@ -104,7 +100,6 @@ export default function Display(props) {
   }
 
   useEffect(() => {
-    console.log("props", props)
     axios.get(`/jobs?id=${id}`, { withCredentials: true })
       .then((res) => {
         setResponse(res.data[0])
@@ -112,7 +107,7 @@ export default function Display(props) {
           props.finished()
         }
       })
-      .catch(err => console.log("error", err));
+      .catch(err => console.log("Error fetching job: ", err));
 
     axios.get('/auth', { withCredentials: true })
       .then((response) => {
@@ -129,33 +124,32 @@ export default function Display(props) {
   return loading ? null :
     (goHome ? <Redirect to="/jobber/" /> :
       (goJobs ? <Redirect to="/jobs/" /> :
-        (goHistory ? <Redirect to="/history/" /> :
-          <MuiThemeProvider>
-            <AppBar title="Job Details" user={true} jobber={true} />
+        <MuiThemeProvider>
+          <AppBar title="Job Details" user={true} jobber={true} />
 
-            <Paper className={classes.paper}>
-              <Grid item>
-                <Typography variant="h4">{response.service_type}</Typography>
+          <Paper className={classes.paper}>
+            <Grid item>
+              <Typography variant="h4">{response.service_type}</Typography>
 
-                <Typography>Description: {response.description}</Typography>
-                <Typography>Requested By: {response.name}</Typography>
-                <Typography>Address: {response.street_address}</Typography>
-                <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
-                <Typography>Status: {jobStatus(response)}</Typography>
-              </Grid>
-            </Paper>
-            <Grid container
-              direction="column"
-              justify="space-between"
-              style={{ height: "60vh" }}>
-              <Grid
-                container
-                direction="row"
-                justify="space-around">
-                {
-                  jobStatus(response) === "Open" ?
+              <Typography>Description: {response.description}</Typography>
+              <Typography>Requested By: {response.name}</Typography>
+              <Typography>Address: {response.street_address}</Typography>
+              <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
+              <Typography>Status: {jobStatus(response)}</Typography>
+            </Grid>
+          </Paper>
+          <Grid container
+            direction="column"
+            justify="space-between"
+            style={{ height: "60vh" }}>
+            <Grid
+              container
+              direction="row"
+              justify="space-around">
+              {
+                jobStatus(response) === "Open" ?
                   <section style={styles.buttonsContainer}>
-                  <Button
+                    <Button
                       onClick={() => setGoHome(true)}
                       style={styles.button}
                       variant="contained"
@@ -174,11 +168,11 @@ export default function Display(props) {
                     >
                       Accept
                 </Button>
-                </section>
-                    : null
-                }
-                {
-                  jobStatus(response) === "In Progress" ?
+                  </section>
+                  : null
+              }
+              {
+                jobStatus(response) === "In Progress" ?
                   <section style={styles.buttonsContainer}>
                     <Button
                       onClick={() => setGoHome(true)}
@@ -188,8 +182,8 @@ export default function Display(props) {
                     >
                       Home
                   </Button>
-                    
-                <Button
+
+                    <Button
                       onClick={() => {
                         markComplete()
                         props.updateMyJobs()
@@ -200,7 +194,7 @@ export default function Display(props) {
                     >
                       Mark Complete
                 </Button>
-                <Button
+                    <Button
                       onClick={() => {
                         dropJob()
                         props.updateMyJobs()
@@ -212,13 +206,13 @@ export default function Display(props) {
                     >
                       Drop Job
                 </Button>
-                </section>
-                    : null
-                }
-                {
-                  jobStatus(response) === "Completed" ?
+                  </section>
+                  : null
+              }
+              {
+                jobStatus(response) === "Completed" ?
                   <section style={styles.buttonsContainer}>
-                  <Button
+                    <Button
                       onClick={() => setGoHome(true)}
                       style={styles.button}
                       variant="contained"
@@ -226,14 +220,13 @@ export default function Display(props) {
                     >
                       Home
                   </Button>
-                </section>
-                    : null
-                }
-              </Grid>
-             
+                  </section>
+                  : null
+              }
             </Grid>
-          </MuiThemeProvider >
-        )
+
+          </Grid>
+        </MuiThemeProvider >
       )
     )
 }
@@ -241,8 +234,8 @@ export default function Display(props) {
 const styles = {
   button: {
     margin: 15
-  }, 
-  complete :{
+  },
+  complete: {
     margin: 15,
     backgroundColor: '#28a745',
     color: 'white'

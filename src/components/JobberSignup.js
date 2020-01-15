@@ -49,17 +49,17 @@ export default function JobberSignup(props) {
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {    
-    axios.get('/auth', {withCredentials: true})
-    .then((response) => {
-      if (response.data.result === "jobber") {
-        props.history.replace("/jobs")
-      } else if (response.data.result === "user") {
-        props.history.replace("/user")
-      } else {
-        setLoading(false)
-      }
-    });
+  useEffect(() => {
+    axios.get('/auth', { withCredentials: true })
+      .then((response) => {
+        if (response.data.result === "jobber") {
+          props.history.replace("/jobs")
+        } else if (response.data.result === "user") {
+          props.history.replace("/user")
+        } else {
+          setLoading(false)
+        }
+      });
   }, [])
 
   const validate = () => {
@@ -72,7 +72,6 @@ export default function JobberSignup(props) {
 
   const submit = () => {
     if (validate()) {
-      console.log('validated')
       const newUserInfo = {
         jobber: true,
         name: name.trim(),
@@ -81,9 +80,8 @@ export default function JobberSignup(props) {
         phone: phone.trim()
       }
 
-      axios.post('/auth/signup', newUserInfo, {withCredentials: true})
+      axios.post('/auth/signup', newUserInfo, { withCredentials: true })
         .then(function (response) {
-          console.log(response)
           if (response.data.result) {
             alert("Registration successful, please login");
             setSubmitted(true)
@@ -98,122 +96,122 @@ export default function JobberSignup(props) {
   }
 
   return loading ? null
-  : (
-    submitted ? <Redirect to="/jobberlogin" /> :
-      <MuiThemeProvider>
-        <React.Fragment>
-          <AppBar position="static" user={false} title="Sign Up as a Jobber">
-            <Toolbar variant="dense">
-              <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h6" color="inherit">
-                Jobber Signup
+    : (
+      submitted ? <Redirect to="/jobberlogin" /> :
+        <MuiThemeProvider>
+          <React.Fragment>
+            <AppBar position="static" user={false} title="Sign Up as a Jobber">
+              <Toolbar variant="dense">
+                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" color="inherit">
+                  Jobber Signup
             </Typography>
-            </Toolbar>
-          </AppBar>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
-              <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Jobber Sign up
+              </Toolbar>
+            </AppBar>
+            <Container component="main" maxWidth="xs">
+              <CssBaseline />
+              <div className={classes.paper}>
+                <Avatar className={classes.avatar}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                  Jobber Sign up
             </Typography>
-              <form className={classes.form} noValidate>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      autoComplete="name"
-                      name="name"
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="name"
-                      label="Name"
-                      autoFocus
-                      onChange={(event) => setName(event.target.value)}
-                    />
+                <form className={classes.form} noValidate>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        autoComplete="name"
+                        name="name"
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="name"
+                        label="Name"
+                        autoFocus
+                        onChange={(event) => setName(event.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email Address"
+                        name="email"
+                        autoComplete="email"
+                        onChange={(event) => setEmail(event.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="phone"
+                        label="Phone Number"
+                        type="phone"
+                        id="phone"
+                        autoComplete="current-phone"
+                        onChange={(event) => setPhone(event.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        onChange={(event) => setPassword(event.target.value)}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        variant="outlined"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        id="password"
+                        autoComplete="current-password"
+                        onChange={(event) => setConfirmPassword(event.target.value)}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                      onChange={(event) => setEmail(event.target.value)}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      name="phone"
-                      label="Phone Number"
-                      type="phone"
-                      id="phone"
-                      autoComplete="current-phone"
-                      onChange={(event) => setPhone(event.target.value)}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                      onChange={(event) => setPassword(event.target.value)}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      variant="outlined"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                      onChange={(event) => setConfirmPassword(event.target.value)}
-                    />
-                  </Grid>
-                </Grid>
-                <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  onClick={submit}
-                >
-                  Sign Up
+                  <Button
+                    type="button"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    className={classes.submit}
+                    onClick={submit}
+                  >
+                    Sign Up
               </Button>
-                <Grid container justify="space-between">
-                  <Grid item>
-                    <Link href="/jobberlogin" variant="body2">
-                      Already have an account? Sign in
+                  <Grid container justify="space-between">
+                    <Grid item>
+                      <Link href="/jobberlogin" variant="body2">
+                        Already have an account? Sign in
                     </Link>
-                  </Grid>
-                  <Grid item>
-                    <Link href="/" variant="body2">
-                      Go back
+                    </Grid>
+                    <Grid item>
+                      <Link href="/" variant="body2">
+                        Go back
                     </Link>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </form>
-            </div>
-          </Container>
-        </React.Fragment>
-      </MuiThemeProvider>
-  );
+                </form>
+              </div>
+            </Container>
+          </React.Fragment>
+        </MuiThemeProvider>
+    );
 }

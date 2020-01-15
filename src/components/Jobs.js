@@ -2,43 +2,18 @@ import React, { useState, useEffect } from 'react'
 import Open from './Open'
 import AppBar from './Appbar';
 import Loading from './Loading';
-import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import { Grid } from '@material-ui/core';
 
-const useStyles = makeStyles(theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
 export default function Jobs(props) {
-  const classes = useStyles();
   const [response, setResponse] = useState([])
-  const [goHistory, setGoHistory] = useState(false)
   const [accepted, setAccepted] = useState(false);
-  const [map, setMap] = useState(false);
   const [back, setBack] = useState(false);
 
   const acceptJob = function (jobId) {
-    console.log(jobId)
     axios.put(
       `/jobs/`,
       {
@@ -56,11 +31,10 @@ export default function Jobs(props) {
 
         }
       )
-      .catch(err => console.log(err))
+      .catch(err => console.log("acceptJob Error: ", err))
   }
 
   useEffect(() => {
-    console.log("~~~~~~~~~ACCEPTED: ", accepted)
     axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, { withCredentials: true })
       .then((res) => {
         setResponse(res.data)
@@ -82,7 +56,6 @@ export default function Jobs(props) {
   const jobs = response
 
   const openJobs = jobs.map(job => {
-    console.log('from map', job)
 
     return (
       <Open
@@ -107,19 +80,14 @@ export default function Jobs(props) {
 
   })
 
-  if (goHistory) {
-    return <Redirect to="/history" />
-  } else if (accepted) {
-    console.log("TRYING TO REDIRECT TO ", accepted)
+  if (accepted) {
     return <Redirect to={`/jobs/${accepted}`} />
-  } else if (map) {
-    return <Redirect to={'/map'} />
   } else if (back) {
     return <Redirect to={'/jobber'} />
   } else {
     return (
       <MuiThemeProvider>
-        <AppBar title="Open Jobs" user={true} jobber={true} history={props.history}/>
+        <AppBar title="Open Jobs" user={true} jobber={true} history={props.history} />
 
         {openJobs.length === 0 ? <Loading /> : openJobs}
 
@@ -136,7 +104,7 @@ export default function Jobs(props) {
           >
             Home
           </Button>
-          
+
         </Grid>
       </MuiThemeProvider>
     )
