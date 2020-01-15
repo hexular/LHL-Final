@@ -37,11 +37,17 @@ export default function Jobs(props) {
   useEffect(() => {
     axios.get(`/jobs`, { withCredentials: true })
       .then((res) => {
+        console.log(res.data)
         setResponse(res.data)
-        if (props.change) {
-          props.finished()
-        }
-      });
+        // if (props.change) {
+        //   props.finished()
+        // }
+      })
+      .catch(error => console.log(error))
+      
+    }
+    loadJobs()
+    // setResponse(response);
 
     axios.get('/auth', { withCredentials: true })
 
@@ -56,7 +62,6 @@ export default function Jobs(props) {
   const jobs = response
 
   const openJobs = jobs.map(job => {
-
     return (
       <Open
         key={job.id}
