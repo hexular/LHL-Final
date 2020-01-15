@@ -64,7 +64,7 @@ export default function Display(props) {
           id: jobId,
           dropJob: false,
         }
-      }
+      }, {withCredentials: true}
     )
       .then(
         (res) => {
@@ -131,7 +131,7 @@ export default function Display(props) {
       (goJobs ? <Redirect to="/jobs/" /> :
         (goHistory ? <Redirect to="/history/" /> :
           <MuiThemeProvider>
-            <AppBar title="Job Info #Lit-Final" user={true} jobber={true}/>
+            <AppBar title="Job Details" user={true} jobber={true} />
 
             <Paper className={classes.paper}>
               <Grid item>

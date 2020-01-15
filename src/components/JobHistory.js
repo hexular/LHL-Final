@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import Grid from '@material-ui/core/Grid';
 
 
 const useStyles = makeStyles(theme => ({
@@ -31,6 +32,10 @@ const useStyles = makeStyles(theme => ({
 const styles = {
   button: {
     margin: 15
+  },
+  title: {
+    display: "flex",
+    justifyContent: "center"
   }
 }
 
@@ -56,24 +61,24 @@ const JobHistory = (props) => {
   useEffect(() => {
 
     axios.get('/auth', { withCredentials: true })
-    .then((response) => {
-      if (response.data.result !== "jobber") {
+      .then((response) => {
+        if (response.data.result !== "jobber") {
           setIsJobber(false)
         };
-      if (response.data.result === "none") {
-        console.log(props)
-        props.history.replace('/')
-        props.history.go()
-        //setLoading(false)      
-      } else {
-        axios.get("/history", { withCredentials: true })
-        .then((res) => {
-          setResponse(res.data)
-          console.log("JOB", res.data)
-        });
-        setLoading(false)
-      }
-    });
+        if (response.data.result === "none") {
+          console.log(props)
+          props.history.replace('/')
+          props.history.go()
+          //setLoading(false)      
+        } else {
+          axios.get("/history", { withCredentials: true })
+            .then((res) => {
+              setResponse(res.data)
+              console.log("JOB", res.data)
+            });
+          setLoading(false)
+        }
+      });
 
   }, [])
 
@@ -97,6 +102,7 @@ const JobHistory = (props) => {
   return loading ? null : (!goBack ?
     <MuiThemeProvider>
       <AppBar title="My Jobs" user={true} jobber={isJobber} client={!isJobber}/>
+
       {completedJobs}
       <br/>
       <Button

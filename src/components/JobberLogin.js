@@ -69,7 +69,7 @@ export default function JobberLogin(props) {
         if (response.data.result) {
 
           setSubmitted(true)
-          axios.put('/auth', [props.lat, props.long, loginInfo.email])
+          axios.put('/auth', [props.lat, props.long, loginInfo.email], {withCredentials: true})
         } else {
           alert("account does not exist or invalid email/pw");
         }
