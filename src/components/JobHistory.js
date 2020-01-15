@@ -94,7 +94,7 @@ const JobHistory = (props) => {
         style={styles.button}
         variant="contained"
       >
-        Back
+        Home
       </Button>
     </MuiThemeProvider> : <Redirect to="/" />
   );

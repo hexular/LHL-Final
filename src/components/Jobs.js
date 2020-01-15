@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Open from './Open'
 import AppBar from './Appbar';
-// import Loading from './Loading';
+import Loading from './Loading';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Button from '@material-ui/core/Button';
@@ -35,7 +35,7 @@ export default function Jobs(props) {
   const [goHistory, setGoHistory] = useState(false)
   const [accepted, setAccepted] = useState(false);
   const [map, setMap] = useState(false);
-  // const [loading, setLoading] = useState(true)
+  const [back, setBack] = useState(false);
 
   const acceptJob = function (jobId) {
     console.log(jobId)
@@ -101,25 +101,27 @@ export default function Jobs(props) {
         acceptJob={(id) => acceptJob(id)}
         lat={props.lat}
         long={props.long}
-        post={job.post_code} 
+        post={job.post_code}
       />
     )
 
   })
 
-if (goHistory) {
+  if (goHistory) {
     return <Redirect to="/history" />
   } else if (accepted) {
     console.log("TRYING TO REDIRECT TO ", accepted)
     return <Redirect to={`/jobs/${accepted}`} />
   } else if (map) {
     return <Redirect to={'/map'} />
+  } else if (back) {
+    return <Redirect to={'/jobber'} />
   } else {
     return (
       <MuiThemeProvider>
         <AppBar title="Open Jobs" user={true} jobber={true} history={props.history}/>
 
-        {openJobs.length === 0 ? <p>lol</p> : openJobs}
+        {openJobs.length === 0 ? <Loading /> : openJobs}
 
         <Grid
           container
@@ -127,6 +129,14 @@ if (goHistory) {
           justify="space-around"
         >
           <Button
+            onClick={() => setBack(true)}
+            style={styles.button}
+            variant="contained"
+            color="secondary"
+          >
+            Home
+          </Button>
+          {/* <Button
             onClick={() => setGoHistory(true)}
             style={styles.button}
             variant="contained"
@@ -141,7 +151,7 @@ if (goHistory) {
             color="secondary"
           >
             Map View
-          </Button>
+          </Button> */}
         </Grid>
       </MuiThemeProvider>
     )

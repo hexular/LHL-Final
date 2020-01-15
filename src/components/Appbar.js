@@ -42,7 +42,7 @@ export default function Appbar(props) {
             props.jobber ? 
             <div>
               <MenuItem onClick={logout}>Logout</MenuItem> 
-              <Link style={{textDecoration: 'none'}} to={"/user"}><MenuItem>Home</MenuItem> </Link> 
+              <Link style={{textDecoration: 'none'}} to={"/jobber"}><MenuItem>Home</MenuItem> </Link> 
               <Link style={{textDecoration: 'none'}} to={"/jobs"}><MenuItem>All Jobs</MenuItem> </Link> 
                <Link style={{textDecoration: 'none'}} to={"/history"}><MenuItem>Active Jobs</MenuItem></Link>
             </div> 
