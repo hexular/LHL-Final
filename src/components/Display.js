@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import { Redirect } from 'react-router';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import keys from '../var';
+//import keys from '../var';
 
 const useStyles = makeStyles(theme => ({
   root: {
