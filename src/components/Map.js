@@ -124,7 +124,7 @@ class SimpleMap extends Component {
             onClick={() => this.setState({ goBack: true })}
             // color={'primary'}
             style={useStyles.button}
-          >Back</Button>
+          >Home</Button>
         </MuiThemeProvider>
       );
   }

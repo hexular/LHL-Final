@@ -134,7 +134,7 @@ export default function Jobs(props) {
             variant="contained"
             color="secondary"
           >
-            Back
+            Home
           </Button>
           {/* <Button
             onClick={() => setGoHistory(true)}
