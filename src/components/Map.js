@@ -104,7 +104,7 @@ class SimpleMap extends Component {
           <AppBar title="Map View" user={true} jobber={true} />
           <div style={{ height: '70vh', width: '100%' }}>
             <GoogleMapReact
-              bootstrapURLKeys={{ key: process.env.bootstrapURLKeys }}
+              bootstrapURLKeys={{ key: "AIzaSyBQ1NimXDA1tP00n1hqmk3RDjM7vINTM78" }}
               defaultCenter={{ lat: this.props.lat, lng: this.props.long }}
               defaultZoom={this.props.zoom}
             >
