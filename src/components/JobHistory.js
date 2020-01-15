@@ -56,24 +56,24 @@ const JobHistory = (props) => {
   useEffect(() => {
 
     axios.get('/auth', { withCredentials: true })
-    .then((response) => {
-      if (response.data.result !== "jobber") {
+      .then((response) => {
+        if (response.data.result !== "jobber") {
           setIsJobber(false)
         };
-      if (response.data.result === "none") {
-        console.log(props)
-        props.history.replace('/')
-        props.history.go()
-        //setLoading(false)      
-      } else {
-        axios.get("/history", { withCredentials: true })
-        .then((res) => {
-          setResponse(res.data)
-          console.log("JOB", res.data)
-        });
-        setLoading(false)
-      }
-    });
+        if (response.data.result === "none") {
+          console.log(props)
+          props.history.replace('/')
+          props.history.go()
+          //setLoading(false)      
+        } else {
+          axios.get("/history", { withCredentials: true })
+            .then((res) => {
+              setResponse(res.data)
+              console.log("JOB", res.data)
+            });
+          setLoading(false)
+        }
+      });
 
   }, [])
 
@@ -96,7 +96,7 @@ const JobHistory = (props) => {
 
   return loading ? null : (!goBack ?
     <MuiThemeProvider>
-      <AppBar title="Job Info #Lit-Final" user={true} jobber={isJobber} client={!isJobber}/>
+      <AppBar title="Job History" user={true} jobber={isJobber} client={!isJobber} />
       <h1>History</h1>
       {completedJobs}
       <Button

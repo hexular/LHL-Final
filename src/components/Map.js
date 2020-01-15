@@ -27,7 +27,7 @@ class SimpleMap extends Component {
           id: jobId,
           dropJob: false,
         }
-      }, {withCredentials: true}
+      }, { withCredentials: true }
     )
       .then(
         (res) => {
@@ -48,31 +48,31 @@ class SimpleMap extends Component {
   };
 
   componentDidMount() {
-    axios.get('/auth', {withCredentials: true})
-    .then((response) => {
-      console.log(response)
-      if (response.data.result !== "jobber") {
-        this.props.history.replace("/")
-        this.props.history.go();
-      } else {
-        const loadJobs = () => {
-          axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`)
-            .then((res) => {
-              console.log('in component did mount res', res)
-              this.setState({ response: res.data })
-            });
+    axios.get('/auth', { withCredentials: true })
+      .then((response) => {
+        console.log(response)
+        if (response.data.result !== "jobber") {
+          this.props.history.replace("/")
+          this.props.history.go();
+        } else {
+          const loadJobs = () => {
+            axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`)
+              .then((res) => {
+                console.log('in component did mount res', res)
+                this.setState({ response: res.data })
+              });
+          }
+          loadJobs()
+          this.setState({
+            loading: false
+          })
         }
-        loadJobs()
-        this.setState({
-          loading: false
-        })
-      }
-    });    
+      });
   }
 
-  render = () => { 
+  render = () => {
 
-    if (this.state.loading){
+    if (this.state.loading) {
       return null
     }
 
@@ -117,10 +117,10 @@ class SimpleMap extends Component {
         // Important! Always set the container height explicitly
         <MuiThemeProvider>
 
-          <AppBar title="Main Portal #Lit-Final" user={true} jobber={true}/>
+          <AppBar title="Job Map" user={true} jobber={true} />
           <div style={{ height: '70vh', width: '100%' }}>
             <GoogleMapReact
-              bootstrapURLKeys={{ key: "key" }}
+              bootstrapURLKeys={{ key: 'AIzaSyA0FZO0N4sb2MrGhmSgv8WD872-D9-lmnE' }}
               defaultCenter={{ lat: this.props.lat, lng: this.props.long }}
               defaultZoom={this.props.zoom}
             >
