@@ -7,11 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import { Redirect } from 'react-router';
-<<<<<<< HEAD
-//import { getGeoCoordinates } from '../helpers/getLocation'
-=======
 import { Grid } from '@material-ui/core';
->>>>>>> master
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -39,48 +35,7 @@ export default function Jobs(props) {
   const [goHistory, setGoHistory] = useState(false)
   const [accepted, setAccepted] = useState(false);
   const [map, setMap] = useState(false);
-<<<<<<< HEAD
-  const [loading, setLoading] = useState(true)
-
-  const getGeoCoordinates = (defaultCoords) => {
-    return new Promise((resolve, reject) => {
-      if (!navigator.geolocation) return resolve(defaultCoords);
-      navigator.geolocation.getCurrentPosition(
-        (position) =>
-          resolve({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          }),
-        (error) => resolve(defaultCoords),
-        {
-          enableHighAccuracy: true,
-          maximumAge: 30000,
-          timeout: 30000
-        }
-      );
-    });
-  };
-
-  const fetchJobWithCoords = () => {
-    const defaultCoords = { latitude: 43.644272, longitude: -79.402242 };
-    if (!navigator.geolocation) return defaultCoords;
-    else {
-      navigator.geolocation.getCurrentPosition((result) => {
-        const lat = result.coords.latitude;
-        const lon = result.coords.longitude;
-        axios.get(`/jobs?lat=${lat}&lng=${lon}`, {withCredentials: true})
-        .then((res) => {
-          setResponse(res.data)
-          if (props.change) {
-            props.finished()
-          }
-        })
-      })
-    }
-  }
-=======
   const [back, setBack] = useState(false);
->>>>>>> master
 
   // const fetchJobWithCoords = async function () {
   //   try {
@@ -137,22 +92,12 @@ export default function Jobs(props) {
         }
       });
 
-<<<<<<< HEAD
-    axios.get('/auth', {withCredentials: true})
-=======
     axios.get('/auth', { withCredentials: true })
 
->>>>>>> master
       .then((response) => {
         if (response.data.result !== "jobber") {
           props.history.replace("/")
           props.history.go()
-<<<<<<< HEAD
-        } else {
-          setLoading(false)
-          fetchJobWithCoords();
-=======
->>>>>>> master
         }
       });
   }, [props.update, props.change])

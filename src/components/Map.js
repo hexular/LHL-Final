@@ -27,11 +27,7 @@ class SimpleMap extends Component {
           id: jobId,
           dropJob: false,
         }
-<<<<<<< HEAD
-      }, {withCredentials: true}
-=======
       }, { withCredentials: true }
->>>>>>> master
     )
       .then(
         (res) => {
@@ -52,16 +48,6 @@ class SimpleMap extends Component {
   };
 
   componentDidMount() {
-<<<<<<< HEAD
-    const loadJobs = () => {
-      axios.get("/jobs", {withCredentials: true})
-        .then((res) => {
-          console.log(res)
-          this.setState({response: res.data})
-        });
-    }
-    loadJobs()
-=======
     axios.get('/auth', { withCredentials: true })
       .then((response) => {
         console.log(response)
@@ -82,7 +68,6 @@ class SimpleMap extends Component {
           })
         }
       });
->>>>>>> master
   }
 
   render = () => {
