@@ -35,7 +35,7 @@ export default function Jobs(props) {
   }
 
   useEffect(() => {
-    axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, { withCredentials: true })
+    axios.get(`/jobs`, { withCredentials: true })
       .then((res) => {
         setResponse(res.data)
         if (props.change) {
