@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from './Appbar';
 import UserJob from './UserJob';
-import RaisedButton from 'material-ui/RaisedButton';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import Grid from '@material-ui/core/Grid';
@@ -44,7 +43,6 @@ export default function MyJobs(props) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    console.log("thisss", props)
     axios.get("/myjobs", { withCredentials: true })
       .then(res => {
         res.data.length === 0 ? 
@@ -76,7 +74,7 @@ export default function MyJobs(props) {
         }
       }, { withCredentials: true }
     )
-      .catch(err => console.log("error", err));
+      .catch(err => console.log("Error marking job complete: ", err));
   }
 
   const jobStatus = function (job) {
@@ -111,14 +109,13 @@ export default function MyJobs(props) {
   const openJobs = jobsFilter(response, "Open");
   const progressJobs = jobsFilter(response, "In Progress");
   const userConfirmJobs = jobsFilter(response, "Marked Complete. Awaiting User Confirmation");
-  // const completeJobs = jobsFilter(response, "Completed");
 
   return loading ? null : (newJob ?
     <Redirect to="/newjobpost" /> :
     !goBack ?
       (response.length !== 0 ? (
         <MuiThemeProvider>
-          <AppBar title="My Active Jobs" user={true} client={true} history={props.history}/>
+          <AppBar title="My Active Jobs" user={true} client={true} history={props.history} />
           <Grid
             className={classes.root}
             container

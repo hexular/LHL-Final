@@ -15,9 +15,7 @@ export class Home extends Component {
   componentDidMount() {
     axios.get('/auth', { withCredentials: true })
       .then((response) => {
-        console.log(response)
         if (response.data.result === "user") {
-          console.log(true)
           this.props.history.replace("/user")
         } else if (response.data.result === "jobber") {
           this.props.history.replace("/jobber")
@@ -33,14 +31,11 @@ export class Home extends Component {
     return this.state.loading ? null
       : (
         <MuiThemeProvider>
-          <AppBar title="Welcome"  history={this.props.history}/>
+          <AppBar title="Welcome" history={this.props.history} />
           <React.Fragment>
             <section >
-              {/* <AppBar title="Main Portal #Lit-Final" style={styles.appbar}/> */}
               <p style={styles.title}>  JOBIFY</p>
-              <p style={styles.icon}>  <TiBriefcase/></p>
-
-              {/* <img src="https://www.simplyhired.ca/static/home/img/discover-local-jobs.png" style={styles.image} /> */}
+              <p style={styles.icon}>  <TiBriefcase /></p>
               <React.Fragment>
                 <section style={styles.buttonsSection}>
                   <Button
@@ -77,7 +72,7 @@ const styles = {
     marginBottom: "2em"
   },
   buttonsSection: {
-    marginTop:"1em",
+    marginTop: "1em",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-around",
@@ -93,7 +88,7 @@ const styles = {
     width: "100vw"
   },
   mainContainer: {
-    backgroundImage: "url(" + "https://i.redd.it/ihfnlpbze7o01.jpg" + ")",
+    backgroundImage: "url(\"https://i.redd.it/ihfnlpbze7o01.jpg\")",
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
@@ -108,7 +103,7 @@ const styles = {
   },
   icon: {
     margin: "auto",
-    
+
     textAlign: "center",
     fontSize: "100px",
     fontWeight: "bold"

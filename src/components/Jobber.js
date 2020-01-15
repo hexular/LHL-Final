@@ -20,9 +20,7 @@ export class Jobber extends Component {
   componentDidMount() {
     axios.get('/auth', { withCredentials: true })
       .then((response) => {
-        console.log(response)
         if (response.data.result !== "jobber") {
-          console.log(true)
           this.props.history.replace("/")
         } else {
           this.setState({
@@ -164,7 +162,6 @@ const styles = {
   },
   paper: {
     padding: "1.5em",
-    // background: "#e0e0e0",
   }
 }
 

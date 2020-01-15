@@ -27,7 +27,6 @@ export default function Completed({ jobId, serviceType, userName, streetAddress,
   const [isJobber, setIsJobber] = useState(true);
 
   const classes = useStyles()
-  console.log("completed jobid", jobId)
 
   useEffect(() => {
     axios.get('/auth', { withCredentials: true })
@@ -75,7 +74,7 @@ export default function Completed({ jobId, serviceType, userName, streetAddress,
           <Typography>Requested By: {userName}</Typography>
           <Typography>Address: {streetAddress}</Typography>
           <Typography>Payout: ${hourlyRate * timeEstimate}</Typography>
-          <br/>
+          <br />
           {isJobber ?
             <Button
               type="button"
