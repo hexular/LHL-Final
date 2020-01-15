@@ -132,26 +132,11 @@ export default function Jobs(props) {
             onClick={() => setBack(true)}
             style={styles.button}
             variant="contained"
-            color="secondary"
+            color="primary"
           >
             Home
           </Button>
-          {/* <Button
-            onClick={() => setGoHistory(true)}
-            style={styles.button}
-            variant="contained"
-            color="secondary"
-          >
-            History
-          </Button>
-          <Button
-            onClick={() => setMap(true)}
-            style={styles.button}
-            variant="contained"
-            color="secondary"
-          >
-            Map View
-          </Button> */}
+          
         </Grid>
       </MuiThemeProvider>
     )

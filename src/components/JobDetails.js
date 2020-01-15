@@ -150,7 +150,7 @@ export class JobDetails extends Component {
                 <Button
                   type="button"
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   style={styles.button}
                   onClick={this.continue}
                 >

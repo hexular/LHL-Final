@@ -105,14 +105,20 @@ const JobHistory = (props) => {
 
       {completedJobs}
       <br/>
-      <Button
-        onClick={() => setGoBack(true)}
-        style={styles.button}
-        variant="contained"
-        color="secondary"
-      >
+      <Grid
+            container
+            direction="row"
+            justify="space-around"
+          >
+        <Button
+          onClick={() => setGoBack(true)}
+          style={styles.button}
+          variant="contained"
+          color="primary"
+        >
         Home
       </Button>
+      </Grid>
     </MuiThemeProvider> : <Redirect to="/" />
   );
 }

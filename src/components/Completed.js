@@ -81,7 +81,7 @@ export default function Completed({ jobId, serviceType, userName, streetAddress,
               type="button"
               fullWidth
               variant="contained"
-              color="secondary"
+              color=""
               className={classes.submit}
               onClick={() => {
                 setViewDetails(true)

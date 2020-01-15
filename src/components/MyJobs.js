@@ -139,7 +139,7 @@ export default function MyJobs(props) {
                 onClick={() => setNewJob(true)}
                 className={classes.button}
                 variant="contained"
-                color="secondary"
+                color="primary"
               >NEW JOB</Button>
               <Button
                 onClick={() => setGoBack(true)}
