@@ -40,15 +40,10 @@ export default function Jobs(props) {
       .then((res) => {
         console.log(res.data)
         setResponse(res.data)
-        // if (props.change) {
-        //   props.finished()
-        // }
       })
       .catch(error => console.log(error))
-
     }
     loadJobs()
-    // setResponse(response);
 
     axios.get('/auth', { withCredentials: true })
 
