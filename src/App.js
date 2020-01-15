@@ -41,18 +41,6 @@ export class App extends Component {
 
     this.ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL ? process.env.REACT_APP_WEBSOCKET_URL : "ws://localhost:8080")
     this.setState({ connected: true })
-  }
-
-  componentDidMount() {
-
-    this.track()
-    console.log(this.state.long, this.state.lat)
-    axios.get("/auth", { withCredentials: true })
-      .then((res) => {
-        console.log(res.data)
-      });
-
-    this.connect();
     this.ws.onopen = () => {
       this.ws.send(JSON.stringify({ type: 'newJob', message: 'hello' }))
     }
@@ -66,6 +54,21 @@ export class App extends Component {
       console.log("socket closed wtf?");
       this.connect();
     }
+  }
+
+  componentDidMount() {
+
+    this.track()
+    console.log(this.state.long, this.state.lat)
+    axios.get("/auth", { withCredentials: true })
+      .then((res) => {
+        console.log(res.data)
+      });
+
+    this.connect();
+    
+
+    
 
   }
 
