@@ -34,8 +34,16 @@ export class Home extends Component {
           <AppBar title="Welcome" history={this.props.history} />
           <React.Fragment>
             <section >
+<<<<<<< HEAD
               <p style={styles.title}>  JOBIFY</p>
               <p style={styles.icon}>  <TiBriefcase /></p>
+=======
+              {/* <AppBar title="Main Portal #Lit-Final" style={styles.appbar}/> */}
+              <p style={styles.title}>  Jobify</p>
+              <p style={styles.icon}>  <TiBriefcase/></p>
+
+              {/* <img src="https://www.simplyhired.ca/static/home/img/discover-local-jobs.png" style={styles.image} /> */}
+>>>>>>> styling-main
               <React.Fragment>
                 <section style={styles.buttonsSection}>
                   <Button
@@ -44,14 +52,14 @@ export class Home extends Component {
                     color="secondary"
                     style={styles.button}
                     onClick={() => this.props.history.push("/userlogin")}
-                  >USER LOGIN</Button>
+                  >User Login</Button>
                   <Button
                     type="button"
                     variant="contained"
                     color="secondary"
                     style={styles.button}
                     onClick={() => this.props.history.push("/jobberlogin")}
-                  >JOBBER LOGIN</Button>
+                  >Jobber Login</Button>
                 </section>
               </React.Fragment>
             </section>
@@ -66,6 +74,7 @@ const styles = {
     width: 180,
     fontSize: "1em",
     fontWeight: "bold",
+    fontFamily: "'Nunito', sans-serif",
     height: 70,
     borderRadius: "20px",
     marginTop: "2em",
@@ -99,6 +108,7 @@ const styles = {
     paddingTop: "0.75em",
     textAlign: "center",
     fontSize: "5em",
+    fontFamily: "'Maven Pro', 'sans-serif'",
     fontWeight: "bold"
   },
   icon: {
