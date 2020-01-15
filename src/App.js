@@ -7,9 +7,11 @@ import JobberLogin from './components/JobberLogin';
 import JobberSignup from './components/JobberSignup';
 import MyJobs from './components/MyJobs';
 import User from './components/User';
+import Jobber from './components/Jobber';
 import Jobs from './components/Jobs';
 import Map from './components/Map';
 import Display from './components/Display';
+import JobHistory from './components/JobHistory';
 import axios from 'axios';
 import NewJobPost from './components/NewJobPost';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -22,25 +24,30 @@ export class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { change: true, connected: false, update: false, long: 0, lat: 0 };
+    this.state = { change: true, connected: false, update: false, long: -79.4023121, lat: 43.6441011 };
   }
 
   showPosition = (pos) => {
-    this.setState({ long: pos.coords.longitude, lat: pos.coords.latitude  })
+    this.setState({ long: pos.coords.longitude, lat: pos.coords.latitude })
   }
 
   track = () => {
-    navigator.geolocation.getCurrentPosition(this.showPosition)
+    navigator.geolocation ?
+      navigator.geolocation.getCurrentPosition(this.showPosition)
+      : this.setState({ long: this.state.long, lat: this.state.lat });
   }
 
   connect = () => {
-    this.ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL)
+
+    this.ws = new WebSocket("ws://localhost:8080")
     this.setState({ connected: true })
   }
 
   componentDidMount() {
 
-    axios.get("/auth", {withCredentials: true})
+    this.track()
+    console.log(this.state.long, this.state.lat)
+    axios.get("/auth", { withCredentials: true })
       .then((res) => {
         console.log(res.data)
       });
@@ -54,6 +61,7 @@ export class App extends Component {
       if (message.type === 'update') this.setState({ update: true });
       // console.log(message)
     }
+
   }
 
   finished = () => {
@@ -73,7 +81,7 @@ export class App extends Component {
       <BrowserRouter history={history} >
         <Route path="/" component={Home} exact />
         <Route path="/map" component={() => <Map
-          track={this.track()}
+          // track={this.track()}
           long={this.state.long}
           lat={this.state.lat}
           updateAllJobs={this.updateAllJobs}
@@ -83,11 +91,22 @@ export class App extends Component {
         />
         <Route path="/userlogin" component={UserLogin} />
         <Route path="/usersignup" component={UserSignup} />
-        <Route path="/jobberlogin" component={JobberLogin} />
+        <Route path="/jobberlogin"
+          component={() => <JobberLogin
+            // track={this.track()}
+            lat={this.state.lat}
+            long={this.state.long}
+            history={history}
+          />}
+        />
         <Route path="/jobbersignup" component={JobberSignup} />
-        <Route path="/user" component={User} />
+        <Route path="/user" component={User} history={history}/>
+        <Route path="/jobber" component={Jobber} />
         <Route path="/jobs"
           component={() => <Jobs
+            finished={this.finished}
+            lat={this.state.lat}
+            long={this.state.long}
             updateAllJobs={this.updateAllJobs}
             updateMyJobs={this.updateMyJobs}
             update={this.state.update}
@@ -126,6 +145,15 @@ export class App extends Component {
             history={history}
           />}
         />
+        <Route path="/history"
+          component={() => <JobHistory
+            updateAllJobs={this.updateAllJobs}
+            updateMyJobs={this.updateMyJobs}
+            change={this.state.change}
+            history={history}
+          />}
+
+          exact />
       </BrowserRouter>
     );
   }

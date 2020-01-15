@@ -5,13 +5,12 @@ import Grid from '@material-ui/core/Grid';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import AddToHomeScreenIcon from '@material-ui/icons/AddToHomeScreen';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import HistoryIcon from '@material-ui/icons/History';
+import MapIcon from '@material-ui/icons/Map';
 import axios from 'axios';
 
-
-export class User extends Component {
+export class Jobber extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,7 +21,7 @@ export class User extends Component {
     axios.get('/auth', { withCredentials: true })
       .then((response) => {
         console.log(response)
-        if (response.data.result !== "user") {
+        if (response.data.result !== "jobber") {
           console.log(true)
           this.props.history.replace("/")
         } else {
@@ -37,7 +36,7 @@ export class User extends Component {
     return this.state.loading ? null
       : (
         <MuiThemeProvider>
-          <AppBar title="Home" user={true} client={true} history={this.props.history} />
+          <AppBar title="Home" user={true} jobber={true} />
           <React.Fragment>
             <Grid
               container
@@ -56,36 +55,7 @@ export class User extends Component {
               <ButtonBase
                 focusRipple
                 type="button"
-                onClick={() => this.props.history.push("/newjobpost")}
-              >
-                <Paper
-                  elevation={3}
-                  style={styles.paper}
-                >
-                  <Grid
-                    container
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
-                    style={styles.subGrid}
-                  >
-                    <AddToHomeScreenIcon style={styles.icon} />
-                    <Typography
-                      variant='h5'
-                      align="center"
-                    >
-                      New Job Posting
-                    </Typography>
-                  </Grid>
-                </Paper>
-
-
-              </ButtonBase>
-
-              <ButtonBase
-                focusRipple
-                type="button"
-                onClick={() => this.props.history.push('/myjobs')}
+                onClick={() => this.props.history.push("/jobs")}
               >
                 <Paper
                   elevation={3}
@@ -103,10 +73,11 @@ export class User extends Component {
                       variant='h5'
                       align="center"
                     >
-                      View Active Jobs
+                      View Open Jobs
                     </Typography>
                   </Grid>
                 </Paper>
+
 
               </ButtonBase>
 
@@ -131,7 +102,35 @@ export class User extends Component {
                       variant='h5'
                       align="center"
                     >
-                      History
+                      View History
+                    </Typography>
+                  </Grid>
+                </Paper>
+
+              </ButtonBase>
+
+              <ButtonBase
+                focusRipple
+                type="button"
+                onClick={() => this.props.history.push('/map')}
+              >
+                <Paper
+                  elevation={3}
+                  style={styles.paper}
+                >
+                  <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                    alignItems="center"
+                    style={styles.subGrid}
+                  >
+                    <MapIcon style={styles.icon} />
+                    <Typography
+                      variant='h5'
+                      align="center"
+                    >
+                      View Map
                     </Typography>
                   </Grid>
                 </Paper>
@@ -169,4 +168,4 @@ const styles = {
   }
 }
 
-export default User
+export default Jobber

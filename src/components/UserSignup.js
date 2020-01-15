@@ -96,10 +96,10 @@ export default function UserSignup(props) {
 
   return loading ? null 
   : (
-    submitted ? <Redirect to="/jobberlogin" /> :
+    submitted ? <Redirect to="/userlogin" /> :
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar position="static" user={false}>
+          <AppBar position="static" user={false} title="Enter Details">
             <Toolbar variant="dense">
               <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                 <MenuIcon />
@@ -116,7 +116,7 @@ export default function UserSignup(props) {
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Sign up
+                User Sign up
             </Typography>
               <form className={classes.form} noValidate>
                 <Grid container spacing={2}>

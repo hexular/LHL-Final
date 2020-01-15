@@ -4,10 +4,14 @@ import AppBar from './Appbar';
 import Loading from './Loading';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
+import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+<<<<<<< HEAD
 //import { getGeoCoordinates } from '../helpers/getLocation'
+=======
+import { Grid } from '@material-ui/core';
+>>>>>>> master
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -32,9 +36,10 @@ const useStyles = makeStyles(theme => ({
 export default function Jobs(props) {
   const classes = useStyles();
   const [response, setResponse] = useState([])
-  const [goBack, setGoBack] = useState(false)
+  const [goHistory, setGoHistory] = useState(false)
   const [accepted, setAccepted] = useState(false);
   const [map, setMap] = useState(false);
+<<<<<<< HEAD
   const [loading, setLoading] = useState(true)
 
   const getGeoCoordinates = (defaultCoords) => {
@@ -73,6 +78,9 @@ export default function Jobs(props) {
       })
     }
   }
+=======
+  const [back, setBack] = useState(false);
+>>>>>>> master
 
   // const fetchJobWithCoords = async function () {
   //   try {
@@ -105,7 +113,7 @@ export default function Jobs(props) {
           id: jobId,
           dropJob: false,
         }
-      }, {withCredentials: true}
+      }, { withCredentials: true }
     )
       .then(
         (res) => {
@@ -120,7 +128,7 @@ export default function Jobs(props) {
 
   useEffect(() => {
     console.log("~~~~~~~~~ACCEPTED: ", accepted)
-    axios.get("/jobs", {withCredentials: true})
+    axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, { withCredentials: true })
       .then((res) => {
         setResponse(res.data)
         if (props.change) {
@@ -129,14 +137,22 @@ export default function Jobs(props) {
         }
       });
 
+<<<<<<< HEAD
     axios.get('/auth', {withCredentials: true})
+=======
+    axios.get('/auth', { withCredentials: true })
+
+>>>>>>> master
       .then((response) => {
         if (response.data.result !== "jobber") {
           props.history.replace("/")
           props.history.go()
+<<<<<<< HEAD
         } else {
           setLoading(false)
           fetchJobWithCoords();
+=======
+>>>>>>> master
         }
       });
   }, [props.update, props.change])
@@ -144,6 +160,8 @@ export default function Jobs(props) {
   const jobs = response
 
   const openJobs = jobs.map(job => {
+    console.log('from map', job)
+
     return (
       <Open
         key={job.id}
@@ -158,36 +176,61 @@ export default function Jobs(props) {
         time={job.time}
         updateAllJobs={props.updateAllJobs}
         updateMyJobs={props.updateMyJobs}
-        acceptJob={(id) => acceptJob(id)} />
+        acceptJob={(id) => acceptJob(id)}
+        lat={props.lat}
+        long={props.long}
+        post={job.post_code}
+      />
     )
+
   })
 
-  if (loading) {
-    return null
-  } else if (goBack) {
-    return <Redirect to="/" />
+  if (goHistory) {
+    return <Redirect to="/history" />
   } else if (accepted) {
     console.log("TRYING TO REDIRECT TO ", accepted)
     return <Redirect to={`/jobs/${accepted}`} />
   } else if (map) {
     return <Redirect to={'/map'} />
+  } else if (back) {
+    return <Redirect to={'/jobber'} />
   } else {
     return (
       <MuiThemeProvider>
-        <AppBar title="Open Jobs" user={true} />
-          {openJobs.length === 0 ? <Loading /> : openJobs}
-          <RaisedButton
-            label="Back"
-            onClick={() => setGoBack(true)}
-            primary={true}
+        <AppBar title="Open Jobs" user={true} jobber={true} history={props.history}/>
+
+        {openJobs.length === 0 ? <Loading /> : openJobs}
+
+        <Grid
+          container
+          direction="row"
+          justify="space-around"
+        >
+          <Button
+            onClick={() => setBack(true)}
             style={styles.button}
-          />
-          <RaisedButton
-            label="Map View"
+            variant="contained"
+            color="secondary"
+          >
+            Home
+          </Button>
+          {/* <Button
+            onClick={() => setGoHistory(true)}
+            style={styles.button}
+            variant="contained"
+            color="secondary"
+          >
+            History
+          </Button>
+          <Button
             onClick={() => setMap(true)}
-            primary={true}
             style={styles.button}
-          />
+            variant="contained"
+            color="secondary"
+          >
+            Map View
+          </Button> */}
+        </Grid>
       </MuiThemeProvider>
     )
   }
