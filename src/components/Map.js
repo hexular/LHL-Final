@@ -15,7 +15,7 @@ class SimpleMap extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { response: [], goBack: false, accepted: false, loading: false, job: null };
+    this.state = { response: [], goBack: false, accepted: false, loading: false, job: null, loading: true };
   }
 
   acceptJob = function (jobId) {
@@ -27,7 +27,7 @@ class SimpleMap extends Component {
           id: jobId,
           dropJob: false,
         }
-      }
+      }, {withCredentials: true}
     )
       .then(
         (res) => {
@@ -48,19 +48,33 @@ class SimpleMap extends Component {
   };
 
   componentDidMount() {
-    const loadJobs = () => {
-      axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`)
-        .then((res) => {
-          console.log('in component did mount res', res)
-          this.setState({ response: res.data })
-        });
-    }
-    loadJobs()
+    axios.get('/auth', {withCredentials: true})
+    .then((response) => {
+      console.log(response)
+      if (response.data.result !== "jobber") {
+        this.props.history.replace("/")
+        this.props.history.go();
+      } else {
+        const loadJobs = () => {
+          axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`)
+            .then((res) => {
+              console.log('in component did mount res', res)
+              this.setState({ response: res.data })
+            });
+        }
+        loadJobs()
+        this.setState({
+          loading: false
+        })
+      }
+    });    
   }
 
-  render = () => {
+  render = () => { 
 
-
+    if (this.state.loading){
+      return null
+    }
 
     console.log('RESPONSE HERE WOOOOHOOO', this.state.response)
 
@@ -106,7 +120,7 @@ class SimpleMap extends Component {
           <AppBar title="Main Portal #Lit-Final" user={true} jobber={true}/>
           <div style={{ height: '70vh', width: '100%' }}>
             <GoogleMapReact
-              bootstrapURLKeys={{ key: 'AIzaSyA0FZO0N4sb2MrGhmSgv8WD872-D9-lmnE' }}
+              bootstrapURLKeys={{ key: "key" }}
               defaultCenter={{ lat: this.props.lat, lng: this.props.long }}
               defaultZoom={this.props.zoom}
             >
