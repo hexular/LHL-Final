@@ -17,7 +17,9 @@ import NewJobPost from './components/NewJobPost';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Appbar from './components/Appbar';
 import { createBrowserHistory } from 'history';
+import app from './components/test';
 const history = createBrowserHistory();
+
 
 
 export class App extends Component {
@@ -51,6 +53,7 @@ export class App extends Component {
     this.ws.onclose = () => {
       this.connect();
     }
+
   }
   componentDidMount() {
     this.track()
@@ -128,7 +131,7 @@ export class App extends Component {
           history={history}
         />}
         />
-        <Route path="/test" component={Appbar} />
+        <Route path="/test" component={app} />
         <Route path="/myjobs"
           component={() => <MyJobs
             connect={this.connect}

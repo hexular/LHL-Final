@@ -38,15 +38,10 @@ export default function Jobs(props) {
     const loadJobs = () => {axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, { withCredentials: true })
       .then((res) => {
         setResponse(res.data)
-        // if (props.change) {
-        //   props.finished()
-        // }
       })
       .catch(error => console.log(error))
-      
     }
     loadJobs()
-    // setResponse(response);
 
     axios.get('/auth', { withCredentials: true })
 
