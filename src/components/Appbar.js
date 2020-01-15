@@ -38,21 +38,23 @@ export default function Appbar(props) {
           open={drawer}
           width={200}
         >
-          {props.user ? 
+          {props.user ? (
             props.jobber ? 
             <div>
               <MenuItem onClick={logout}>Logout</MenuItem> 
-              <MenuItem onClick={'lol'}>All Jobs</MenuItem> 
+              <Link style={{textDecoration: 'none'}} to={"/jobs"}><MenuItem>All Jobs</MenuItem> </Link> 
+               <Link style={{textDecoration: 'none'}} to={"/history"}><MenuItem>Active Jobs</MenuItem></Link>
             </div> 
             :
             <div>
               <MenuItem onClick={logout}>Logout</MenuItem> 
                <Link style={{textDecoration: 'none'}} to={"/myjobs"}><MenuItem>My Jobs</MenuItem> </Link> 
                <Link style={{textDecoration: 'none'}} to={"/newjobpost"}><MenuItem>New Job</MenuItem></Link>  
+               <Link style={{textDecoration: 'none'}} to={"/history"}><MenuItem>History</MenuItem></Link>  
               
              
             </div>
-            : 
+          ) : 
             <MenuItem onClick={() => setHomePage(true)}>Home</MenuItem>}          
         </Drawer>
       </React.Fragment>
