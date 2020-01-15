@@ -35,7 +35,8 @@ export default function Jobs(props) {
   }
 
   useEffect(() => {
-    axios.get(`/jobs`, { withCredentials: true })
+    const loadJobs = () => {
+      axios.get(`/jobs`, { withCredentials: true })
       .then((res) => {
         console.log(res.data)
         setResponse(res.data)
@@ -44,7 +45,7 @@ export default function Jobs(props) {
         // }
       })
       .catch(error => console.log(error))
-      
+
     }
     loadJobs()
     // setResponse(response);
