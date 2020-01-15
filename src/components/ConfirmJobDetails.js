@@ -66,7 +66,7 @@ export class ConfirmJobDetails extends Component {
     return (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Confirm Job" user={true}/>
+          <AppBar title="Confirm Job" user={true} client={true}/>
           <List>
             <ListItem
               primaryText="Service Type"

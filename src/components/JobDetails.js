@@ -90,7 +90,7 @@ export class JobDetails extends Component {
     return this.state.loading ? null : (
       <MuiThemeProvider>
         <React.Fragment>
-          <AppBar title="Enter Job Details" user={true} />
+          <AppBar title="Enter Job Details" user={true} client={true}/>
           <br />
           <Container justify="center">            
             <Grid

@@ -116,7 +116,7 @@ export default function MyJobs(props) {
     !goBack ?
       (response.length !== 0 ? (
         <MuiThemeProvider>
-          <AppBar title="Active Job Board" user={true} />
+          <AppBar title="Active Job Board" user={true} client={true} history={props.history}/>
           <Grid
             className={classes.root}
             container

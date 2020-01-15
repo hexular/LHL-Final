@@ -33,6 +33,7 @@ export default function Display(props) {
   const classes = useStyles();
   const [goJobs, setGoJobs] = useState(false);
   const [goHistory, setGoHistory] = useState(false);
+  const [goHome, setGoHome] = useState(false);
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(true)
   const { id } = useParams();
@@ -126,98 +127,107 @@ export default function Display(props) {
 
 
   return loading ? null :
-    (goJobs ? <Redirect to="/jobs/" /> :
-      (goHistory ? <Redirect to="/history/" /> :
-        <MuiThemeProvider>
-          <AppBar title="Job Info #Lit-Final" user={true} />
+    (goHome ? <Redirect to="/jobber/" /> :
+      (goJobs ? <Redirect to="/jobs/" /> :
+        (goHistory ? <Redirect to="/history/" /> :
+          <MuiThemeProvider>
+            <AppBar title="Job Info #Lit-Final" user={true} jobber={true}/>
 
-          <Paper className={classes.paper}>
-            <Grid item>
-              <Typography variant="h4">{response.service_type}</Typography>
+            <Paper className={classes.paper}>
+              <Grid item>
+                <Typography variant="h4">{response.service_type}</Typography>
 
-              <Typography>Description: {response.description}</Typography>
-              <Typography>Requested By: {response.name}</Typography>
-              <Typography>Address: {response.street_address}</Typography>
-              <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
-              <Typography>Status: {jobStatus(response)}</Typography>
-            </Grid>
-          </Paper>
-          <Grid container
-            direction="column"
-            justify="space-between"
-            style={{ height: "60vh" }}>
-            <Grid
-              container
-              direction="row"
-              justify="space-around">
-              {
-                jobStatus(response) === "Open" ?
-                  <Button
-                    onClick={() => {
-                      acceptJob(id)
-                      props.updateMyJobs()
-                      props.updateAllJobs()
-                    }}
-                    style={styles.button}
-                    variant="contained"
-                  >
-                    Accept
-                </Button>
-                  : null
-              }
-              {
-                jobStatus(response) === "In Progress" ?
-                  <Button
-                    onClick={() => {
-                      dropJob()
-                      props.updateMyJobs()
-                      props.updateAllJobs()
-                    }}
-                    style={styles.button}
-                    variant="contained"
-                  >
-                    Cancel
-                </Button>
-                  : null
-              }
-              {
-                jobStatus(response) === "In Progress" ?
-                  <Button
-                    onClick={() => {
-                      markComplete()
-                      props.updateMyJobs()
-                      props.updateAllJobs()
-                    }}
-                    style={styles.button}
-                    variant="contained"
-                  >
-                    Mark Complete
-                </Button>
-                  : null
-              }
-
-            </Grid>
-            <Grid
-              container
+                <Typography>Description: {response.description}</Typography>
+                <Typography>Requested By: {response.name}</Typography>
+                <Typography>Address: {response.street_address}</Typography>
+                <Typography>Payout: ${response.hourly_rate * response.time_estimate}</Typography>
+                <Typography>Status: {jobStatus(response)}</Typography>
+              </Grid>
+            </Paper>
+            <Grid container
               direction="column"
-            >
-              <Button
-                onClick={() => setGoJobs(true)}
-                style={styles.button}
-                variant="contained"
+              justify="space-between"
+              style={{ height: "60vh" }}>
+              <Grid
+                container
+                direction="row"
+                justify="space-around">
+                {
+                  jobStatus(response) === "Open" ?
+                    <Button
+                      onClick={() => {
+                        acceptJob(id)
+                        props.updateMyJobs()
+                        props.updateAllJobs()
+                      }}
+                      style={styles.button}
+                      variant="contained"
+                    >
+                      Accept
+                </Button>
+                    : null
+                }
+                {
+                  jobStatus(response) === "In Progress" ?
+                    <Button
+                      onClick={() => {
+                        dropJob()
+                        props.updateMyJobs()
+                        props.updateAllJobs()
+                      }}
+                      style={styles.button}
+                      variant="contained"
+                    >
+                      Cancel
+                </Button>
+                    : null
+                }
+                {
+                  jobStatus(response) === "In Progress" ?
+                    <Button
+                      onClick={() => {
+                        markComplete()
+                        props.updateMyJobs()
+                        props.updateAllJobs()
+                      }}
+                      style={styles.button}
+                      variant="contained"
+                    >
+                      Mark Complete
+                </Button>
+                    : null
+                }
+
+              </Grid>
+              <Grid
+                container
+                direction="column"
               >
-                Jobs
+                <Button
+                  onClick={() => setGoJobs(true)}
+                  style={styles.button}
+                  variant="contained"
+                >
+                  Jobs
               </Button>
-              <Button
-                onClick={() => setGoHistory(true)}
-                style={styles.button}
-                variant="contained"
-              >
-                History
+                <Button
+                  onClick={() => setGoHistory(true)}
+                  style={styles.button}
+                  variant="contained"
+                >
+                  History
               </Button>
+                <Button
+                  onClick={() => setGoHome(true)}
+                  style={styles.button}
+                  variant="contained"
+                >
+                  Home
+              </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        </MuiThemeProvider >
+          </MuiThemeProvider >
+        )
       )
     )
 }

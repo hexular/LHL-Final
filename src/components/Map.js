@@ -112,12 +112,12 @@ class SimpleMap extends Component {
       long: this.props.long
     }} />
     else return this.state.goBack ?
-      <Redirect to={'/jobs'} /> :
+      <Redirect to={'/jobber'} /> :
       (
         // Important! Always set the container height explicitly
         <MuiThemeProvider>
 
-          <AppBar title="Main Portal #Lit-Final" user={true} />
+          <AppBar title="Main Portal #Lit-Final" user={true} jobber={true}/>
           <div style={{ height: '70vh', width: '100%' }}>
             <GoogleMapReact
               bootstrapURLKeys={{ key: "key" }}
@@ -125,11 +125,11 @@ class SimpleMap extends Component {
               defaultZoom={this.props.zoom}
             >
               {openJobs}
-            
+
               <Marker
                 text={'me'}
                 lat={this.props.lat}
-                lng={this.props.long} 
+                lng={this.props.long}
               ></Marker>
             </GoogleMapReact>
           </div>
@@ -138,7 +138,7 @@ class SimpleMap extends Component {
             onClick={() => this.setState({ goBack: true })}
             // color={'primary'}
             style={useStyles.button}
-          >Back</Button>
+          >Home</Button>
         </MuiThemeProvider>
       );
   }
@@ -147,8 +147,8 @@ class SimpleMap extends Component {
 export default SimpleMap;
 
 const useStyles = {
-  button: {    
+  button: {
     margin: 20,
-    width: 100    
+    width: 100
   }
 };

@@ -7,6 +7,7 @@ import JobberLogin from './components/JobberLogin';
 import JobberSignup from './components/JobberSignup';
 import MyJobs from './components/MyJobs';
 import User from './components/User';
+import Jobber from './components/Jobber';
 import Jobs from './components/Jobs';
 import Map from './components/Map';
 import Display from './components/Display';
@@ -31,9 +32,9 @@ export class App extends Component {
   }
 
   track = () => {
-    navigator.geolocation ? 
-    navigator.geolocation.getCurrentPosition(this.showPosition)
-    : this.setState({ long: this.state.long, lat: this.state.lat });
+    navigator.geolocation ?
+      navigator.geolocation.getCurrentPosition(this.showPosition)
+      : this.setState({ long: this.state.long, lat: this.state.lat });
   }
 
   connect = () => {
@@ -90,16 +91,17 @@ export class App extends Component {
         />
         <Route path="/userlogin" component={UserLogin} />
         <Route path="/usersignup" component={UserSignup} />
-        <Route path="/jobberlogin" 
-          component={() => <JobberLogin 
-              // track={this.track()}
-              lat={this.state.lat}
-              long={this.state.long}
-              history={history}
-            />} 
-          />
+        <Route path="/jobberlogin"
+          component={() => <JobberLogin
+            // track={this.track()}
+            lat={this.state.lat}
+            long={this.state.long}
+            history={history}
+          />}
+        />
         <Route path="/jobbersignup" component={JobberSignup} />
-        <Route path="/user" component={User} />
+        <Route path="/user" component={User} history={history}/>
+        <Route path="/jobber" component={Jobber} />
         <Route path="/jobs"
           component={() => <Jobs
             finished={this.finished}
