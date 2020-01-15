@@ -46,10 +46,9 @@ export class App extends Component {
   componentDidMount() {
 
     this.track()
-    console.log(this.state.long, this.state.lat)
     axios.get("/auth", { withCredentials: true })
       .then((res) => {
-        console.log(res.data)
+
       });
 
     this.connect();
@@ -59,7 +58,6 @@ export class App extends Component {
     this.ws.onmessage = event => {
       const message = JSON.parse(event.data)
       if (message.type === 'update') this.setState({ update: true });
-      // console.log(message)
     }
 
   }
@@ -81,7 +79,6 @@ export class App extends Component {
       <BrowserRouter history={history} >
         <Route path="/" component={Home} exact />
         <Route path="/map" component={() => <Map
-          // track={this.track()}
           long={this.state.long}
           lat={this.state.lat}
           updateAllJobs={this.updateAllJobs}
@@ -93,14 +90,13 @@ export class App extends Component {
         <Route path="/usersignup" component={UserSignup} />
         <Route path="/jobberlogin"
           component={() => <JobberLogin
-            // track={this.track()}
             lat={this.state.lat}
             long={this.state.long}
             history={history}
           />}
         />
         <Route path="/jobbersignup" component={JobberSignup} />
-        <Route path="/user" component={User} history={history}/>
+        <Route path="/user" component={User} history={history} />
         <Route path="/jobber" component={Jobber} />
         <Route path="/jobs"
           component={() => <Jobs

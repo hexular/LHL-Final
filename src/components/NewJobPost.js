@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import JobDetails from './JobDetails'
 import ConfirmJobDetails from './ConfirmJobDetails'
-import MyJobs from './MyJobs'
-import Display from './Display'
 import { Redirect } from 'react-router';
-import axios from 'axios'
 
 export class NewJobPost extends Component {
-  
+
   state = {
     step: 1,
     serviceType: '',
@@ -35,16 +32,6 @@ export class NewJobPost extends Component {
   handleChange = input => e => {
     this.setState({ [input]: e.target.value });
   }
-
-  // validate = () => {
-  //   const { serviceType, description, payRate, requiredTime, address, postalCode } = this.state;
-  //   return [serviceType, 
-  //   description, 
-  //   payRate, 
-  //   requiredTime, 
-  //   address, 
-  //   postalCode].includes('') ? false : true;
-  // }
 
   render() {
     const { step, serviceType, description, payRate, requiredTime, address, postalCode } = this.state;
@@ -84,7 +71,6 @@ export class NewJobPost extends Component {
             updateAllJobs={this.props.updateAllJobs}
             updateMyJobs={this.props.updateMyJobs}
             update={this.props.update}
-            // history={this.props.history}
           />
         )
       default:
