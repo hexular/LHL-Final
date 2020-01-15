@@ -15,6 +15,12 @@ import { makeStyles, MuiThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure({
+  autoClose: 2000
+})
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -68,7 +74,7 @@ export default function UserLogin(props) {
         if (response.data.result) {
           setSubmitted(true)
         } else {
-          alert("account does not exist or invalid email/pw");
+          toast.warning("Account does not exist or invalid email/pw");
         }
       })
       .catch(err =>
