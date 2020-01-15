@@ -64,10 +64,6 @@ export class App extends Component {
 
   }
 
-  componentWillUnmount() {
-    this.ws.close();
-  }
-
   finished = () => {
     this.setState({ change: false })
   }
