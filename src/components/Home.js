@@ -37,7 +37,7 @@ export class Home extends Component {
           <React.Fragment>
             <section >
               {/* <AppBar title="Main Portal #Lit-Final" style={styles.appbar}/> */}
-              <p style={styles.title}>  JOBIFY</p>
+              <p style={styles.title}>  Jobify</p>
               <p style={styles.icon}>  <TiBriefcase/></p>
 
               {/* <img src="https://www.simplyhired.ca/static/home/img/discover-local-jobs.png" style={styles.image} /> */}
@@ -104,6 +104,7 @@ const styles = {
     paddingTop: "0.75em",
     textAlign: "center",
     fontSize: "5em",
+    fontFamily: "'Maven Pro', 'sans-serif'",
     fontWeight: "bold"
   },
   icon: {
