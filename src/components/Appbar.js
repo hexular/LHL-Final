@@ -6,6 +6,8 @@ import MenuItem from 'material-ui/MenuItem';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import { Link } from 'react-router-dom';
+import { TiHome, TiPlus, TiMessages, TiMap, TiFolder, TiArrowBack } from "react-icons/ti";
+import { FaClipboardList } from "react-icons/fa";
 
 export default function Appbar(props) {
   const [drawer, openDrawer] = useState(false);
@@ -18,11 +20,6 @@ export default function Appbar(props) {
         setHomePage(true);
       })
   }  
-
-  const myJobs = () => {
-    return <Redirect to={'/myjobs'} />
-  }
-  
 
   return !homePage ? (
     <MuiThemeProvider>
@@ -41,18 +38,19 @@ export default function Appbar(props) {
           {props.user ? (
             props.jobber ? 
             <div>
-              <MenuItem onClick={logout}>Logout</MenuItem> 
-              <Link style={{textDecoration: 'none'}} to={"/jobber"}><MenuItem>Home</MenuItem> </Link> 
-              <Link style={{textDecoration: 'none'}} to={"/jobs"}><MenuItem>All Jobs</MenuItem> </Link> 
-               <Link style={{textDecoration: 'none'}} to={"/history"}><MenuItem>Active Jobs</MenuItem></Link>
+              <MenuItem onClick={logout}> <TiArrowBack/> Logout</MenuItem> 
+              <Link style={{textDecoration: 'none'}} to={"/jobber"}><MenuItem> <TiHome/> Home</MenuItem> </Link> 
+               <Link style={{textDecoration: 'none'}} to={"/history"}><MenuItem> <TiMessages/> My Jobs</MenuItem></Link>
+              <Link style={{textDecoration: 'none'}} to={"/jobs"}><MenuItem> <FaClipboardList/> Open Jobs</MenuItem> </Link> 
+               <Link style={{textDecoration: 'none'}} to={"/map"}><MenuItem> <TiMap/> Job Map</MenuItem></Link>
             </div> 
             :
             <div>
-              <MenuItem onClick={logout}>Logout</MenuItem> 
-               <Link style={{textDecoration: 'none'}} to={"/user"}><MenuItem>Home</MenuItem> </Link> 
-               <Link style={{textDecoration: 'none'}} to={"/myjobs"}><MenuItem>My Jobs</MenuItem> </Link> 
-               <Link style={{textDecoration: 'none'}} to={"/newjobpost"}><MenuItem>New Job</MenuItem></Link>  
-               <Link style={{textDecoration: 'none'}} to={"/history"}><MenuItem>History</MenuItem></Link>  
+              <MenuItem onClick={logout}> <TiArrowBack/> Logout</MenuItem> 
+               <Link style={{textDecoration: 'none'}} to={"/user"}><MenuItem> <TiHome/> Home</MenuItem> </Link> 
+               <Link style={{textDecoration: 'none'}} to={"/myjobs"}><MenuItem> <FaClipboardList/> My Jobs</MenuItem> </Link> 
+               <Link style={{textDecoration: 'none'}} to={"/newjobpost"}><MenuItem> <TiPlus/> New Job</MenuItem></Link>  
+               <Link style={{textDecoration: 'none'}} to={"/history"}><MenuItem> <TiFolder/> History</MenuItem></Link>  
               
              
             </div>
