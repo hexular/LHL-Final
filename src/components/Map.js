@@ -56,7 +56,7 @@ class SimpleMap extends Component {
           this.props.history.go();
         } else {
           const loadJobs = () => {
-            axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`)
+            axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`, {withCredentials: true})
               .then((res) => {
                 console.log('in component did mount res', res)
                 this.setState({ response: res.data })
@@ -120,7 +120,7 @@ class SimpleMap extends Component {
           <AppBar title="Job Map" user={true} jobber={true} />
           <div style={{ height: '70vh', width: '100%' }}>
             <GoogleMapReact
-              bootstrapURLKeys={{ key: 'AIzaSyA0FZO0N4sb2MrGhmSgv8WD872-D9-lmnE' }}
+              bootstrapURLKeys={{ key: '' }}
               defaultCenter={{ lat: this.props.lat, lng: this.props.long }}
               defaultZoom={this.props.zoom}
             >

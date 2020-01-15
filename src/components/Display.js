@@ -64,7 +64,7 @@ export default function Display(props) {
           id: jobId,
           dropJob: false,
         }
-      }
+      }, {withCredentials: true}
     )
       .then(
         (res) => {
