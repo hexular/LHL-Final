@@ -56,7 +56,7 @@ class SimpleMap extends Component {
           this.props.history.go();
         } else {
           const loadJobs = () => {
-            axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`)
+            axios.get(`/jobs?lat=${this.props.lat}&lng=${this.props.long}`, {withCredentials: true})
               .then((res) => {
                 console.log('in component did mount res', res)
                 this.setState({ response: res.data })
