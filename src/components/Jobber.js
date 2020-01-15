@@ -6,9 +6,10 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import HistoryIcon from '@material-ui/icons/History';
+import ForumIcon from '@material-ui/icons/Forum';
 import MapIcon from '@material-ui/icons/Map';
 import axios from 'axios';
+import { FaUserTie } from "react-icons/fa";
 
 export class Jobber extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ export class Jobber extends Component {
     return this.state.loading ? null
       : (
         <MuiThemeProvider>
-          <AppBar title="Home" user={true} jobber={true} />
+          <AppBar title='Jobber Home' user={true} jobber={true} />
           <React.Fragment>
             <Grid
               container
@@ -71,7 +72,7 @@ export class Jobber extends Component {
                       variant='h5'
                       align="center"
                     >
-                      View Open Jobs
+                      Open Jobs
                     </Typography>
                   </Grid>
                 </Paper>
@@ -95,12 +96,12 @@ export class Jobber extends Component {
                     alignItems="center"
                     style={styles.subGrid}
                   >
-                    <HistoryIcon style={styles.icon} />
+                    <ForumIcon style={styles.icon} />
                     <Typography
                       variant='h5'
                       align="center"
                     >
-                      View History
+                      My Jobs
                     </Typography>
                   </Grid>
                 </Paper>
@@ -128,7 +129,7 @@ export class Jobber extends Component {
                       variant='h5'
                       align="center"
                     >
-                      View Map
+                      Job Map
                     </Typography>
                   </Grid>
                 </Paper>

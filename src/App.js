@@ -39,28 +39,50 @@ export class App extends Component {
 
   connect = () => {
 
-    this.ws = new WebSocket("ws://localhost:8080")
+    this.ws = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL ? process.env.REACT_APP_WEBSOCKET_URL : "ws://localhost:8080")
     this.setState({ connected: true })
+    this.ws.onopen = () => {
+      this.ws.send(JSON.stringify({ type: 'newJob', message: 'hello' }))
+    }
+    this.ws.onmessage = event => {
+      console.log('message recieved', event.data)
+      const message = JSON.parse(event.data)
+      if (message.type === 'update') this.setState({ update: !this.state.update });
+      // console.log(message)
+    }
+    this.ws.onclose = () => {
+      console.log("socket closed wtf?");
+      this.connect();
+    }
   }
-
   componentDidMount() {
-
     this.track()
     axios.get("/auth", { withCredentials: true })
       .then((res) => {
 
       });
-
     this.connect();
-    this.ws.onopen = () => {
-      this.ws.send(JSON.stringify({ type: 'newJob', message: 'hello' }))
     }
-    this.ws.onmessage = event => {
-      const message = JSON.parse(event.data)
-      if (message.type === 'update') this.setState({ update: true });
-    }
+  // componentDidMount() {
 
-  }
+  //   this.track()
+  //   console.log(this.state.long, this.state.lat)
+  //   axios.get("/auth", { withCredentials: true })
+  //     .then((res) => {
+  //       console.log(res.data)
+  //     });
+
+  //   this.connect();
+  //   this.ws.onopen = () => {
+  //     this.ws.send(JSON.stringify({ type: 'newJob', message: 'hello' }))
+  //   }
+  //   this.ws.onmessage = event => {
+  //     const message = JSON.parse(event.data)
+  //     if (message.type === 'update') this.setState({ update: true });
+  //     // console.log(message)
+  //   }
+
+  // }
 
   finished = () => {
     this.setState({ change: false })
@@ -100,6 +122,7 @@ export class App extends Component {
         <Route path="/jobber" component={Jobber} />
         <Route path="/jobs"
           component={() => <Jobs
+            change={this.state.change}
             finished={this.finished}
             lat={this.state.lat}
             long={this.state.long}
