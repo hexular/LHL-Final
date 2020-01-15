@@ -47,7 +47,9 @@ export default function MyJobs(props) {
     console.log("thisss", props)
     axios.get("/myjobs", { withCredentials: true })
       .then(res => {
-        setResponse(res.data)
+        res.data.length === 0 ? 
+        setResponse(['no jobs']) :
+        setResponse(res.data);
         if (props.change) {
           props.finished()
         }

@@ -60,14 +60,20 @@ export default function Jobs(props) {
   }
 
   useEffect(() => {
-    console.log("~~~~~~~~~ACCEPTED: ", accepted)
-    axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, { withCredentials: true })
+    console.log('inside useeffct jobs')
+    const loadJobs = () => {axios.get(`/jobs?lat=${props.lat}&lng=${props.long}`, { withCredentials: true })
       .then((res) => {
+        console.log(res.data)
         setResponse(res.data)
-        if (props.change) {
-          props.finished()
-        }
-      });
+        // if (props.change) {
+        //   props.finished()
+        // }
+      })
+      .catch(error => console.log(error))
+      
+    }
+    loadJobs()
+    // setResponse(response);
 
     axios.get('/auth', { withCredentials: true })
 
@@ -82,8 +88,6 @@ export default function Jobs(props) {
   const jobs = response
 
   const openJobs = jobs.map(job => {
-    console.log('from map', job)
-
     return (
       <Open
         key={job.id}
