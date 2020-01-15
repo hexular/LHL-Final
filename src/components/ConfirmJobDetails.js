@@ -98,7 +98,7 @@ export class ConfirmJobDetails extends Component {
               </List>
               <section style={styles.buttonsContainer}>
                 <StripeCheckout
-                  stripeKey={"pk_test_QEftqbWZl6SLY8KvZULv7CXc005D5SWunq"}
+                  stripeKey={"pk_test_soN6phGcEkJLIWSJcbklaNhp00SowTNZzN"}
                   token={handleToken}
                   amount={values.requiredTime * values.payRate * 100}
                   name={values.serviceType}
