@@ -35,7 +35,7 @@ export default function Appbar(props) {
           onLeftIconButtonClick={() => openDrawer(!drawer)}
           style={{background: "#3f51b5", textAlign: "left", position: 'fixed', zIndex: 1000}}
         />
-        <AppBar style={{zIndex: -1}}/>
+        <AppBar style={{zIndex: -1, backgroundColor: 'white'}}/>
         <Drawer
           containerStyle={styles.margin}
           open={drawer}

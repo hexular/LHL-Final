@@ -131,7 +131,7 @@ export default function MyJobs(props) {
             {userConfirmJobs.length ? userConfirmJobs : null}
 
             {(openJobs.length || progressJobs.length || userConfirmJobs.length) ? null :
-              <Typography className={classes.noJobMessage}>No Active Job(s)</Typography>}
+              <Typography className={classes.noJobMessage}>No Active Jobs</Typography>}
             <Grid container direction="row" justify="center" alignItems="center">
 
               <Button

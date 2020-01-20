@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import Grid from '@material-ui/core/Grid';
+import Loading from './Loading';
 
 const styles = {
   button: {
@@ -77,7 +78,7 @@ const JobHistory = (props) => {
     <MuiThemeProvider>
       <AppBar title="My Jobs" user={true} jobber={isJobber} client={!isJobber} />
 
-      {completedJobs}
+      {completedJobs.length === 0 ? <Loading /> : completedJobs}
       <br />
       <Grid
         container

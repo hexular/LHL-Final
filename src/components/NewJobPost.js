@@ -65,12 +65,12 @@ export class NewJobPost extends Component {
         return (
           <Redirect to="/myjobs"
             connect={true}
-            change={this.props.change}
+            // change={this.props.change}
             connected={this.props.connected}
-            finished={this.props.finished}
+            // finished={this.props.finished}
             updateAllJobs={this.props.updateAllJobs}
             updateMyJobs={this.props.updateMyJobs}
-            update={this.props.update}
+            // update={this.props.update}
           />
         )
       default:

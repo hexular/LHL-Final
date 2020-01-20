@@ -123,11 +123,11 @@ export class App extends Component {
         <Route path="/newjobpost" component={() => <NewJobPost
           updateMyJobs={this.updateMyJobs}
           updateAllJobs={this.updateAllJobs}
-          finished={this.finished}
+          // finished={this.finished}
           connect={this.connect}
-          change={this.state.change}
+          // change={this.state.change}
           connected={this.state.connected}
-          update={this.state.update}
+          // update={this.state.update}
           history={history}
         />}
         />

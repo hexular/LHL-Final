@@ -25,7 +25,7 @@ const Loading = () => {
   const classes = useStyles();
   const [load, setLoad] = useState(false)
 
-  setTimeout(() => setLoad(true), 3000)
+  setTimeout(() => setLoad(true), 2000)
 
   return (
 
@@ -36,7 +36,7 @@ const Loading = () => {
       alignItems="center"
       style={{ height: "70vh" }}>
       {load ?
-        <Typography className={classes.noJobMessage}>No Active Job(s)</Typography> :
+        <Typography className={classes.noJobMessage}>No Jobs Found</Typography> :
         <div className={classes.card}>
           <CardMedia
             classname={classes.media}
