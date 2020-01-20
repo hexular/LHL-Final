@@ -10,21 +10,21 @@ Jobbers can view all the jobs available and accept the job of their choosing, ei
 
 ### Login
 
-!["Login"](https://i.imgur.com/8Jt0VeB.mp4)
+!["Login"](https://i.imgur.com/1p7qDRf.gif)
 
 _____
 ### WebSockets in Action
 
-!["WebSocket Updates"](https://i.imgur.com/j7H3fIn.mp4)
+!["WebSocket Updates"](https://i.imgur.com/pk361aq.gif)
 _____
 ### Adding a New Job
 
-!["New Job"](https://i.imgur.com/nNil75G.mp4)
+!["New Job"](https://i.imgur.com/kRw0Rec.gif)
 
 _____
 ### Map View
 
-!["Map View"](https://i.imgur.com/xUqgA5X.mp4)
+!["Map View"](https://i.imgur.com/vsEPuEj.gif)
 _____
 
 ## 🛠 Setup
