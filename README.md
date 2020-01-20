@@ -2,23 +2,29 @@
 
 ## 🔎 Overview
 
-Jobify 
+Jobify is a an app designed to allow users to request jobs from 'jobbers' in their area. From simple cleaning to farm work to construction, users can create a job posting with a description, hourly rate and estimated time for completion. 
+
+Jobbers can view all the jobs available and accept the job of their choosing, either from a list or a map view which dynamically plots the jobs on a map around their current location.
 
 ## 📸 Snapshots 
 
-### 
+### Login
 
-![""](https://i.imgur.com/)
-
-_____
-### Delete an interview
-
-![""](https://i.imgur.com/)
+!["Login"](https://i.imgur.com/8Jt0VeB.mp4)
 
 _____
-### Select different days
+### WebSockets in Action
 
-![""](https://i.imgur.com/)
+!["WebSocket Updates"](https://i.imgur.com/j7H3fIn.mp4)
+_____
+### Adding a New Job
+
+!["New Job"](https://i.imgur.com/nNil75G.mp4)
+
+_____
+### Map View
+
+!["Map View"](https://i.imgur.com/xUqgA5X.mp4)
 _____
 
 ## 🛠 Setup
