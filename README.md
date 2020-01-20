@@ -45,3 +45,10 @@ To play around with and edit the code, follow these instructions:
 
 ## ⚙️ Dependencies 
 
+-react: ^16.12.0
+-react-router: ^5.1.2
+-react-router-dom: ^5.1.2
+-react-scripts: 3.3.0
+-axios: ^0.19.0
+-google-map-react: ^1.1.5
+-material-ui: ^0.20.2
