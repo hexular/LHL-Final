@@ -6,7 +6,7 @@ Jobify is a an app designed to allow users to request jobs from 'jobbers' in the
 
 Jobbers can view all the jobs available and accept the job of their choosing, either from a list or a map view which dynamically plots the jobs on a map around their current location.
 
-To simply view the app, go to https://jobifyme.netlify.com/ and allow for up to 10 seconds for the server to boot up. You can register an account as a user and a jobber to see both sides. To get a more in depth look, follow the set up instructions.
+To simply view the app, go to https://optimistic-goldstine-0e69a0.netlify.com/map and allow for up to 10 seconds for the server to boot up. You can register an account as a user and a jobber to see both sides. To get a more in depth look, follow the set up instructions.
 
 ## 📸 Snapshots 
 
